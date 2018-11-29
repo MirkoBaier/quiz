@@ -1,14 +1,51 @@
-<ion-header>
+
+<ion-header color = "danger">
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+<ion-content padding class="home-backg">
+  <ion-grid>
+  <ion-badge block *ngIf="userName!=null">
+  Eingeloggt als: {{userName}}
+    <button ion-button (click)="onLoadSettings()"><ion-icon name="brush"></ion-icon></button>
+    </ion-badge>
+
+
+      <ion-row>
+        <ion-col col-6>
+      <button large block ion-button (click)="onLoadLeague()">
+        Liga
+      </button>
+        </ion-col>
+        <ion-col col-6>
+      <button large block ion-button>
+        Turnier
+      </button>
+        </ion-col>
+      </ion-row>
+    <button large block ion-button (click)="onLoadOnevsOne()">
+      1 vs 1
+    </button>
+    </ion-grid>
+
+  <ion-list>
+    <ion-badge block>
+      Spiele
+    </ion-badge>
+    <button block large ion-button *ngFor="let opengames of openGames | async" (click)="onLoadOnevsOneGame(opengames.enemy)" [disabled]="!opengames.userTurn">
+      Gegner: {{ opengames.enemy }}
+      </button>
+  </ion-list>
+
+
+
 </ion-content>
+
+
