@@ -83,15 +83,5 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-console" spec="1.1.0" />
-    <plugin name="cordova-plugin-crosswalk-webview" spec="^2.4.0">
-        <variable name="XWALK_VERSION" value="23+" />
-        <variable name="XWALK_LITEVERSION" value="xwalk_core_library_canary:17+" />
-        <variable name="XWALK_COMMANDLINE" value="--disable-pull-to-refresh-effect" />
-        <variable name="XWALK_MODE" value="embedded" />
-        <variable name="XWALK_MULTIPLEAPK" value="true" />
-    </plugin>
-    <plugin name="cordova-android-support-gradle-release" spec="^2.0.1">
-        <variable name="ANDROID_SUPPORT_VERSION" value="27.+" />
-    </plugin>
     <engine name="android" spec="7.1.2" />
 </widget>

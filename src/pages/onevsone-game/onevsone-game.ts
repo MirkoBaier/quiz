@@ -3,10 +3,17 @@ import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angula
 import {csvjson} from "../../models/csvjson";
 import {Points} from "../../models/points";
 import {NameService} from "../../services/name";
+import {LeaguePointsService} from "../../services/leaguePoints";
 import {NgForm} from "@angular/forms";
 import {HomePage} from "../home/home";
 import {OneVoneService} from "../../services/oneVone";
 
+/**
+ * Generated class for the OnevsoneGamePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
@@ -24,7 +31,7 @@ export class OnevsoneGamePage {
   rlyvoc: csvjson = new csvjson();
   pointsObj: Points;
 
-  constructor(public oneVsOneService: OneVoneService, public nameService: NameService, public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController) {}
+  constructor(public oneVsOneService: OneVoneService, public nameService: NameService, public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController,public leaguepointsService: LeaguePointsService) {}
 
   setEngVoc(helpMe: string, randNum: number){
     for(helpMe in this.rlyvoc) {

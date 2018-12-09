@@ -6,7 +6,7 @@ import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/firestor
 import {AngularFireAuth} from "@angular/fire/auth";
 import {userProfile} from "../models/userProfile";
 import {Points} from "../models/points";
-
+declare var cordova: any;
 
 
 

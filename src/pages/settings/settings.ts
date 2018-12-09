@@ -5,7 +5,7 @@ import {AuthService} from "../../services/auth";
 import {HomePage} from "../home/home";
 
 
-
+declare var cordova: any;
 @IonicPage()
 @Component({
   selector: 'page-settings',

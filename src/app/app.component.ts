@@ -6,11 +6,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 
 import {AuthService} from "../services/auth";
+import {LoginPage} from "../pages/login/login";
 import {SettingsPage} from "../pages/settings/settings";
 import * as firebase from 'firebase';
+import {UsernamePage} from "../pages/username/username";
 import {AngularFireAuth} from "@angular/fire/auth";
-import {LoginPage} from "../pages/login/login";
-
+import {HomePage} from "../pages/home/home";
 @Component({
   templateUrl: 'app.html'
 })
@@ -29,7 +30,7 @@ export class MyApp {
     afAuth.authState.subscribe(user =>{
       if(user){
           this.isAuthenticated = true;
-          this.rootPage =  'HomePage';
+          this.rootPage = HomePage;
       }else {
         this.isAuthenticated = false;
         this.rootPage = LoginPage;

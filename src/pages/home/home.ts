@@ -12,13 +12,11 @@ import {OnevsoneGamePage} from "../onevsone-game/onevsone-game";
 
 
 import { IonicPage } from 'ionic-angular';
-@IonicPage()
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-//ionic cordova run android -l -c
-// chrome://inspect
 export class HomePage {
   @ViewChild('nav') nav: NavController;
   userName: any;
@@ -35,14 +33,14 @@ export class HomePage {
   }
 
   ngOnInit() {
-    this.oneVoneService.getNewGames().then(res => {
-      setTimeout(()=> {
-        this.showAlert(res)
-      }, 700);
-    });
-    this.nameService.getUsername().then(name=> {
-      this.userName = name;
-    });
+    // this.oneVoneService.getNewGames().then(res => {
+    //   setTimeout(()=> {
+    //     this.showAlert(res)
+    //   }, 700);
+    // });
+    // this.nameService.getUsername().then(name=> {
+    //   this.userName = name;
+    // });
     this.openGames = this.oneVoneService.getStartedGamesList().valueChanges();
   }
 
