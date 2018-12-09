@@ -1,12 +1,13 @@
 
-import 'firebase/firestore';
-import * as firebase from 'firebase';
+
+import * as firebase from 'firebase/app';
 import {Injectable} from "@angular/core";
 import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/firestore";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {userProfile} from "../models/userProfile";
-import {Points} from "../models/points";
-declare var cordova: any;
+import {NameService} from "./name";
+
+
 
 
 
@@ -14,51 +15,43 @@ declare var cordova: any;
 
 export class AuthService {
   hier: boolean = false;
-  resi: Points[] = [];
   idFromUsername: number;
-  constructor( public afAuth: AngularFireAuth,
-               public fireStore: AngularFirestore){
+  constructor( private afAuth: AngularFireAuth,
+               private fireStore: AngularFirestore,
+               private nameService: NameService){
   }
 
-  async signup(email: string, password: string, username: string): Promise<firebase.User> {
-    await this.checkUsername(username);
-    if(this.hier){
-    try{
-      const user: firebase.auth.UserCredential = await this.afAuth.auth
-        .createUserWithEmailAndPassword(
-          email,password
-        );
-      const userProfileDocument: AngularFirestoreDocument<userProfile> = this.fireStore.doc(`userProfile/${user.user.uid}`);
+
+  signup(email: string, password: string, username: string) {
+       return firebase.auth().createUserWithEmailAndPassword(email, password);
+  }
+
+    async setUsername(username: string){
+      const userProfileDocument: AngularFirestoreDocument<userProfile> = this.fireStore.doc(`userProfile/${this.nameService.getUserId()}`);
 
       await userProfileDocument.set({
-        id: user.user.uid,
-        email: email,
+        id: this.nameService.getUserId(),
         username: username});
-
-      return user.user;
-    }catch (error) {
-      console.log(error)
     }
-  }
-    else{
-      console.log("username belegt");
-    }
-  }
 
-    async checkUsername(username: string){
-      await firebase.firestore().collection("userProfile").get()
-      .then(snapshot => {
-        this.hier = true;
+
+
+  async checkUsername(username: string): Promise<boolean>{
+    return await new Promise<boolean>((resolve, reject) => {
+       firebase.firestore().collection("userProfile").get().then(snapshot => {
+         let isUsed: boolean = false;
         snapshot.forEach(doc => {
-          if (doc.data().username == username) {
-            this.hier = false;
-            return;
+            if (doc.data().username == username) {
+              isUsed = true;
+            }
           }
-        }
         );
+        resolve(isUsed);
       }).catch(err => {
-      console.log("Error getting documents", err);
-    });
+        reject(err);
+        console.log("Error getting documents", err);
+      });
+    })
   }
 
   async getUserIdByUsername(username: string){
@@ -83,8 +76,8 @@ export class AuthService {
             username: doc.data().username
           })
         });
+        resolve(obj);
       });
-      resolve(obj);
     })
   }
 
@@ -95,7 +88,7 @@ export class AuthService {
   }
 
   logout() {
-    firebase.auth().signOut();
+    return firebase.auth().signOut();
   }
 
   getActiveUser() {

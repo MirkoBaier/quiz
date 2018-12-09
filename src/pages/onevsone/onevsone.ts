@@ -1,19 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import {AuthService} from "../../services/auth";
-import {EnglishLeaguePage} from "../english-league/english-league";
-import {FrenchLeaguePage} from "../french-league/french-league";
-import {LatinLeaguePage} from "../latin-league/latin-league";
-import {SpanishLeaguePage} from "../spanish-league/spanish-league";
 import {OneVoneService} from "../../services/oneVone";
-import {checkNoChangesNode} from "@angular/core/src/view/view";
+import {NameService} from "../../services/name";
 
-/**
- * Generated class for the OnevsonePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -23,15 +13,24 @@ import {checkNoChangesNode} from "@angular/core/src/view/view";
 export class OnevsonePage {
   users: any[];
   oldUsers: any[];
-  constructor(public oneVoneService:  OneVoneService,public authService: AuthService, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private oneVoneService:  OneVoneService,private authService: AuthService, private navCtrl: NavController, private nameService: NameService) {
   }
 
-  ngOnInit(){
-    this.authService.getDocuments("userProfile").then(users=> {
+  async ngOnInit(){
+    //Alle User werden angezeigt ausnahme er selber
+    let username = await this.nameService.getUsername();
+    await this.authService.getDocuments("userProfile").then(users=> {
+      for(let i = users.length - 1; i >= 0; i--) {
+        if(users[i].username === username) {
+          users.splice(i, 1);
+        }
+      }
       this.users = users;
       this.oldUsers= users;
       })
   }
+
+
 
   initializeItems(){
     this.users = this.oldUsers;
@@ -54,5 +53,6 @@ export class OnevsonePage {
 
   onLoadpage(user: any){
    this.oneVoneService.addGame(user, false);
+   this.navCtrl.setRoot('HomePage')
   }
 }

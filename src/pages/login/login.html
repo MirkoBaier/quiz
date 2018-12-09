@@ -6,13 +6,13 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="backLight">
     <ion-buttons start>
-      <button ion-button icon-only menuToggle>
+      <button large ion-button icon-only menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Login</ion-title>
+    <ion-title color="white">Login</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -21,16 +21,17 @@
 <ion-content padding class="login-backg">
   <form #f="ngForm" (ngSubmit)="onSignin(f)">
   <ion-list>
-    <ion-item>
-      <ion-label fixed>Mail</ion-label>
+    <ion-item  color="backLight">
+      <ion-label color="white" fixed>Mail</ion-label>
       <ion-input
+        autofocus
         type="email"
         ngModel
         name="email"
         required></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label fixed>Passwort</ion-label>
+    <ion-item color="backLight">
+      <ion-label color="white" fixed>Passwort</ion-label>
       <ion-input
         type="password"
         ngModel
@@ -38,7 +39,7 @@
         required></ion-input>
     </ion-item>
   </ion-list>
-  <button ion-button block type="submit" [disabled]="!f.valid">Login</button>
+  <button large ion-button block type="submit" [disabled]="!f.valid">Login</button>
   </form>
-  <button block ion-button clear (click)="onLoad(registrationPage)">Hier registrieren</button>
+  <button color="white" large block ion-button clear (click)="onLoad(registrationPage)">Hier registrieren</button>
 </ion-content>

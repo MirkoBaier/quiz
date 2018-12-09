@@ -6,17 +6,17 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>onevsone</ion-title>
+  <ion-navbar color="backLight">
+    <ion-title>Gegner</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="onevsone-backg">
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
-    <button *ngFor="let item of users" block ion-button (click)="onLoadpage(item.username)">
+    <button *ngFor="let item of users" block ion-button large (click)="onLoadpage(item.username)" >
       {{ item.username }}
     </button>
   </ion-list>

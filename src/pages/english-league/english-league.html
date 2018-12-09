@@ -1,24 +1,17 @@
-<!--
-  Generated template for the EnglishLeaguePage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
+  <ion-navbar color="backLight">
     <ion-title>Englisch-Liga</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content>
-  <button block ion-button (click)="onLoadgame()">
+<ion-content class="english-league-backg">
+  <button  large block ion-button (click)="onLoadgame()">
   Starten
   </button>
 
-  <ion-segment [(ngModel)]="englishLeagues">
+  <ion-segment [(ngModel)]="englishLeagues" color="white">
     <ion-segment-button value="gold">
       Gold
     </ion-segment-button>
@@ -30,8 +23,8 @@
     </ion-segment-button>
   </ion-segment>
 
-  <div [ngSwitch]="englishLeagues">
-    <ion-item *ngSwitchCase="'gold'">
+  <div [ngSwitch]="englishLeagues" color="backLight">
+    <ion-item *ngSwitchCase="'gold'"  color="backLight">
       <ion-list *ngFor="let item of arrayPoints">
         <ion-item *ngIf="item.league=='gold'">
           <ion-icon name="heart"></ion-icon>
@@ -40,26 +33,18 @@
       </ion-list>
     </ion-item>
 
-    <ion-item *ngSwitchCase="'silber'">
+    <ion-item *ngSwitchCase="'silber'" color="backLight">
       <ion-list *ngFor="let item of arrayPoints">
-        <ion-item *ngIf="item.league=='silver'">
+        <ion-item *ngIf="item.league=='silver'" color="backLight">
           <ion-icon name="heart"></ion-icon>
           {{item.points}}  {{item.name}}
         </ion-item>
       </ion-list>
     </ion-item>
-    <!--<ion-item *ngSwitchCase="'silber'">-->
-      <!--<ion-list *ngFor="let item of arrayPoints">-->
-        <!--<ion-item *ngIf="item.league=='silver'">-->
-          <!--<ion-icon name="heart"></ion-icon>-->
-          <!--{{item.points}}  {{item.name}}-->
-        <!--</ion-item>-->
-      <!--</ion-list>-->
-    <!--</ion-item>-->
 
-    <ion-item *ngSwitchCase="'bronze'">
+    <ion-item *ngSwitchCase="'bronze'" color="backLight">
       <ion-list *ngFor="let item of arrayPoints">
-        <ion-item *ngIf="item.league=='bronze'">
+        <ion-item *ngIf="item.league=='bronze'" color="backLight">
           <ion-icon name="heart"></ion-icon>
           {{item.points}}  {{item.name}}
         </ion-item>

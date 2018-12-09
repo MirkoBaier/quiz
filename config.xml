@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
-    <description>An awesome Ionic/Cordova app.</description>
+<widget id="dasvokabelquiz.firstt.uploadd" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>VokabelQuiz</name>
+    <description>Lerne Vokabeln im Quizmodus</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
@@ -82,6 +82,6 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <plugin name="cordova-plugin-console" spec="1.1.0" />
     <engine name="android" spec="7.1.2" />
+    <engine name="browser" spec="5.0.4" />
 </widget>

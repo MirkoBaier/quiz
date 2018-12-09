@@ -7,14 +7,14 @@
 
 
 
-<ion-content padding>
+<ion-content padding color="light">
   <h3>Übersetze: </h3>
   <p  class="league-game-translate">{{translate}}</p>
   <form  #f="ngForm" (ngSubmit)="onLoadNext(f)">
   <ion-item class="league-game-eingabe">
     <ion-input ngModel required  type="text" name="inputTrans" placeholder="Eingabe"></ion-input>
   </ion-item>
-    <button ion-button block [disabled]="!f.valid" type="submit">Weiter</button>
+    <button large ion-button block [disabled]="!f.valid" type="submit">Weiter</button>
   </form>
   <p class="league-game-points">Deine Punktzahl: {{points}}</p>
 </ion-content>

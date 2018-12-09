@@ -1,0 +1,19 @@
+<ion-header>
+
+  <ion-navbar color="backLight">
+    <ion-title>Benutzernamen eingeben</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="name-backg">
+  <ion-item color="backLight">
+  <ion-label floating>Benutzername</ion-label>
+  <ion-input
+    [(ngModel)]="name"
+    name="name"
+    required></ion-input>
+  </ion-item>
+  <button ion-button block large (click)="setName(name)">Bestätigen</button>
+</ion-content>

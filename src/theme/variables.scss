@@ -33,11 +33,14 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #32db64,
-  secondary:  #32db64,
+  primary: #bfbca9,
+  secondary: rgba(50, 219, 100, 0.8),
   danger:     #f53d3d,
   light:     #488aff,
-  dark:       #222
+  dark:       #222,
+  white:    #ffffff,
+  backLight: #00dbff,
+  red: rgba(244, 0, 16, 0.77)
 );
 
 
@@ -51,7 +54,8 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
+$label-md-text-color-focused: white;
+$label-wp-text-color-focused: white;
 
 
 

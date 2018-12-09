@@ -1,16 +1,16 @@
-<ion-menu [content]="nav">
-  <ion-header>
-    <ion-toolbar>
+<ion-menu [content]="nav" color="backLight">
+  <ion-header color="backLight">
+    <ion-toolbar color="backLight">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item  *ngIf="isAuthenticated" (click)="onLogout()">
+      <button color="backLight" ion-item large *ngIf="isAuthenticated" (click)="onLogout()">
         <ion-icon name="log-out"></ion-icon>
         Logout
       </button>
-      <button ion-item  *ngIf="isAuthenticated" (click)="onSettings()">
+      <button color="backLight" large ion-item  *ngIf="isAuthenticated" (click)="onSettings()">
         <ion-icon name="settings"></ion-icon>
         Benutzereinstellungen
       </button>

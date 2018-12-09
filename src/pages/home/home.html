@@ -1,8 +1,8 @@
 
-<ion-header color = "danger">
-  <ion-navbar>
+<ion-header>
+  <ion-navbar color="backLight">
     <ion-buttons left>
-      <button ion-button icon-only menuToggle>
+      <button color="white" ion-button icon-only menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
@@ -12,9 +12,9 @@
 
 <ion-content padding class="home-backg">
   <ion-grid>
-  <ion-badge block *ngIf="userName!=null">
+  <ion-badge large block *ngIf="userName!=null">
   Eingeloggt als: {{userName}}
-    <button ion-button (click)="onLoadSettings()"><ion-icon name="brush"></ion-icon></button>
+    <!--<button ion-button (click)="onLoadSettings()"><ion-icon name="brush"></ion-icon></button>-->
     </ion-badge>
 
 
@@ -25,7 +25,7 @@
       </button>
         </ion-col>
         <ion-col col-6>
-      <button large block ion-button>
+      <button large [disabled]="true" block ion-button>
         Turnier
       </button>
         </ion-col>
@@ -34,17 +34,27 @@
       1 vs 1
     </button>
     </ion-grid>
-
+  <ion-badge block>
+    Offene Spiele
+  </ion-badge>
+  <ion-scroll style="width:100%;height:25vh" scrollY="true">
   <ion-list>
-    <ion-badge block>
-      Spiele
-    </ion-badge>
     <button block large ion-button *ngFor="let opengames of openGames | async" (click)="onLoadOnevsOneGame(opengames.enemy)" [disabled]="!opengames.userTurn">
       Gegner: {{ opengames.enemy }}
       </button>
   </ion-list>
+    </ion-scroll>
 
-
+  <ion-badge block>
+    Beendete Spiele
+  </ion-badge>
+  <ion-scroll style="width:100%;height:25vh" scrollY="true">
+  <ion-list>
+      <button ion-button block *ngFor="let finishedgames of finishedGames | async" [color]="finishedgames.result=='Unentschieden' ? 'light' : finishedgames.result=='Gewonnen' ? 'secondary' : 'red'">
+        {{finishedgames.pointsUser}} : {{finishedgames.pointsEnemy}} gegen {{finishedgames.enemy}}
+      </button>
+  </ion-list>
+  </ion-scroll>
 
 </ion-content>
 

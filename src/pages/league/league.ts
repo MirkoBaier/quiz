@@ -1,16 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {EnglishLeaguePage} from "../english-league/english-league";
-import {FrenchLeaguePage} from "../french-league/french-league";
-import {LatinLeaguePage} from "../latin-league/latin-league";
-import {SpanishLeaguePage} from "../spanish-league/spanish-league";
+import { IonicPage, NavController } from 'ionic-angular';
 
-/**
- * Generated class for the LeaguePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -21,16 +11,16 @@ export class LeaguePage {
   searchQuery: string = '';
   items: string[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private navCtrl: NavController) {
     this.initializeItems();
   }
 
   initializeItems() {
     this.items = [
-      'Englisch',
-      'Spanisch',
-      'Französisch',
-      'Latein'
+      'Englisch'
+      // 'Spanisch',
+      // 'Französisch',
+      // 'Latein'
     ];
   }
 
@@ -52,13 +42,13 @@ export class LeaguePage {
 
   onLoadpage(page: any){
     if(page == "Englisch"){
-      this.navCtrl.push(EnglishLeaguePage);
-    } else if(page == "Französisch"){
-      this.navCtrl.push(FrenchLeaguePage);
-    } else if(page == "Latein"){
-      this.navCtrl.push(LatinLeaguePage);
-    } else if(page == "Spanisch"){
-      this.navCtrl.push(SpanishLeaguePage);
+      this.navCtrl.push('EnglishLeaguePage');
+    // } else if(page == "Französisch"){
+    //   this.navCtrl.push('FrenchLeaguePage');
+    // } else if(page == "Latein"){
+    //   this.navCtrl.push('LatinLeaguePage');
+    // } else if(page == "Spanisch"){
+    //   this.navCtrl.push('SpanishLeaguePage');
     }
 
   }

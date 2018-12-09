@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
-import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavController} from 'ionic-angular';
 import {AuthService} from "../../services/auth";
 import {NgForm} from "@angular/forms";
 import {RegistrationPage} from "../registration/registration";
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -46,7 +40,7 @@ export class LoginPage {
   }
 
   onLoad(page: any) {
-    this.navCtrl.push(page);
+    this.navCtrl.push('RegistrationPage');
   }
 
 }

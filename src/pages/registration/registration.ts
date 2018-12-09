@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, LoadingController, MenuController, NavController} from 'ionic-angular';
 import {AuthService} from "../../services/auth";
 import {NgForm} from "@angular/forms";
-import {UsernamePage} from "../username/username";
-import {LoginPage} from "../login/login";
+
 
 
 
@@ -23,17 +22,19 @@ export class RegistrationPage {
 
   onSignup(form: NgForm) {
     this.menuCtrl.close();
-    // this.navCtrl.setRoot(LoginPage);
+    let helpMe: boolean = false;
     const loading = this.loadingCtrl.create({
       content: 'Signin you up...'
     });
     loading.present();
     this.authService.signup(form.value.email, form.value.password, form.value.name)
       .then(data => {
+        console.log(data);
         loading.dismiss();
       })
       .catch(error => {
         loading.dismiss();
+        console.log(error);
         const alert = this.alertCtrl.create({
           title: 'Sign up failed',
           message: error.message,
@@ -41,7 +42,9 @@ export class RegistrationPage {
         });
         alert.present();
       });
+
   }
+
 
 
 }

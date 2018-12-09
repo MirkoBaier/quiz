@@ -6,34 +6,19 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage'
 
 
-import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import {VokabelQuiz} from './app.component';
 import {AuthService} from "../services/auth";
-import {LoginPage} from "../pages/login/login";
-import {RegistrationPage} from "../pages/registration/registration";
-import {SettingsPage} from "../pages/settings/settings";
-import {AccountsService} from "../services/accounts";
-import {LeaguePage} from "../pages/league/league";
-import {EnglishLeaguePage} from "../pages/english-league/english-league";
-import {FrenchLeaguePage} from "../pages/french-league/french-league";
-import {LatinLeaguePage} from "../pages/latin-league/latin-league";
-import {SpanishLeaguePage} from "../pages/spanish-league/spanish-league";
-import {LeagueGamePage} from "../pages/league-game/league-game";
-import {LeaguePointsService} from "../services/leaguePoints";
-import {RankedService} from "../services/ranked";
-import {UsernamePage} from "../pages/username/username";
-import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule} from 'angularfire2/auth';
 
-import * as firebase from 'firebase';
+
 import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {NameService} from "../services/name";
-import {OnevsonePage} from "../pages/onevsone/onevsone";
 import {OneVoneService} from "../services/oneVone";
-import {OnevsoneGamePage} from "../pages/onevsone-game/onevsone-game";
+import {PointsService} from "../services/points";
+import {VocubalarService} from "../services/vocubalar";
 
-// firebase.initializeApp(firebaseConfig);
+
 var config = {
   apiKey: "AIzaSyBRSdQh2ebE4K8yaB9Gd3QeGmZoSB1DMw8",
   authDomain: "quiz-5e917.firebaseapp.com",
@@ -42,28 +27,15 @@ var config = {
   storageBucket: "quiz-5e917.appspot.com",
   messagingSenderId: "301583012596"
 };
-// firebase.initializeApp(config);
+
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage,
-    LoginPage,
-    RegistrationPage,
-    SettingsPage,
-    LeaguePage,
-    EnglishLeaguePage,
-    FrenchLeaguePage,
-    LatinLeaguePage,
-    SpanishLeaguePage,
-    LeagueGamePage,
-    UsernamePage,
-    OnevsonePage,
-    OnevsoneGamePage
+    VokabelQuiz
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(VokabelQuiz),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
@@ -71,30 +43,16 @@ var config = {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    LoginPage,
-    RegistrationPage,
-    SettingsPage,
-    LeaguePage,
-    EnglishLeaguePage,
-    FrenchLeaguePage,
-    LatinLeaguePage,
-    SpanishLeaguePage,
-    LeagueGamePage,
-    UsernamePage,
-    OnevsonePage,
-    OnevsoneGamePage
+    VokabelQuiz
   ],
   providers: [
     AuthService,
     StatusBar,
     SplashScreen,
-    AccountsService,
-    LeaguePointsService,
-    RankedService,
     NameService,
     OneVoneService,
+    PointsService,
+    VocubalarService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

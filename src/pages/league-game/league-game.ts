@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import {HomePage} from "../home/home";
+import {IonicPage, NavController, ToastController} from 'ionic-angular';
 import {csvjson} from "../../models/csvjson";
 import {NgForm} from "@angular/forms";
-import {LeaguePointsService} from "../../services/leaguePoints";
-import {Points} from "../../models/points";
 import {NameService} from "../../services/name";
+import {PointsService} from "../../services/points";
 
 
 @IonicPage()
@@ -18,13 +16,19 @@ export class LeagueGamePage {
   translate: string = "";
   translation: string = "";
   points = 0;
-  counter = 3;
+  counter = 9;
   germanVoc: string = "Allgemein";
   englishVoc: string= "General";
-  rlyvoc: csvjson = new csvjson();
-  pointsObj: Points;
+  rlyvoc: csvjson;
 
-  constructor(public nameService: NameService, public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController,public leaguepointsService: LeaguePointsService) {}
+
+  constructor(
+    private nameService: NameService,
+    private navCtrl: NavController,
+    private toastCtrl: ToastController,
+    private pointsService: PointsService) {
+      this.rlyvoc = new csvjson();
+  }
 
   setEngVoc(helpMe: string, randNum: number){
     for(helpMe in this.rlyvoc) {
@@ -60,8 +64,7 @@ export class LeagueGamePage {
 
 
   random(): number {
-    let rand = Math.floor(Math.random()*300)+1;
-    return rand;
+    return Math.floor(Math.random()*300)+1;
   }
 
   onLoadNext(form: NgForm) {
@@ -80,7 +83,7 @@ export class LeagueGamePage {
 
     //Runde zu ende
     if(this.counter<0){
-      this.nameService.getPoints().then(point=> {
+      this.pointsService.getPoints().then(point=> {
         let helpPoints = this.points+point;
         let helpLeague:string = "";
         if(helpPoints<0){
@@ -94,9 +97,9 @@ export class LeagueGamePage {
         }else {
           helpLeague = "gold";
         }
-        this.nameService.addPoints(helpPoints, helpLeague);
+        this.pointsService.addPoints(helpPoints, helpLeague);
       });
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot('HomePage');
     }
   }
 

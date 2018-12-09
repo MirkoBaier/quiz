@@ -6,33 +6,26 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="backLight">
     <ion-title>Registration</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <form #f="ngForm" (ngSubmit)="onSignup(f)">
-    <ion-list>
-      <ion-item>
-        <ion-label floating>Benutzername</ion-label>
-        <ion-input
-          ngModel
-          name="name"
-          required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Mail</ion-label>
+<ion-content padding class="regi-backg">
+  <form #f="ngForm" (ngSubmit)="onSignup(f)" color="backLight">
+    <ion-list color="backLight">
+      <ion-item  color="backLight">
+        <ion-label color="white" floating>Mail</ion-label>
         <ion-input
           type="email"
           ngModel
           name="email"
           required></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label floating>Passwort</ion-label>
+      <ion-item color="backLight">
+        <ion-label color="white" floating>Passwort</ion-label>
         <ion-input
           type="password"
           ngModel
@@ -41,6 +34,6 @@
           [minlength]="6"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit" [disabled]="!f.valid">Kostenlos registrieren</button>
+    <button large ion-button block type="submit" [disabled]="!f.valid">Kostenlos registrieren</button>
   </form>
 </ion-content>

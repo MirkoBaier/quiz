@@ -6,36 +6,47 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 
 import {AuthService} from "../services/auth";
-import {LoginPage} from "../pages/login/login";
 import {SettingsPage} from "../pages/settings/settings";
-import * as firebase from 'firebase';
-import {UsernamePage} from "../pages/username/username";
 import {AngularFireAuth} from "@angular/fire/auth";
-import {HomePage} from "../pages/home/home";
+import {OneVoneService} from "../services/oneVone";
+import {NameService} from "../services/name";
+
+
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class VokabelQuiz {
   rootPage:any;
   isAuthenticated = false;
   @ViewChild('nav') nav: NavController;
-
-  constructor(
-    platform: Platform,
+  afAuth: AngularFireAuth;
+  constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     afAuth: AngularFireAuth,
     private authService: AuthService,
-    private menuCtrl: MenuController){
-    afAuth.authState.subscribe(user =>{
-      if(user){
-          this.isAuthenticated = true;
-          this.rootPage = HomePage;
-      }else {
+    private menuCtrl: MenuController,
+    private oneVoneService: OneVoneService,
+    private nameService: NameService) {
+    this.afAuth = afAuth;
+    afAuth.authState.subscribe(user => {
+      if (user) {
+        this.isAuthenticated = true;
+        this.nameService.getUsername().then(res => {
+          this.rootPage = 'HomePage';
+          console.log(res);
+        }).catch(err => {
+          console.log('Error' + err);
+          this.rootPage = 'NamePage';
+          }
+        )
+      }
+      else{
         this.isAuthenticated = false;
-        this.rootPage = LoginPage;
+        this.rootPage = 'LoginPage';
       }
     });
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -44,18 +55,16 @@ export class MyApp {
     });
   }
 
-  ngOnInit(){
 
-  }
 
   onLogout() {
     this.authService.logout();
     this.menuCtrl.close();
-    this.nav.setRoot(LoginPage);
+    this.nav.setRoot('LoginPage');
   }
 
   onSettings() {
-    this.nav.push(SettingsPage);
+    this.nav.push('SettingsPage');
   }
 
 }

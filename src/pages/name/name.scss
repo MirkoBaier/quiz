@@ -1,0 +1,16 @@
+page-name {
+  .name-backg{
+    background-color: #00dbff;
+  }
+  .name-backg::-moz-placeholder {
+    color: #fafafa;
+  }
+
+  .name-backg:-ms-input-placeholder {
+    color: #fafafa;
+  }
+
+  .name-backg::-webkit-input-placeholder {
+    color:  #fafafa;
+  }
+}

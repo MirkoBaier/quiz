@@ -1,0 +1,25 @@
+
+<ion-header color="light">
+
+  <ion-navbar color="backLight">
+    <ion-title text-center color="white">Welche Vokabeln?</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="onevsone-choice-backg">
+  <ion-scroll style="width:100%;height:75vh" scrollY="true">
+    <ion-list>
+      <button ion-button block large (click)="onLoadpage()">
+            Englisch
+      </button>
+      <button block large *ngIf="listName!='' && Vocabulary.length>9" (click)="ownVoc()" ion-button>
+      {{listName}}
+      </button>
+      <button ion-button block large (click)="createOwnVocabulary()" color="light">
+        Vokabeln erstellen
+      </button>
+    </ion-list>
+  </ion-scroll>
+</ion-content>

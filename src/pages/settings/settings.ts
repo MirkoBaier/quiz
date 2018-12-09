@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
-import {AuthService} from "../../services/auth";
-import {HomePage} from "../home/home";
 
 
-declare var cordova: any;
+
+
 @IonicPage()
 @Component({
   selector: 'page-settings',
@@ -13,22 +12,18 @@ declare var cordova: any;
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private authService: AuthService) {
+  constructor(private navCtrl: NavController,
+              ) {
   }
 
   onSubmit(form: NgForm){
-    this.navCtrl.setRoot(HomePage);
-
+    this.navCtrl.setRoot('HomePage');
     form.reset();
   }
 
 
 
-  ngOnInit(){
 
-  }
 
 
 }

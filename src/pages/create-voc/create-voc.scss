@@ -1,0 +1,17 @@
+page-create-voc {
+  .create-voc-backg{
+    background-color: #00DBFF;
+  }
+
+  .text-input::-moz-placeholder {
+    color: #fafafa;
+  }
+
+  .text-input:-ms-input-placeholder {
+    color: #fafafa;
+  }
+
+  .text-input::-webkit-input-placeholder {
+    color:  #fafafa;
+  }
+}

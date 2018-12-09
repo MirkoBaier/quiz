@@ -1,5 +1,6 @@
 export class Game{
   matchId: string;
+  startedFrom: string;
   user: string;
   enemy: string;
   pointsEnemy: number;
@@ -11,4 +12,9 @@ export class Game{
   voc: string[];
   trans: string[];
   finished: boolean;
+  isCorrect: boolean[];
+  showedGameStats: boolean;
+  result: string;
+  vocName: string;
+  time: any;
 }

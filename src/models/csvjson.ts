@@ -37,10 +37,6 @@ export class csvjson {
     "General": "Do you speak German?"
   },
   {
-    "Allgemein": "Ich spreche kein Englisch",
-    "General": "I don%u2019t speak English"
-  },
-  {
     "Allgemein": "Hilfe!",
     "General": "Help!"
   },
@@ -197,14 +193,6 @@ export class csvjson {
     "General": "Hey/Hi"
   },
   {
-    "Allgemein": "Wie geht%u2019s?",
-    "General": "How%u2019s it going? / How do you do?"
-  },
-  {
-    "Allgemein": "Was geht?",
-    "General": "What%u2019s up?"
-  },
-  {
     "Allgemein": "Schön Sie zu sehen.",
     "General": "Good to see you."
   },
@@ -213,28 +201,8 @@ export class csvjson {
     "General": "Pleased to meet you."
   },
   {
-    "Allgemein": "Mach%u2019s gut",
-    "General": "Take care."
-  },
-  {
-    "Allgemein": "Lange nicht gesehen",
-    "General": "Long time no see, Haven%u2019t seen you in a while"
-  },
-  {
-    "Allgemein": "Wie steht%u2019s?",
-    "General": "How are things going?"
-  },
-  {
-    "Allgemein": "",
-    "General": ""
-  },
-  {
     "Allgemein": "Reise",
     "General": "Travel"
-  },
-  {
-    "Allgemein": "Ich möchte gerne%u2026",
-    "General": "I would like%u2026"
   },
   {
     "Allgemein": "Wo sind die Toilleten?",
@@ -317,10 +285,6 @@ export class csvjson {
     "General": "to ride"
   },
   {
-    "Allgemein": "",
-    "General": ""
-  },
-  {
     "Allgemein": "Wegbeschreibungen",
     "General": "Directions"
   },
@@ -361,18 +325,6 @@ export class csvjson {
     "General": "place"
   },
   {
-    "Allgemein": "Wo ist%u2026?",
-    "General": "Where is ..?"
-  },
-  {
-    "Allgemein": "Wie komme ich nach%u2026?",
-    "General": "How do I get to%u2026?"
-  },
-  {
-    "Allgemein": "Ich suche %u2026 Straße.",
-    "General": "I%u2019m looking for %u2026 street."
-  },
-  {
     "Allgemein": "um die Ecke",
     "General": "around the corner"
   },
@@ -403,10 +355,6 @@ export class csvjson {
   {
     "Allgemein": "zwischen",
     "General": "between"
-  },
-  {
-    "Allgemein": "",
-    "General": ""
   },
   {
     "Allgemein": "Zeiten / Daten",
@@ -573,10 +521,6 @@ export class csvjson {
     "General": "century"
   },
   {
-    "Allgemein": "",
-    "General": ""
-  },
-  {
     "Allgemein": "Orte",
     "General": "Locations"
   },
@@ -661,10 +605,6 @@ export class csvjson {
     "General": "zoo"
   },
   {
-    "Allgemein": "",
-    "General": ""
-  },
-  {
     "Allgemein": "Einkaufen",
     "General": "Shopping"
   },
@@ -741,10 +681,6 @@ export class csvjson {
     "General": "Excuse me, do you work here?"
   },
   {
-    "Allgemein": "",
-    "General": ""
-  },
-  {
     "Allgemein": "Im Restaurant",
     "General": "In the restaurant"
   },
@@ -819,10 +755,6 @@ export class csvjson {
   {
     "Allgemein": "Appetizer",
     "General": "appetizer"
-  },
-  {
-    "Allgemein": "",
-    "General": ""
   },
   {
     "Allgemein": "Im Hotel",
@@ -907,10 +839,6 @@ export class csvjson {
   {
     "Allgemein": "gratis",
     "General": "complimentary"
-  },
-  {
-    "Allgemein": "",
-    "General": ""
   },
   {
     "Allgemein": "Zahlen",
@@ -1077,10 +1005,6 @@ export class csvjson {
     "General": "seventh"
   },
   {
-    "Allgemein": "",
-    "General": ""
-  },
-  {
     "Allgemein": "Personalpronomen",
     "General": "Personal pronouns"
   },
@@ -1115,10 +1039,6 @@ export class csvjson {
   {
     "Allgemein": "sie",
     "General": "they"
-  },
-  {
-    "Allgemein": "",
-    "General": ""
   },
   {
     "Allgemein": "Wichtige Wörter",
@@ -1205,10 +1125,6 @@ export class csvjson {
     "General": "law"
   },
   {
-    "Allgemein": "",
-    "General": ""
-  },
-  {
     "Allgemein": "Mensch / Körper",
     "General": "Human / Body"
   },
@@ -1291,10 +1207,6 @@ export class csvjson {
   {
     "Allgemein": "Haut",
     "General": "skin"
-  },
-  {
-    "Allgemein": "",
-    "General": ""
   },
   {
     "Allgemein": "Wichtige Verben",
@@ -1387,10 +1299,6 @@ export class csvjson {
   {
     "Allgemein": "anrufen",
     "General": "to call"
-  },
-  {
-    "Allgemein": "",
-    "General": ""
   },
   {
     "Allgemein": "Wichtige Adjektive",

@@ -1,0 +1,87 @@
+<!--
+  Generated template for the CreateVocPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="backLight">
+    <ion-title>Eigene Vokabeln</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="create-voc-backg">
+    <ion-row>
+      <ion-col col-6>
+    <ion-item  *ngIf="listName!=undefined" color="backLight">
+      <ion-label *ngIf="listName!=undefined">{{listName}}</ion-label>
+    <ion-item floating>Listenname</ion-item>
+    </ion-item>
+      </ion-col>
+      <ion-col col-6>
+      <button color="backLight" *ngIf="listName!=undefined" ion-button icon-only (click)="changeName()">
+        <ion-icon name="build"></ion-icon>
+      </button>
+        <button color="backLight" *ngIf="listName!=undefined" ion-button icon-only (click)="helpMe()">
+          <ion-icon name="help"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+
+      <form #f="ngForm">
+        <ion-item color="backLight">
+          <ion-input
+            color="backLight"
+            *ngIf="listName==undefined"
+            name="listName"
+            required
+            placeholder="Listenname"
+            ngModel>
+         </ion-input>
+        </ion-item>
+        <ion-scroll style="width:100%;height:50vh" scrollY="true">
+        <ion-list color="backLight">
+          <ion-item-sliding *ngFor="let voc of Vocabulary ">
+            <ion-item color="backLight">
+           {{voc.voc }} || {{ voc.trans}}
+            </ion-item>
+       <ion-item-options>
+       <button ion-button color="danger" type="button" (click)="remove(voc)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      </ion-item-options>
+        </ion-item-sliding>
+        </ion-list>
+        </ion-scroll>
+        <ion-grid>
+      <ion-row>
+        <ion-col col-8>
+          <ion-item color="backLight">
+          <ion-input
+           class="text-input"
+           placeholder="Neue Vokabel"
+           autofocus
+           ngModel
+           name="voc"
+           required></ion-input>
+          </ion-item>
+          <ion-item color="backLight">
+         <ion-input
+           class="text-input"
+          placeholder="Übersetzung"
+          autofocus
+          ngModel
+          name="trans"
+          required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-2>
+    <button ion-button color="backLight" [disabled]="!f.valid" (click)="addVocabulary(f)">Add</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+      </form>
+</ion-content>
