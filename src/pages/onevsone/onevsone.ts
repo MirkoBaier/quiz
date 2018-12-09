@@ -1,19 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {AuthService} from "../../services/auth";
-import {EnglishLeaguePage} from "../english-league/english-league";
-import {FrenchLeaguePage} from "../french-league/french-league";
-import {LatinLeaguePage} from "../latin-league/latin-league";
-import {SpanishLeaguePage} from "../spanish-league/spanish-league";
 import {OneVoneService} from "../../services/oneVone";
-import {checkNoChangesNode} from "@angular/core/src/view/view";
 
-/**
- * Generated class for the OnevsonePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({

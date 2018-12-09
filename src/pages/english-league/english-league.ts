@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {LeagueGamePage} from "../league-game/league-game";
-import {AccountsService} from "../../services/accounts";
-import {LeaguePointsService} from "../../services/leaguePoints";
-import {Points} from "../../models/points";
 import {NameService} from "../../services/name";
 import {AuthService} from "../../services/auth";
 
@@ -26,7 +23,7 @@ export class EnglishLeaguePage {
   arrayPoints: any[] = [];
 
 
-  constructor(public authService: AuthService, public nameService: NameService,public navCtrl: NavController, public navParams: NavParams, public accountService: AccountsService, public leaguePointsService: LeaguePointsService) {
+  constructor(public authService: AuthService, public nameService: NameService,public navCtrl: NavController, public navParams: NavParams) {
   }
 
   onLoadgame(){

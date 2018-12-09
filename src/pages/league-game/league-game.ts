@@ -3,7 +3,6 @@ import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angula
 import {HomePage} from "../home/home";
 import {csvjson} from "../../models/csvjson";
 import {NgForm} from "@angular/forms";
-import {LeaguePointsService} from "../../services/leaguePoints";
 import {Points} from "../../models/points";
 import {NameService} from "../../services/name";
 
@@ -24,7 +23,7 @@ export class LeagueGamePage {
   rlyvoc: csvjson = new csvjson();
   pointsObj: Points;
 
-  constructor(public nameService: NameService, public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController,public leaguepointsService: LeaguePointsService) {}
+  constructor(public nameService: NameService, public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController) {}
 
   setEngVoc(helpMe: string, randNum: number){
     for(helpMe in this.rlyvoc) {
