@@ -1,0 +1,90 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+      <ion-buttons slot="start">
+          <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+  
+
+<ion-content fullscreen class="home-backg">
+  <div *ngIf="this.authService.splash" class="showsplash">
+  </div>
+  <div *ngIf="!this.authService.splash">
+  <ion-grid>
+  <ion-badge class="home-button" expand="block" size="large" *ngIf="userName!=null">
+  Eingeloggt als: {{userName}}
+    </ion-badge>
+      <ion-row>
+        <ion-col col-6>
+      <ion-button  class="home-button" color="primpurple" icon-left expand="block" size="large"  (click)="onLoadLeague()">
+        <ion-icon name="trophy"></ion-icon>
+        Liga
+      </ion-button>
+        </ion-col>
+        <ion-col col-6>
+      <ion-button class="home-button" expand="block" [disabled]="true" size="large" >
+        Turnier
+      </ion-button>
+        </ion-col>
+      </ion-row>
+    <ion-row>
+      <ion-col col-6>
+    <ion-button color="primpurple" icon-left="true" class="home-button" size="large" expand="block" (click)="onLoadOnevsOne()">
+      <ion-icon name="school"></ion-icon>
+      1 vs 1
+    </ion-button>
+      </ion-col>
+      <ion-col col-6>
+      <ion-button color="primpurple" class="home-button" expand="block" size="large"  (click)="loadOffline()">Offline</ion-button>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+  <ion-badge class="home-button" expand="block">
+    Offene Spiele
+  </ion-badge>
+  <ion-content class="play-list" style="width:100%;height:30vh" scrollY="true">
+  <ion-list>
+      <ion-button icon-left class="home-button" expand="block" size="large"  *ngFor="let opengames of openOwnVocGames | async" (click)=" onLoadOwnVocGame(opengames.enemy)" [color]="!opengames.userTurn ? 'primary' : 'success'">
+          <ion-icon name="school"></ion-icon>
+          Gegner: {{ opengames.enemy }}
+        </ion-button>
+    <ion-button icon-left class="home-button" expand="block" size="large"  *ngFor="let opengames of openGames | async" (click)="onLoadOnevsOneGame(opengames.enemy)" [color]="!opengames.userTurn ? 'primary' : 'success'">
+      <ion-icon name="school"></ion-icon>
+      Gegner: {{ opengames.enemy }}
+    </ion-button>
+    <ion-button class="home-button" expand="block" size="large"  *ngFor="let opentrainingsgames of openTrainingsGames | async" (click)="onLoadTrainingsGame(opentrainingsgames.enemy)" [color]="!opentrainingsgames.userTurn ? 'primary' : 'success'">
+      Gegner: {{ opentrainingsgames.enemy }}
+    </ion-button>
+    <ion-button icon-left class="home-buttonNotTurn" expand="block" size="large"  *ngFor="let opengamesnotturn of openOwnVocGamesNotTurn | async" (click)="onLoadOwnVocGame(opengamesnotturn.enemy)" [color]="!opengamesnotturn.userTurn ? 'primary' : 'success'">
+        <ion-icon name="school"></ion-icon>
+        Gegner: {{ opengamesnotturn.enemy }}
+    </ion-button>
+    <ion-button icon-left class="home-buttonNotTurn" expand="block" size="large"  *ngFor="let opengamesnotturn of openGamesNotTurn | async" (click)="onLoadOnevsOneGame(opengamesnotturn.enemy)" [color]="!opengamesnotturn.userTurn ? 'primary' : 'success'">
+      <ion-icon name="school"></ion-icon>
+      Gegner: {{ opengamesnotturn.enemy }}
+    </ion-button>
+    <ion-button class="home-buttonNotTurn" expand="block" size="large"  *ngFor="let opentrainingsgamesnotturn of openTrainingsGamesNotTurn | async" (click)="onLoadTrainingsGame(opentrainingsgamesnotturn.enemy)" [color]="!opentrainingsgamesnotturn.userTurn ? 'primary' : 'success'">
+      Gegner: {{opentrainingsgamesnotturn.enemy }}
+    </ion-button>
+  </ion-list>
+    </ion-content>
+
+  <ion-badge class="home-button" expand="block">
+    Beendete Spiele
+  </ion-badge>
+
+    <ion-content class="play-list" style="width:100%;height:25vh;background-color:transparent" scrollY="true">
+        <ion-list>
+            <ion-button icon-left class="home-buttonend" expand="block" size="large"  *ngFor="let finishedgames of finishedGames | async" [color]="finishedgames.result=='Unentschieden' ? 'light' : finishedgames.result=='Gewonnen' ? 'success' : 'danger'">
+              <ion-icon name="school"></ion-icon>
+            {{finishedgames.pointsUser}} : {{finishedgames.pointsEnemy}} gegen {{finishedgames.enemy}}
+            </ion-button>
+            <ion-button class="home-buttonend" expand="block" size="large"  *ngFor="let finishedtrainingsgames of finishedTrainingsGames | async" [color]="finishedtrainingsgames.result=='Unentschieden' ? 'light' : finishedtrainingsgames.result=='Gewonnen' ? 'success' : 'danger'">
+            {{finishedtrainingsgames.pointsUser}} : {{finishedtrainingsgames.pointsEnemy}} gegen {{finishedtrainingsgames.enemy}}
+            </ion-button>
+        </ion-list>
+    </ion-content>
+  </div>
+</ion-content>
+

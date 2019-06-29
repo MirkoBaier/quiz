@@ -1,0 +1,80 @@
+
+  .button2 {
+    --background: #4CAF50; /* Green */
+    border: none;
+    --color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: initial;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 100%;
+    height: 12vh;
+    border-radius: 20px;
+  }
+
+ion-button {
+  --background: transparent;
+}
+
+  ion-card {
+    position: relative;
+    text-align: center;
+    border-radius: 70px;
+    box-shadow: 30px 30px 15px grey;
+  }
+
+  .eng{
+    margin-top: 5px;
+  }
+
+  .text-input {
+    color: #fff;
+    text-align: center;
+  }
+
+  .text-input:-ms-input-placeholder {
+    color: #fafafa;
+  }
+
+  .text-input::-webkit-input-placeholder {
+    color:  #fafafa;
+  }
+
+
+
+  .card-title {
+      position: absolute;
+      top: 36%;
+      font-size: 2.0em;
+      width: 100%;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 2px 2px 4px #000000;
+  }
+
+  .alert-head {
+    color: white!important;
+    --color: white!important;
+    button {
+      --color: white !important;
+      background-color: green !important;
+    }
+    .alert-message {
+      --color: white; // text color for confirm alerts
+    }
+    .alert-wrapper {
+      --color: white;
+      background-color: black;
+      border-radius: 20px;
+    }
+  }
+
+  .alert-head
+
+.trainingBackG {
+  margin-top: 20vh;
+}
+
+

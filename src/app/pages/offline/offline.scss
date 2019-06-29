@@ -1,0 +1,120 @@
+
+  // .showsplash{
+//   background-color: white;
+// }
+
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+}
+
+ion-button {
+  --background: transparent;
+}
+
+ion-content.play-list {
+  --background: transparent;
+}
+
+ion-header {
+  position: static;
+}
+
+.new-background-color{
+  --background: rgb(61, 61, 61);
+}
+
+.header-button{
+  --color: white;
+}
+
+ion-input {
+  transition: all 0.30s ease-in-out;
+  outline: none;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+
+ion-input:focus-within, textarea:focus-within{
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 10px 10px 10px 10px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+ion-button.c-start-lecture{
+  transition: all 0.80s ease-in-out;
+  box-shadow: 1px 1px 2px rgba(81, 203, 238, 1);
+  padding: auto;
+  border: 1px solid rgba(81, 203, 238, 1);
+  animation: glowing 3000ms infinite;
+  color: rgba(81, 203, 238, 1);
+  background-color: #fff;
+}
+
+ion-button.backoffitem {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 100%;
+}
+
+@keyframes glowing {
+  0% { box-shadow: 0 0 -15px #c4a300; }
+  40% { box-shadow: 0 0 15px #ffd503; }
+  60% { box-shadow: 0 0 15px #c4a300; }
+  100% { box-shadow: 0 0 -15px #c4a300; }
+}
+
+
+  .transjo{
+    border: 1px solid #DDDDDD;
+    width: 100%;
+  }
+
+  ion-input {
+    --padding-bottom: 10px;
+    --padding-top: 10px;
+    --padding-start: 10px !important;
+    --padding-end: 10px;
+    transition: all 0.30s ease-in-out;
+    outline: none;
+    padding-left: 20px;
+    --padding-left: 20px;
+    padding: 5px 5px 5px 25px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #DDDDDD;
+    --placeholder-color: rgb(187, 183, 183);   /* placeholder text color */
+    color: var(--ion-color-light); 
+  }
+
+  .text-input{
+    color: white;
+    font-size: 1.2em;
+    // padding: 26;
+  }
+
+  .round-button{
+    border-radius: 5px;
+    color: white;
+  }
+
+  ion-button.voc-hinzu{
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 100%!important;
+  }
+
+  .round-button-add{
+    width: 100%;
+    border-radius: 5px;
+    color: white;
+  }
+
+  ion-list{
+    --ion-item-background: transparent!important;
+  }
+
+ 
+
+ 
+

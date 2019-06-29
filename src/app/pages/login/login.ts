@@ -1,37 +1,46 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component } from '@angular/core';
+import {AlertController, LoadingController, NavController} from '@ionic/angular';
+import {AuthService} from "../../services/auth";
+import {NgForm} from "@angular/forms";
+import {RegistrationPage} from "../registration/registration";
 import { Router } from '@angular/router';
-
-import { UserData } from '../../providers/user-data';
-
-import { UserOptions } from '../../interfaces/user-options';
-
-
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  styleUrls: ['./login.scss'],
+  styleUrls: ['login.scss']
 })
 export class LoginPage {
-  login: UserOptions = { username: '', password: '' };
-  submitted = false;
+  registrationPage = RegistrationPage;
 
-  constructor(
-    public userData: UserData,
-    public router: Router
-  ) { }
-
-  onLogin(form: NgForm) {
-    this.submitted = true;
-
-    if (form.valid) {
-      this.userData.login(this.login.username);
-      this.router.navigateByUrl('/app/tabs/schedule');
-    }
+  constructor(private authService: AuthService,
+              private loadingCtrl: LoadingController,
+              private alertCtrl: AlertController,
+              private router: Router) {
   }
 
-  onSignup() {
-    this.router.navigateByUrl('/signup');
+  async onSignin(form: NgForm){
+    const loading = await this.loadingCtrl.create({
+      message: 'Anmeldung erfolgt...'
+    });
+    loading.present();
+   await this.authService.signin(form.value.email, form.value.password)
+      .then(data => {
+      loading.dismiss();
+  })
+      .catch( async error => {
+        loading.dismiss();
+        const alert = await this.alertCtrl.create({
+          header: 'Login fehlgeschlagen',
+          message: error.message,
+          buttons: ['OK']
+        });
+         alert.present();
+      });
   }
+
+  onLoad(page: any) {
+    this.router.navigateByUrl('registration')
+  }
+
 }

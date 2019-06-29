@@ -1,13 +1,56 @@
-.login-logo {
-  padding: 20px 0;
-  min-height: 200px;
-  text-align: center;
-}
+  .logintrans{
+    --highlight-height: 0px;
+    --background-color: transparent;
+  }
+  .loginbutton{
+    --border-radius: 20px;
+  }
 
-.login-logo img {
-  max-width: 150px;
-}
+  .logdiff{
+    margin-top: 50%;
+  }
 
-.list {
-  margin-bottom: 0;
-}
+  ion-input {
+    --padding-bottom: 15px;
+    --padding-top: 15px;
+    --padding-start: 15px !important;
+    --padding-end: 15px;
+    transition: all 0.30s ease-in-out;
+    outline: none;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #DDDDDD;
+    --placeholder-color: rgb(187, 183, 183);   /* placeholder text color */
+    color: var(--ion-color-light); 
+    font-size: 20px;
+  }
+
+  ion-input:focus-within, textarea:focus-within{
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 10px 10px 10px 10px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(81, 203, 238, 1);
+  }
+
+  ion-list{
+    --ion-item-background: transparent!important;
+  }
+
+  .text-input{
+    --color: var(--ion-color-light);
+  }
+
+  .text-input::-moz-placeholder {
+    --color: #fafafa;
+  }
+
+  .text-input:-ms-input-placeholder {
+    --color: #fafafa;
+  }
+
+  .text-input::-webkit-input-placeholder {
+    color:  #fafafa;
+  }
+
+  .text-input{
+    color: white;
+  }

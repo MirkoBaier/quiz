@@ -1,0 +1,49 @@
+
+<ion-content fullscreen class="trainingBackg">
+  <h3 class="text-input">Übersetze: </h3>
+  <ion-card *ngIf="languagePic=='Spanisch'">
+    <img src="assets/imgs/Spanische_Handelsflagge.svg.png"/>
+    <div class="shadow card-title">{{translate}}</div>
+  </ion-card>
+  <ion-card *ngIf="languagePic=='Englisch'">
+    <img src="assets/imgs/EnglandFlagge.png"/>
+    <div class="eng shadow card-title">{{translate}}</div>
+  </ion-card>
+  <ion-card *ngIf="languagePic=='Französisch'">
+    <img src="assets/imgs/Francepic.png"/>
+    <div class="shadow card-title">{{translate}}</div>
+  </ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+      <ion-button class="button2 ion-text-wrap"  type='submit' (click)="onLoadNext(yoloItem[0])">
+        <div>
+      {{yoloItem[0]}}
+        </div>
+      </ion-button>
+        </ion-col>
+        <ion-col size="6">
+      <ion-button class="button2 ion-text-wrap" type='submit' (click)="onLoadNext(yoloItem[1])">
+          <ion-text>        
+        {{yoloItem[1]}}
+          </ion-text>
+      </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+      <ion-button class="button2 ion-text-wrap" (click)="onLoadNext(yoloItem[2])">
+        {{yoloItem[2]}}
+      </ion-button>
+        </ion-col>
+        <ion-col size="6">
+      <ion-button class="button2 ion-text-wrap" type='submit'  (click)="onLoadNext(yoloItem[3])">
+          <ion-label>
+        {{yoloItem[3]}}
+          </ion-label>
+      </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  <h3 class="text-input">Deine Punktzahl: {{points}}</h3>
+</ion-content>

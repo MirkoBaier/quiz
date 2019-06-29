@@ -1,6 +1,7 @@
-.active {
-  color: var(--ion-color-primary);
-  ion-icon {
-    color: var(--ion-color-primary);
-  }
+ion-content{
+    --background: rgb(41, 41, 41);
+}
+
+ion-menu {
+    --background: rgb(41, 41, 41);
 }

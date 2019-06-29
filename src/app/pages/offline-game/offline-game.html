@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar class="new-background-color">
+      <ion-buttons left>
+        <ion-button class="header-button" color="white" icon-only menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+
+
+<ion-content class="backpic" fullscreen>
+  <div class="container">
+  <div class="halpi">
+  <form  #l="ngForm">
+<ion-item class="backoffitem">Übersetze: {{voc}}</ion-item>
+    <div *ngIf="this.actualModus=='1'||'2'">
+  <ion-input
+    [(ngModel)]="userTrans"
+    class="text-input"
+    placeholder="Übersetzung eingeben"
+    name="userTrans"
+    ngModel
+    #input>
+  </ion-input>
+  <ion-button fill="outline" ion-button (click)="checkCorrect(f)">
+    Weiter
+  </ion-button>
+    </div>
+    <div *ngIf="this.actualModus=='3'">
+      {{trans}}
+    </div>
+  </form>
+  </div>
+    <div [@myvisibility]="visibleState" class="animate-me">
+    </div>
+  </div>
+
+
+</ion-content>

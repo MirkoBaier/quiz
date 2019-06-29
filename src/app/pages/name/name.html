@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-toolbar class="new-background-color">
+      <ion-buttons left>
+        <ion-button class="header-button" color="white" icon-only menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+
+<ion-content fullscreen class="name-backg">
+  <div class="name-div">
+    <ion-item>
+      <div class="c-name">Benutzername</div>
+      <ion-input
+        [(ngModel)]="name"
+        name="name"
+        required
+        class="text-input"
+      ></ion-input>
+    </ion-item>
+    <ion-button color="light" class="name-button" expand="block" size="large" (click)="setName(name)">Bestätigen</ion-button>
+  </div>
+</ion-content>

@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar class="new-background-color">
+      <ion-buttons left>
+        <ion-button class="header-button" color="white" icon-only menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onStoreUsername(f)">
+      <ion-item>
+        <ion-label floating>Benutzername</ion-label>
+        <ion-input
+          class="text-input"
+          ngModel
+          name="username"
+          required>
+        </ion-input>
+      </ion-item>
+    <ion-button ion-button block type="submit" [disabled]="!f.valid">Namen erstellen</ion-button>
+  </form>
+</ion-content>

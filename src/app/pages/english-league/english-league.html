@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="league" autoHide="false"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content fullscreen class="english-league-backg">
+  <ion-button  size="large" expand="block" (click)="onLoadgame()">
+  Starten
+  </ion-button>
+
+  <ion-segment [(ngModel)]="englishLeagues" color="light">
+    <ion-segment-button class="gold" value="gold" color="light">
+      Gold
+    </ion-segment-button>
+    <ion-segment-button value="silber" color="light">
+      Silber
+    </ion-segment-button>
+    <ion-segment-button value="bronze" color="light">
+      Bronze
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="englishLeagues">
+    <ng-container *ngSwitchCase="'gold'" class="test-wrapper">
+      <ng-container class="league-list" *ngFor="let item of arrayPoints; let i = index;">
+        <ion-item *ngIf="item.league=='gold'">
+          <ion-label color="light">{{i+1}} {{item.name}}</ion-label>
+          <ion-icon color="light" name="heart"></ion-icon>
+          <ion-label color="light">{{item.points}}</ion-label>
+        </ion-item>
+      </ng-container>
+  </ng-container>
+
+<ng-container *ngSwitchCase="'silber'">
+      <ng-container class="league-list" *ngFor="let item of arrayPoints; let i = index;">
+        <ion-item *ngIf="item.league=='silver'" >
+          <ion-label color="light">{{i+1}} {{item.name}}</ion-label>
+          <ion-icon color="light" name="heart"></ion-icon>
+          <ion-label color="light">{{item.points}}</ion-label>
+        </ion-item>
+      </ng-container>
+</ng-container>
+
+<ng-container *ngSwitchCase="'bronze'">
+    <ng-container *ngFor="let item of arrayPoints; let i = index;">
+        <ion-item class="league-list" *ngIf="item.league=='bronze'">
+          <ion-label color="light">{{i+1}} {{item.name}}</ion-label>
+          <ion-icon color="light" name="heart"></ion-icon>
+          <ion-label color="light">{{item.points}}</ion-label>
+        </ion-item>
+    </ng-container>
+  </ng-container>
+  </div>
+</ion-content>

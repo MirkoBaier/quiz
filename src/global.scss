@@ -1,27 +1,34 @@
-// App Global CSS
-// ----------------------------------------------------------------------------
-// Put style rules here that you want to apply globally. These styles are for
-// the entire app and not just one component. Additionally, this file can be
-// also used as an entry point to import other Sass files to be included in the
-// output CSS.
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
 
-/* Core CSS required for Ionic components to work properly */
-@import "~@ionic/angular/css/core.css";
+.alert-button {
+  color: white !important;
+  background: green !important;
+}
 
-/* Basic CSS for apps built with Ionic */
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
+.alert-head {
+  --background: black!important;
+  color: white!important;
+  border-radius: 20px;
+}
 
-/* Optional CSS utils that can be commented out */
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
+.alert-title.sc-ion-alert-md {
+  color: white!important;
+}
 
+.alert-sub-title.sc-ion-alert-md {
+  color: white!important;
+}
 
-// App CSS
-// ----------------------------------------------------------------------------
-
-@import "./app/app.scss";
+.alert-wrapper.sc-ion-alert-md {
+    border: 1px solid;
+}

@@ -1,0 +1,45 @@
+<ion-content padding class="regi-backg">
+  <ion-img #backgroundImg alt="" class="imgreg"
+           src="../../assets/imgs/neulogo512.png"></ion-img>
+  <div class="regdiff">
+    <form #f="ngForm" (ngSubmit)="onSignup(f)">
+      <ion-list>
+        <ion-item class="regForm">
+          <ion-input
+            class="text-input"
+            type="email"
+            ngModel
+            name="email"
+            required
+            placeholder="Email"></ion-input>
+        </ion-item>
+        <ion-item class="regForm">
+          <ion-input
+            placeholder="Passwort"
+            type="password"
+            ngModel
+            name="password"
+            required
+            [minlength]="6"
+            class="text-input"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button color="light" class="reg" size="large"  expand="block" type="submit" [disabled]="!f.valid">Kostenlos
+        registrieren
+      </ion-button>
+    </form>
+    <ion-row>
+      <!--<ion-col col-6="true">
+        <button color="white" class="reg" icon-left ion-button block outline (click)="loginWithGoogle()">
+          <ion-icon name="logo-googleplus"></ion-icon>
+          Anmeldung
+        </button>
+      </ion-col>-->
+      <ion-col col-12="true">
+        <ion-button color="light" class="reg" expand="block" fill="outline" (click)="OfflineModus()">Offline-Modus</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-button color="light" class="reg" size="large" expand="block" fill="clear" (click)="onLoad()">Hier einloggen
+    </ion-button>
+  </div>
+</ion-content>

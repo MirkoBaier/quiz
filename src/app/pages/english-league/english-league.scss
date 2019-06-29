@@ -1,0 +1,48 @@
+
+
+   .test-wrapper{
+    background-color: transparent;
+    //opacity: 0.7;
+    //background-image: url('../../assets/imgs/backpic.png');
+    background-repeat: no-repeat;
+    background-size:cover;
+  }
+
+  ion-segment-button.gold {
+    --color-activated: white;
+    --color-checked: white;
+  }
+
+  .input-wrapper{
+    background-color: transparent;
+  }
+
+  .item{
+    background-color: transparent;
+  }
+
+  .label{
+    color: white;
+  }
+
+//  .league-list {
+//    text-align: center;
+//  }
+
+  ion-segment-button {
+    color: #d4c6c6!important;
+    --color-activated: white;
+    --background-activated: red;
+  }
+
+  ion-item {
+    --ion-item-background: transparent!important;
+    background: transparent!important;
+  }
+  
+  .sc-ion-segment-md-h.ion-color.sc-ion-segment-md-s > .segment-button-checked {
+    color: white!important
+  }
+
+ 
+

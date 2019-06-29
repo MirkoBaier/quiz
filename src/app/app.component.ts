@@ -1,125 +1,123 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { SwUpdate } from '@angular/service-worker';
-
-import { Events, MenuController, Platform, ToastController } from '@ionic/angular';
-
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import {Component, ViewChild} from '@angular/core';
+import {Events, LoadingController, MenuController, NavController, Platform} from '@ionic/angular';
+import {AngularFireAuth} from "@angular/fire/auth";
+import {OneVoneService} from "./services/oneVone";
+import {NameService} from "./services/name";
+import {ConnectionStatusEnum, NetworkService} from "./services/networkservice";
+import { AuthService } from './services/auth';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { Network } from '@ionic-native/network/ngx';
+import { timer } from 'rxjs/internal/observable/timer';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
-import { Storage } from '@ionic/storage';
-
-import { UserData } from './providers/user-data';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnInit {
-  appPages = [
-    {
-      title: 'Schedule',
-      url: '/app/tabs/schedule',
-      icon: 'calendar'
-    },
-    {
-      title: 'Speakers',
-      url: '/app/tabs/speakers',
-      icon: 'contacts'
-    },
-    {
-      title: 'Map',
-      url: '/app/tabs/map',
-      icon: 'map'
-    },
-    {
-      title: 'About',
-      url: '/app/tabs/about',
-      icon: 'information-circle'
-    }
-  ];
-  loggedIn = false;
+export class VokabelQuiz {
+  rootPage: any;
+  isAuthenticated = false;
+  @ViewChild('nav') nav: NavController;
+  afAuth: AngularFireAuth;
+  showSplash = true;
+  private ngUnsubscribe: Subject<void> = new Subject();
 
-  constructor(
-    private events: Events,
-    private menu: MenuController,
-    private platform: Platform,
-    private router: Router,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private storage: Storage,
-    private userData: UserData,
-    private swUpdate: SwUpdate,
-    private toastCtrl: ToastController,
-  ) {
-    this.initializeApp();
-  }
+  constructor(platform: Platform,
+              statusBar: StatusBar,
+              splashScreen: SplashScreen,
+              afAuth: AngularFireAuth,
+              public authService: AuthService,
+              private menuCtrl: MenuController,
+              private oneVoneService: OneVoneService,
+              private nameService: NameService,
+              public events: Events,
+              public network: Network,
+              public networkProvider: NetworkService,
+              public loadingCtrl: LoadingController,
+              private router: Router) {
 
-  async ngOnInit() {
-    this.checkLoginStatus();
-    this.listenForLoginEvents();
+    this.afAuth = afAuth;
+    this.networkProvider.initializeNetworkEvents();
 
-    this.swUpdate.available.subscribe(async res => {
-      const toast = await this.toastCtrl.create({
-        message: 'Update available!',
-        showCloseButton: true,
-        position: 'bottom',
-        closeButtonText: `Reload`
-      });
-
-      await toast.present();
-
-      toast
-        .onDidDismiss()
-        .then(() => this.swUpdate.activateUpdate())
-        .then(() => window.location.reload());
-    });
-  }
-
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
-  }
-
-  checkLoginStatus() {
-    return this.userData.isLoggedIn().then(loggedIn => {
-      return this.updateLoggedInStatus(loggedIn);
-    });
-  }
-
-  updateLoggedInStatus(loggedIn: boolean) {
-    setTimeout(() => {
-      this.loggedIn = loggedIn;
-    }, 300);
-  }
-
-  listenForLoginEvents() {
-    this.events.subscribe('user:login', () => {
-      this.updateLoggedInStatus(true);
+    this.events.subscribe('network:online', () => {
+      if(this.isAuthenticated==true){
+        this.rootPage = 'OfflinePage'
+      }
     });
 
-    this.events.subscribe('user:signup', () => {
-      this.updateLoggedInStatus(true);
+
+    afAuth.authState.subscribe(user => {
+      if (user) {
+        console.log('user');
+        this.authService.loggedIn = true;
+        this.isAuthenticated = true;
+        this.nameService.getUsername().then(res => {
+        this.router.navigateByUrl('home')
+        }).catch(err => {
+            console.log('Error' + err);
+          console.log(this.authService.newReg);
+            if(this.authService.newReg==true){
+              console.log("go into Name");
+            this.router.navigateByUrl('name')
+            }
+            else if (this.networkProvider.previousStatus == ConnectionStatusEnum.Offline) {
+              this.router.navigateByUrl('login')
+            }else{
+              this.router.navigateByUrl('name')
+            }
+          }
+        )
+      }
+      else {
+        this.authService.loggedIn = false;
+        this.isAuthenticated = false;
+        this.rootPage = 'OfflinePage';
+      }
     });
 
-    this.events.subscribe('user:logout', () => {
-      this.updateLoggedInStatus(false);
+    platform.ready().then(() => {
+
+      statusBar.styleDefault();
+      splashScreen.hide();
+      timer(3000).subscribe(() =>{ this.showSplash = false; this.authService.splash = false})
+
     });
   }
 
   logout() {
-    this.userData.logout().then(() => {
-      return this.router.navigateByUrl('/app/tabs/schedule');
-    });
+    this.authService.logout();
+    this.menuCtrl.close();
+    this.router.navigateByUrl('login');
   }
 
-  openTutorial() {
-    this.menu.enable(false);
-    this.storage.set('ion_did_tutorial', false);
-    this.router.navigateByUrl('/tutorial');
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
+
+  // onSettings() {
+  //   this.nav.navigateForward('SettingsPage');
+  // }
+
+  onLoadOnline(){
+    if(this.networkProvider.isOnline == true) {
+      if (this.authService.loggedIn == false) {
+        this.router.navigateByUrl('registration');
+      } else {
+        this.router.navigateByUrl('home');
+      }
+    }else{
+
+    }
+  }
+
+  onLoadOffline() {
+    this.router.navigateByUrl('offline');
+  }
+
 }
+

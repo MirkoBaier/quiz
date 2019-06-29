@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "301583012596",
+    "firebase_url": "https://quiz-5e917.firebaseio.com",
+    "project_id": "quiz-5e917",
+    "storage_bucket": "quiz-5e917.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301583012596:android:5f12363e8d8a831f",
+        "android_client_info": {
+          "package_name": "dasvokabelquiz.firstt.uploadd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301583012596-4fc96caf459rtcodvghadmfecvkevsk5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ-LwFvFOpscKRz2p4IajYQwFF4Tjv3mg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

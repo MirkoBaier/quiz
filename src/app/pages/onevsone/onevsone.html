@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="oneVsOneChoice" autoHide="false"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content fullscreen class="onevsone-backg">
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-button *ngIf="onlyFriends" class="enemyonevone" color="danger" expand="block" size="large"  (click)="randomEnemy()">Zufälliger Gegner</ion-button>
+  <ng-container>
+    <ion-button class="enemyonevone" *ngFor="let item of users" expand="block" size="large" (click)="onLoadpage(item.username)" >
+      {{ item.username }}
+    </ion-button>
+  </ng-container>
+</ion-content>

@@ -1,0 +1,55 @@
+page-offline-game {
+  .backpic{
+    background-image: url('../../assets/imgs/backpic.png');
+    background-repeat: no-repeat;
+    background-size:cover;
+  }
+
+  .backoffitem{
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .text-input::-moz-placeholder {
+    color: #fafafa;
+  }
+
+  .text-input:-ms-input-placeholder {
+    color: #fafafa;
+  }
+
+  .text-input::-webkit-input-placeholder {
+    color:  #fafafa;
+  }
+
+  .text-input{
+    color: color($colors, white);
+    font-size: 1.2em;
+  }
+
+  .scroll-content{
+    padding-bottom: 0!important;
+    margin-bottom: 0!important;
+    margin-top: 0!important;
+    padding-top: 0!important;
+  }
+
+
+
+
+
+  .animate-me{
+    width: 50px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    height: 50px;
+    padding: 20px;
+    background-image: url('../../assets/imgs/haken.png');
+  }
+
+
+
+  .container{
+    margin-top: 175px;
+  }
+}

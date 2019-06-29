@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="home" autoHide="false"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+  
+
+<ion-content fullscreen class="onevsone-choice-backg">
+  <ion-item class="onevsone-choice-backg">
+    <ion-label class="text-input">Trainigsmodus</ion-label>
+    <ion-toggle color='danger' [(ngModel)]="isToggled" checked="false"></ion-toggle>
+  </ion-item>
+  <ion-content class="league-language" style="width:100%;height:75vh" scrollY="true">
+    <ion-list>
+      <ion-button class="onevonebutton" expand="block" size="large" (click)="onLoadpage('Englisch')">
+            Englisch
+      </ion-button>
+      <ion-button class="onevonebutton" expand="block" size="large" (click)="onLoadpage('Spanisch')">
+        Spanisch
+      </ion-button>
+      <ion-button class="onevonebutton" expand="block" size="large" (click)="onLoadpage('Französisch')">
+        Französisch
+      </ion-button>
+      <ion-button class="onevonebutton" expand="block" size="large" (click)="createOwnVocabulary()" color="light">
+        Eigene Vokabeln
+      </ion-button>
+    </ion-list>
+  </ion-content>
+</ion-content>
