@@ -8,6 +8,8 @@ import {OfflineService} from "../../services/offlineservice";
 import { Router } from '@angular/router';
 import { IModus } from '../../models/IModus';
 
+//  "pre-commit": "npm run lint",
+"pre-push": "npm run test"
 @Component({
   selector: 'page-offline',
   templateUrl: 'offline.html',
