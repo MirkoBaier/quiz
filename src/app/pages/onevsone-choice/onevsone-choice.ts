@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import {  NavController } from '@ionic/angular';
 import {Storage} from "@ionic/storage";
-import {VocubalarService} from "../../services/vocubalar";
 import {OwnVoc} from "../../models/ownVoc";
 import {OneVoneService} from "../../services/oneVone";
 import { Router } from '@angular/router';
+import { ActionSheetController } from '@ionic/angular';
+import { IModus } from '../../models/IModus';
 
 @Component({
   selector: 'page-onevsone-choice',
@@ -14,13 +14,14 @@ export class OnevsoneChoicePage {
   private ITEM_NAME:string = 'ITEM';
   listName: string = "";
   Vocabulary: OwnVoc[] = [];
-  isToggled: boolean;
+  modus: IModus;
+  choiceModus: IModus;
 
   constructor(private router: Router,
               private storage: Storage, 
-              private vocService: VocubalarService,
+              private actionSheetController: ActionSheetController,
               private oneVoneService: OneVoneService) {
-      this.isToggled = false;
+      
   }
 
 
@@ -33,19 +34,33 @@ export class OnevsoneChoicePage {
     });
   }
 
-  onLoadpage(language: string){
-    this.oneVoneService.isToggled = this.isToggled;
+  onLoadpage(language: string, modus: IModus){
+    this.oneVoneService.choiceModus = modus;
     this.oneVoneService.language = language;
     this.router.navigateByUrl('oneVsOne')
   }
 
-  ownVoc(){
-    this.vocService.choseOwnVoc(true);
-    this.router.navigateByUrl('oneVsOne');
-  }
-
   createOwnVocabulary(){
     this.router.navigateByUrl('offline');
+  }
+
+  async presentActionSheet(language: string) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Modus wählen',
+      buttons: [{
+        text: 'Vokabeltest',
+        role: 'destructive',
+        handler: () => {
+          this.onLoadpage(language, IModus.legacyNormalModus);
+        }
+      }, {
+        text: 'Trainingsmodus',
+        handler: () => {
+          this.onLoadpage(language, IModus.legacyTrainingsModus);
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
 }

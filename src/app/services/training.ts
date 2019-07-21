@@ -22,6 +22,8 @@ export class TrainingsService{
   helpYolo: string[] = [];
   matchId: number;
   enemyNow: string = "";
+  game: TrainingsGame;
+
   constructor(private nameService: NameService,
               private authService: AuthService,
               private firestore: AngularFirestore,
@@ -45,11 +47,7 @@ export class TrainingsService{
         if (this.vocService.ownVocChosen == false) {
           this.setRandomVoc(this.oneVsoneService.language);
           this.setYoloVoc(this.oneVsoneService.language);
-        } else {
-          this.setOwnVoc();
-          console.log(this.vocService.listName);
-          helpVocName = this.vocService.listName;
-        }
+        } 
 
         const matchChallenger: AngularFirestoreDocument<TrainingsGame> = this.firestore.doc(
           `/Training/${userId}/games/${matchId}`
@@ -85,7 +83,6 @@ export class TrainingsService{
           round: 0,
           started: false,
           userTurn: true,
-          playing: false,
           voc: this.helpEng,
           trans: this.helpGer,
           yolo: this.helpYolo,
@@ -110,7 +107,6 @@ export class TrainingsService{
           round: 0,
           started: false,
           userTurn: false,
-          playing: false,
           voc: this.helpEng,
           trans: this.helpGer,
           yolo: this.helpYolo,
@@ -135,33 +131,30 @@ export class TrainingsService{
   }
 
   async updateGameAfterRound(username: string, matchID: string, userPoints: number, checkCorrect: boolean[]): Promise<void> {
-    await this.authService.getUserIdByUsername(username);
 
     const matchChallenger: AngularFirestoreDocument<Game> = this.firestore.doc(
       `/Training/${this.nameService.userId}/games/${matchID}`
     );
 
     const matchEnemy: AngularFirestoreDocument<Game> = this.firestore.doc(
-      `/Training/${this.authService.idFromUsername}/games/${matchID}`
+      `/Training/${this.game.enemyUID}/games/${matchID}`
     );
 
     const matchEnemyNot: AngularFirestoreDocument<Notification> = this.firestore.doc(
-      `/trainingnotification/${this.authService.idFromUsername}/games/${matchID}`
+      `/trainingnotification/${this.game.enemyUID}/games/${matchID}`
     );
 
     const matchChallengerNot: AngularFirestoreDocument<Notification> = this.firestore.doc(
-      `/trainingnotification/${this.authService.idFromUsername}/games/${matchID}`
+      `/trainingnotification/${this.game.enemyUID}/games/${matchID}`
     );
 
 
-    await this.getSomething(this.nameService.userId, matchID).then(res => {
       //Neue Vokabeln nachdem beide sie hatten
-      if (res[0].round == 1 || res[0].round == 3 || res[0].round == 5 || res[0].round == 7 || res[0].round == 9) {
-        if (res[0].vocName === 'Englisch' || res[0].vocName === 'Spanisch' || res[0].vocName === 'Französisch') {
-          this.setRandomVoc(res[0].vocName);
-        } else {
-          this.setOwnVoc();
-        }
+      if (this.game.round == 1 || this.game.round == 3 || this.game.round == 5 || this.game.round == 7 || this.game.round == 9) {
+        if (this.game.vocName === 'Englisch' || this.game.vocName === 'Spanisch' || this.game.vocName === 'Französisch') {
+          this.setRandomVoc(this.game.vocName);
+        } 
+
         matchEnemy.update({
           voc: this.helpEng,
           trans: this.helpGer
@@ -175,29 +168,29 @@ export class TrainingsService{
       }
 
       //Match beendet
-      if (res[0].round == 9) {
+      if (this.game.round == 9) {
         matchChallenger.update({
           finished: true
         });
       } else {
-        if (res[0].round == 0){
+        if (this.game.round == 0){
           matchChallengerNot.set({
             requestedMatch: true,
             round: 0,
-            enemyUID: this.authService.idFromUsername,
-            matchId: res[0].matchId,
-            user: res[0].user,
-            enemy: res[0].enemy,
+            enemyUID: this.game.enemyUID,
+            matchId: this.game.matchId,
+            user: this.game.user,
+            enemy: this.game.enemy,
             status: 'Du bist dran',
           });
-        } if (res[0].round == 1 || res[0].round == 3 || res[0].round == 5 || res[0].round == 7) {
+        } if (this.game.round == 1 || this.game.round == 3 || this.game.round == 5 || this.game.round == 7) {
           matchEnemyNot.update({
-            round: res[0].round,
+            round: this.game.round,
             status: 'Du bist dran'
           });
-        } else if (res[0].round == 2 || res[0].round == 4 || res[0].round == 6 || res[0].round == 8) {
+        } else if (this.game.round == 2 || this.game.round == 4 || this.game.round == 6 || this.game.round == 8) {
           matchChallengerNot.update({
-            round: res[0].round,
+            round: this.game.round,
             status: 'Du bist dran'
           })
         }
@@ -206,39 +199,36 @@ export class TrainingsService{
 
       //normales update
       matchEnemy.update({
-        pointsEnemy: userPoints + res[0].pointsUser,
+        pointsEnemy: userPoints + this.game.pointsUser,
         userTurn: true,
-        round: res[0].round + 1,
-        isCorrect: res[0].isCorrect.concat(checkCorrect),
+        round: this.game.round + 1,
+        isCorrect: this.game.isCorrect.concat(checkCorrect),
         time: firebase.firestore.FieldValue.serverTimestamp()
       });
 
 
       //normales update
       return matchChallenger.update({
-        pointsUser: userPoints + res[0].pointsUser,
+        pointsUser: userPoints + this.game.pointsUser,
         userTurn: false,
-        playing: false,
-        round: res[0].round + 1,
-        isCorrect: res[0].isCorrect.concat(checkCorrect),
+        round: this.game.round + 1,
+        isCorrect: this.game.isCorrect.concat(checkCorrect),
         time: firebase.firestore.FieldValue.serverTimestamp()
       });
 
-    });
 
   }
 
   //Spiel löschen aus der Spielliste
   async deleteMatch(username: string, matchId: string) {
     let idUser = this.authService.getActiveUser().uid;
-    await this.authService.getUserIdByUsername(username);
 
     const matchChallenger: AngularFirestoreCollection<Game> = this.firestore.collection(
       `/Training/${idUser}/games`
     );
 
     const matchEnemy: AngularFirestoreCollection<Game> = this.firestore.collection(
-      `/Training/${this.authService.idFromUsername}/games`
+      `/Training/${this.game.enemyUID}/games`
     );
 
 
@@ -250,7 +240,8 @@ export class TrainingsService{
     const alert = await this.alertCtrl.create({
       header: 'Spielanfrage!',
       subHeader: 'Erfolgreich gesendet!',
-      buttons: ['OK']
+      buttons: ['OK'],
+      cssClass: `alert-head`
     });
     await alert.present();
   }
@@ -312,19 +303,6 @@ export class TrainingsService{
     }
   }
 
-  setOwnVoc() {
-    for (let i = 5; i > 0; i--) {
-      let rand = Math.floor(Math.random() * this.vocService.Vocabulary.length) + 1;
-      this.helpGer.push(this.vocService.Vocabulary[rand - 1].trans);
-      this.helpEng.push(this.vocService.Vocabulary[rand - 1].voc);
-    }
-    for (let i = 15; i > 0; i--) {
-      let rand = Math.floor(Math.random() * this.vocService.Vocabulary.length) + 1;
-      this.helpYolo.push(this.vocService.Vocabulary[rand - 1].voc);
-    }
-
-  }
-
   async showAlertNo() {
     const alert = await this.alertCtrl.create({
       header: 'Fehlgeschlagen',
@@ -335,15 +313,12 @@ export class TrainingsService{
   }
 
   async updateGame(username: string): Promise<void> {
-    await this.getMatchIdByUsername(username).then(res => this.matchId = res);
-    await this.authService.getUserIdByUsername(username);
-
     const matchChallenger: AngularFirestoreDocument<TrainingsGame> = this.firestore.doc(
-      `/Training/${this.nameService.userId}/games/${this.matchId}`
+      `/Training/${this.nameService.userId}/games/${this.game.matchId}`
     );
 
     const matchEnemy: AngularFirestoreDocument<TrainingsGame> = this.firestore.doc(
-      `/Training/${this.authService.idFromUsername}/games/${this.matchId}`
+      `/Training/${this.game.enemyUID}/games/${this.game.matchId}`
     );
 
     matchEnemy.update({
@@ -352,18 +327,6 @@ export class TrainingsService{
 
     return matchChallenger.update({
       started: true
-    });
-  }
-
-  async updateGameFromOnePlaying(username: string): Promise<void> {
-    await this.getMatchIdByUsername(username).then(res => this.matchId = res);
-    await this.authService.getUserIdByUsername(username);
-    const matchChallenger: AngularFirestoreDocument<TrainingsGame> = this.firestore.doc(
-      `/Training/${this.nameService.userId}/games/${this.matchId}`
-    );
-
-    return matchChallenger.update({
-      playing: true
     });
   }
 
@@ -383,7 +346,6 @@ export class TrainingsService{
               round: doc.data().round,
               started: doc.data().started,
               userTurn: doc.data().userTurn,
-              playing: doc.data().playing,
               finished: doc.data().finished,
               isCorrect: doc.data().isCorrect,
               startedFrom: doc.data().startedFrom,
@@ -401,38 +363,10 @@ export class TrainingsService{
     })
   }
 
-  async getLiveGame(): Promise<any> {
-    let idUser = this.authService.getActiveUser().uid;
-    return new Promise(resolve => {
-      firebase.firestore().collection(`/Training/${idUser}/games`).get().then(snapshot => {
-        let obj: any = [];
-        snapshot.forEach((doc: any) => {
-          if (doc.data().playing == true) {
-            obj.push({
-              matchId: doc.data().matchId,
-              enemy: doc.data().enemy,
-              voc: doc.data().voc,
-              trans: doc.data().trans,
-              yolo: doc.data().yolo,
-              round: doc.data().round,
-              finished: doc.data().finished,
-              pointsEnemy: doc.data().pointsEnemy,
-              pointsUser: doc.data().pointsUser,
-              user: doc.data().user,
-              vocName: doc.data().vocName
-            });
-          }
-        });
-        resolve(obj);
-      });
-    })
-  }
-
   //Spiel zur Historie hinzufügen
   async addFinishedGameToHistory(game: TrainingsGame): Promise<void> {
 
     let matchHistoryId = this.firestore.createId();
-    await this.authService.getUserIdByUsername(game.enemy);
     //wird nur erstellt wenn es noch keins gibt
     let userId = this.authService.getActiveUser().uid;
 
@@ -454,15 +388,15 @@ export class TrainingsService{
     );
 
     const matchEnemy: AngularFirestoreDocument<TrainingsGame> = this.firestore.doc(
-      `/Training/${this.authService.idFromUsername}/finishedGames/${matchHistoryId}`
+      `/Training/${this.game.enemyUID}/finishedGames/${matchHistoryId}`
     );
 
     const matchEnemyNotUpdate: AngularFirestoreDocument<Notification> = this.firestore.doc(
-      `/trainingnotification/${this.authService.idFromUsername}/games/${game.matchId}`
+      `/trainingnotification/${this.game.enemyUID}/games/${game.matchId}`
     );
 
     const matchEnemyNot: AngularFirestoreCollection<Notification> = this.firestore.collection(
-      `/trainingnotification/${this.authService.idFromUsername}/games`
+      `/trainingnotification/${this.game.enemyUID}/games`
     );
 
     const matchChallengerNot: AngularFirestoreCollection<Notification> = this.firestore.collection(
@@ -486,7 +420,6 @@ export class TrainingsService{
       round: game.round,
       started: true,
       userTurn: true,
-      playing: false,
       voc: ['sparen'],
       trans: ['sparen'],
       yolo: ['sparen'],
@@ -509,7 +442,6 @@ export class TrainingsService{
       round: game.round,
       started: true,
       userTurn: false,
-      playing: false,
       voc: ['sparen'],
       trans: ['sparen'],
       yolo: ['sparen'],
@@ -520,7 +452,7 @@ export class TrainingsService{
       result: userResult,
       vocName: game.vocName,
       time: firebase.firestore.FieldValue.serverTimestamp(),
-      enemyUID: this.authService.idFromUsername
+      enemyUID: this.game.enemyUID
     });
   }
 

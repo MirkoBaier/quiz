@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController} from '@ionic/angular';
+import { ToastController} from '@ionic/angular';
 import {csvjson} from "../../models/csvjson";
 import {NgForm} from "@angular/forms";
-import {NameService} from "../../services/name";
 import {PointsService} from "../../services/points";
 import { Router } from '@angular/router';
 
@@ -24,7 +23,6 @@ export class LeagueGamePage {
 
 
   constructor(
-    private nameService: NameService,
     private router: Router,
     private toastCtrl: ToastController,
     private pointsService: PointsService) {
@@ -69,7 +67,7 @@ export class LeagueGamePage {
   }
 
   onLoadNext(form: NgForm) {
-    if (form.value.inputTrans.toUpperCase() == this.translation.toUpperCase()) {
+    if (form.value.inputTrans.toUpperCase() == this.translation.toUpperCase() || form.value.inputTrans.toUpperCase() == this.translation.toUpperCase()+" " ) {
       this.points++;
     } else {
       this.points--;

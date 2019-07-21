@@ -1,8 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import {AlertController, LoadingController, MenuController, NavController} from '@ionic/angular';
+import {AlertController, LoadingController, MenuController } from '@ionic/angular';
 import {AuthService} from "../../services/auth";
 import {NgForm} from "@angular/forms";
 import { Router } from '@angular/router';
+import { FcmProvider } from '../../services/fcm';
 
 @Component({
   selector: 'page-registration',
@@ -15,9 +16,9 @@ export class RegistrationPage {
   constructor(private authService: AuthService,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
-              private navCtrl: NavController,
               private menuCtrl: MenuController,
               private router: Router,
+              private fcm: FcmProvider,
               ) {
   }
 
@@ -33,9 +34,8 @@ export class RegistrationPage {
     loading.present();
     this.authService.signup(form.value.email, form.value.password, form.value.name)
       .then(data => {
-        console.log(data);
         this.authService.newReg = true;
-        console.log(this.authService.newReg);
+        this.fcm.getToken();
         loading.dismiss();
       })
       .catch(async error => {

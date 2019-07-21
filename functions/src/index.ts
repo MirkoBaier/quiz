@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
 admin.initializeApp(functions.config().firebase);
+admin.firestore().settings( { timestampsInSnapshots: true });
 // newSubscriberNotification
 exports.sendNotification = functions.firestore.document(`notification/{userId}/games/{matchId}`)
   // .document('subscriber/{subscriptionId}')
@@ -11,6 +12,7 @@ exports.sendNotification = functions.firestore.document(`notification/{userId}/g
     const userId = data.enemyUID;
     const user = data.user;
     const status = data.status;
+    console.log("go Mirk");
     console.log(status);
     console.log(user);
     console.log(userId);
@@ -33,13 +35,12 @@ exports.sendNotification = functions.firestore.document(`notification/{userId}/g
     devices.forEach(result => {
       // const token = result.data().token;
       // tokens = token;
-      console.log(result.data().token);
       tokens.push(result.data().token);
     });
 
-    return admin.messaging().sendToDevice(tokens, payload)
+    console.log("onupdate", tokens, payload);
+    return admin.messaging().sendToDevice(tokens, payload);
   });
-
 
 exports.sendNotificationOneVsOneCreation = functions.firestore.document(`notification/{userId}/games/{matchId}`)
 // .document('subscriber/{subscriptionId}')
@@ -65,17 +66,18 @@ exports.sendNotificationOneVsOneCreation = functions.firestore.document(`notific
     const db = admin.firestore();
     const devicesRef = db.collection('devices').where('userId', '==', userId);
     const devices = await devicesRef.get();
-
+    console.log("res", devices);
     let tokens: string[] = [];
 
     devices.forEach(result => {
       // const token = result.data().token;
       // tokens = token;
-      console.log(result.data().token);
+      console.log("res", result);
+      console.log("resData", result.data().token);
       tokens.push(result.data().token);
     });
-
-    return admin.messaging().sendToDevice(tokens, payload)
+    console.log('create', tokens, payload);
+    return admin.messaging().sendToDevice(tokens, payload);
   });
 
 exports.sendNotificationTraining = functions.firestore.document(`trainingnotification/{userId}/games/{matchId}`)

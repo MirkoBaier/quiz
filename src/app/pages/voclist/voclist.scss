@@ -7,20 +7,26 @@
     --color: white;
   }
 
-  ion-button.backoffitem{
-    background: rgba(255, 255, 255, 0.1);
+  // ion-button.backoffitem{
+  //   background: rgba(255, 255, 255, 0.1);
+  //   color: white;
+  //   width: 100%;
+  //   //background-color: transparent;
+  // }
+
+  ion-button.backoffitem {
+    --background: #0085ff82;
     color: white;
     width: 100%;
-    //background-color: transparent;
   }
 
   ion-back-button{
     --color: white;
   }
 
-  ion-content {
-    --background: url('../../../assets/imgs/backpic.png') 0 0/100% 100% no-repeat;;
-  }
+  // ion-content {
+  //   --background: url('../../../assets/imgs/backpic.png') 0 0/100% 100% no-repeat;;
+  // }
 
   ion-list{
     --ion-item-background: transparent!important;

@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'registration', pathMatch: 'full' },
+  { path: '', redirectTo: 'default', pathMatch: 'full'},
+  { path: 'default', loadChildren: './pages/default/default.module#DefaultPageModule' },
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' },
   { path: 'offline', loadChildren: './pages/offline/offline.module#OfflinePageModule' },
   { path: 'offlineGame', loadChildren: './pages/offline-game/offline-game.module#OfflineGamePageModule' },

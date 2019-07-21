@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { OneVoneService } from "../../services/oneVone";
-import { NameService } from "../../services/name";
 import { TrainingsService } from "../../services/training";
 import { Router } from '@angular/router';
 import { OwnVocOnlineService } from '../../services/ownVocOnlineService';
 import { IModus } from '../../models/IModus';
-
-
 
 @Component({
   selector: 'page-before-onevsone-game',
@@ -28,7 +25,6 @@ export class BeforeOnevsoneGamePage {
 
   constructor(private router: Router,
               private oneVoneService: OneVoneService,
-              private nameService: NameService,
               private trainingsService: TrainingsService,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
@@ -45,61 +41,46 @@ export class BeforeOnevsoneGamePage {
     });
     loading.present();
     if(this.oneVoneService.modus === IModus.legacyNormalModus) {
-      this.oneVoneService.getMatchIdByUsername(this.oneVoneService.enemyNow).then(res => {
-        this.oneVoneService.getSomething(this.nameService.userId, res).then(ress => {
-          this.setViewData(ress);       
-          loading.dismiss();
-        })
-      });
+        this.setViewData(this.oneVoneService.game);
+        loading.dismiss();
     }else if(this.oneVoneService.modus === IModus.legacyTrainingsModus) {
-      this.trainingsService.getMatchIdByUsername(this.trainingsService.enemyNow).then(res => {
-        this.trainingsService.getSomething(this.nameService.userId, res).then(ress => {
-          this.setViewData(ress);
+          this.setViewData(this.trainingsService.game);
           loading.dismiss();
-        })
-      });
     } else {
-      this.ownVocOnlineService.getMatchIdByUsername(this.ownVocOnlineService.enemyNow).then(res => {
-        this.ownVocOnlineService.getGameData(res).then(ress => {
-          this.setViewData(ress);
+          this.setViewData(this.ownVocOnlineService.game);
           loading.dismiss();
-        })
-      });
     }
   }
 
-  setViewData(ress: any[]) {
-    this.theUserturn = ress[0].userTurn;
-    this.enemyUsername = ress[0].enemy;
-    this.matchID = ress[0].matchId;
+  setViewData(ress: any) {
+    this.theUserturn = ress.userTurn;
+    this.enemyUsername = ress.enemy;
+    this.matchID = ress.matchId;
     //Für die richtige Seite
-    if (ress[0].startedFrom == ress[0].user) {
-      this.userName = ress[0].enemy;
-      this.enemyName = ress[0].user;
-      this.userPoints = ress[0].pointsEnemy;
-      this.enemyPoints = ress[0].pointsUser;
+    if (ress.startedFrom == ress.user) {
+      this.userName = ress.enemy;
+      this.enemyName = ress.user;
+      this.userPoints = ress.pointsEnemy;
+      this.enemyPoints = ress.pointsUser;
     } else {
-      this.enemyName = ress[0].enemy;
-      this.userName = ress[0].user;
-      this.userPoints = ress[0].pointsUser;
-      this.enemyPoints = ress[0].pointsEnemy;
+      this.enemyName = ress.enemy;
+      this.userName = ress.user;
+      this.userPoints = ress.pointsUser;
+      this.enemyPoints = ress.pointsEnemy;
     }
-    for (let i = 0; i < (ress[0].isCorrect.length); i++) {
+    for (let i = 0; i < (ress.isCorrect.length); i++) {
       this.fieldNotPlayed[i] = false;
-      this.fieldCorrect[i] = ress[0].isCorrect[i];
+      this.fieldCorrect[i] = ress.isCorrect[i];
     }
   }
 
 
   async loadGame() {
     if (this.oneVoneService.modus === IModus.legacyNormalModus) {
-      await this.oneVoneService.updateGameFromOnePlaying(this.oneVoneService.enemyNow);
       this.router.navigateByUrl('oneVsOneGame');
     }else if(this.oneVoneService.modus === IModus.legacyTrainingsModus){
-      await this.trainingsService.updateGameFromOnePlaying(this.trainingsService.enemyNow);
       this.router.navigateByUrl('trainingsGame');
     } else{
-      await this.ownVocOnlineService.updateGameFromOnePlaying(this.ownVocOnlineService.enemyNow);
       if(this.oneVoneService.modus === IModus.normalModus) {
         this.router.navigateByUrl('oneVsOneGame');
       } else {

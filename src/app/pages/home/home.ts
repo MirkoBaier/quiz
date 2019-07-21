@@ -1,11 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, LoadingController, NavController, ToastController} from '@ionic/angular';
+import {AlertController, LoadingController, NavController } from '@ionic/angular';
 import {AuthService} from "../../services/auth";
 import {NameService} from "../../services/name";
 import {OneVoneService} from "../../services/oneVone";
 import {Game} from "../../models/game";
 import {Observable, Subject} from "rxjs";
-import {tap, takeUntil} from "rxjs/operators";
+import {tap, takeUntil, map} from "rxjs/operators";
 import {FcmProvider} from "../../services/fcm";
 import {TrainingsGame} from "../../models/trainingsGame";
 import {TrainingsService} from "../../services/training";
@@ -51,7 +51,6 @@ export class HomePage {
               private alertCtrl: AlertController,
               private oneVoneService: OneVoneService,
               private fcm: FcmProvider,
-              private toastCtrl: ToastController,
               private trainingsService: TrainingsService,
               private vocubalarService: VocubalarService,
               private loadingCtrl: LoadingController,
@@ -110,6 +109,13 @@ export class HomePage {
     this.openTrainingsGames = this.trainingsService.getStartedGamesList().valueChanges().takeUntil(this.ngUnsubscribe);
     this.finishedGames = this.oneVoneService.getFinishedGamesList().valueChanges().takeUntil(this.ngUnsubscribe);
     this.openGames = this.oneVoneService.getStartedGamesList().valueChanges().takeUntil(this.ngUnsubscribe);
+    this.authService.OfflineMenu = false;
+
+    this.fcm.listenToNotifications().pipe(tap(async msg => {
+     
+      })
+    )
+    .takeUntil(this.ngUnsubscribe).subscribe();
     loader.dismiss();
   }
 
@@ -151,27 +157,13 @@ export class HomePage {
     }
   }
 
-  ionViewDidLoad() {
-    this.authService.OfflineMenu = false;
-    this.fcm.getToken();
-
-    this.fcm.listenToNotifications().pipe(tap(async msg => {
-        const toast = await this.toastCtrl.create({
-          message: ''+msg,
-          duration: 3000
-        });
-        toast.present();
-      })
-    )
-    .takeUntil(this.ngUnsubscribe).subscribe();
-  }
-
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
 
   async showAlert(res: any) {
+    this.oneVoneService.game = res;
     let nothingPressed: boolean = true;
     //Ruft neue Spiele auf
     if (res.started == false) {
@@ -206,6 +198,7 @@ export class HomePage {
   }
 
   async showOwnVocAlert(res: any) {
+    this.ownVocOnlineService.game = res;
     let nothingPressed: boolean = true;
     //Ruft neue Spiele auf
     if (res.started == false) {
@@ -240,6 +233,7 @@ export class HomePage {
   }
 
   async showAlertTraining(res: any) {
+    this.trainingsService.game = res;
     let nothingPressed: boolean = true;
     //Ruft neue Spiele auf
     if (res.started == false) {
@@ -295,32 +289,32 @@ export class HomePage {
     this.router.navigateByUrl('offline')
   }
 
-  async onLoadOnevsOneGame(enemy: string) {
-    this.oneVoneService.enemyNow = enemy;
+  async onLoadOnevsOneGame(game: Game) {
+    this.oneVoneService.enemyNow = game.enemy;
+    this.oneVoneService.game = game;
     // this.oneVoneService.trainingsModus = false;
     this.oneVoneService.modus = IModus.legacyNormalModus;
     this.router.navigateByUrl('beforeOneVsOneGame');
   }
 
-  async onLoadTrainingsGame(enemy: string) {
-    this.trainingsService.enemyNow = enemy;
+  async onLoadTrainingsGame(game: TrainingsGame) {
+    console.log('train', game);
+    this.trainingsService.enemyNow = game.enemy;
+    this.trainingsService.game = game;
     // this.oneVoneService.trainingsModus = true;
     this.oneVoneService.modus = IModus.legacyTrainingsModus;
     this.router.navigateByUrl('beforeOneVsOneGame');
   }
 
-  async onLoadOwnVocGame(enemy: string) {
-    let matchId;
-    this.ownVocOnlineService.enemyNow = enemy;
-    await this.ownVocOnlineService.getMatchIdByUsername(enemy).then(res => matchId = res);
-    await this.ownVocOnlineService.getGameData(matchId).then(game => {
-      if(game[0].allVoc[0].modus === IModus.normalModus){
+  async onLoadOwnVocGame(game: Game) {
+    this.ownVocOnlineService.enemyNow = game.enemy;
+    this.ownVocOnlineService.game = game;
+      if(game.allVoc[0].modus === IModus.normalModus){
       this.oneVoneService.modus = IModus.normalModus;
       } else {
       this.oneVoneService.modus = IModus.trainingsModus;
       }
       this.router.navigateByUrl('beforeOneVsOneGame');
-    })
   }
 
   async showResult(game: any) {

@@ -12,7 +12,7 @@
   </div>
   <!-- <div *ngIf="!this.authService.splash"> -->
     <div *ngIf="!minimizing">
-      <ion-button class="vok-hinzu" expand="block" color="white" (click)="minimize(true)">Vokabeln hinzufügen</ion-button>
+      <ion-button class="round-button-add" expand="block" (click)="minimize(true)">Vokabeln hinzufügen</ion-button>
     </div>
     <div *ngIf="minimizing">
       <form #g="ngForm">
@@ -90,7 +90,7 @@
         </ion-row>
         <ion-row>
           <ion-col size="10">
-            <ion-button class="round-button-add" fill="outline" color="white" [disabled]="!g.valid" type="submit" (click)="test()">
+            <ion-button class="round-button-add" [disabled]="!g.valid" type="submit" (click)="test()">
               Hinzufügen
             </ion-button>
           </ion-col>
@@ -111,9 +111,11 @@
         <ion-icon class="c-learn" slot="icon-only" name="school"></ion-icon>
       </ion-button>
       <ion-item-sliding class="backoffitem">
+        <ion-item>
       <ion-button class="backoffitem" (click)="openList(offline.listName)">
         {{offline.listName}}
       </ion-button>
+      </ion-item>
         <ion-item-options>
       <ion-button item-end color="danger" type="button" (click)="removeListe(offline.listName, offline.time)">
       <ion-icon name="trash"></ion-icon>

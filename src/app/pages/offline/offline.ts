@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { IModus } from '../../models/IModus';
 
 //  "pre-commit": "npm run lint",
-"pre-push": "npm run test"
+// "pre-push": "npm run test"
 @Component({
   selector: 'page-offline',
   templateUrl: 'offline.html',
@@ -38,9 +38,9 @@ export class OfflinePage {
   }
 
   ionViewWillEnter() {
-    setTimeout(() => {
-      this.myInput.setFocus();
-    },400);
+    // setTimeout(() => {
+    //   this.myInput.setFocus();
+    // },400);
     //alle Vokabeln
     this.vocService.getOfflineData().then(res => {
         if (res != null) {
@@ -218,14 +218,14 @@ export class OfflinePage {
             this.router.navigateByUrl('oneVsOne');
           }
         },
-        {
-          text: '4 Möglichkeiten (Fremdsprache zu Übersetzung)',
-          role: 'destructive',
-          handler: () => {
-            this.offlineService.setModus(IModus.trainingsModus);
-            this.router.navigateByUrl('oneVsOne');
-          }
-        }, 
+        // {
+        //   text: '4 Möglichkeiten (Fremdsprache zu Übersetzung)',
+        //   role: 'destructive',
+        //   handler: () => {
+        //     this.offlineService.setModus(IModus.trainingsModus);
+        //     this.router.navigateByUrl('oneVsOne');
+        //   }
+        // }, 
         {
           text: 'Zurück',
           role: 'cancel',

@@ -1,4 +1,3 @@
-import { IModus } from './IModus';
 import { IVocList } from './IVocList';
 
 export class Game{
@@ -11,15 +10,15 @@ export class Game{
   round: number;
   started: boolean;
   userTurn: boolean;
-  playing: boolean;
+  playing?: boolean;
   voc: string[];
   trans: string[];
   finished: boolean;
   isCorrect: boolean[];
-  showedGameStats: boolean;
+  showedGameStats?: boolean;
   result: string;
   vocName: string;
-  time: any;
+  time?: any;
   enemyUID: string;
   // modus?: IModus;
   placeholderVoc?: string[];

@@ -9,14 +9,16 @@
 
 <ion-content class="backpic" fullscreen>
   <ion-list>
-    <ion-item-sliding class="backoffitem" *ngFor="let offline of offlineArrayListe">
-      <ion-button ion-item class="backoffitem" (click)="openList(offline.listName)">
-       Vokabel: {{offline.voc}} => Übersetzung: {{offline.trans}}
+    <ion-item-sliding *ngFor="let offline of offlineArrayListe">
+      <ion-item>
+      <ion-button class="backoffitem">
+       {{offline.voc}} => {{offline.trans}}
       </ion-button>
-      <ion-item-options>
-        <ion-button ion-button color="danger" type="button" (click)="removeItemFromList(offline)">
+    </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="removeItemFromList(offline)">
           <ion-icon name="trash"></ion-icon>
-        </ion-button>
+        </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

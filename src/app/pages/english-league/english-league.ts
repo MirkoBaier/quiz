@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
 import {NameService} from "../../services/name";
 import {AuthService} from "../../services/auth";
 import {PointsService} from "../../services/points";
@@ -19,8 +18,7 @@ export class EnglishLeaguePage {
   arrayPoints: any[] = [];
 
 
-  constructor(private authService: AuthService,
-              private nameService: NameService,
+  constructor(private nameService: NameService,
               private router: Router,
               private pointsService: PointsService) {
   }

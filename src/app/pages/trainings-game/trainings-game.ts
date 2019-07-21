@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, LoadingController, NavController, ToastController} from '@ionic/angular';
+import {AlertController, LoadingController, ToastController} from '@ionic/angular';
 import {TrainingsService} from "../../services/training";
 import {TrainingsGame} from "../../models/trainingsGame";
 import { Router } from '@angular/router';
@@ -24,7 +24,6 @@ export class TrainingsGamePage {
   languagePic: string = "";
 
   constructor(private router: Router,
-              private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
               private trainingsService: TrainingsService,
               private alertCtrl: AlertController) {
@@ -41,19 +40,17 @@ export class TrainingsGamePage {
   }
 
   ngOnInit() {
-    this.trainingsService.getLiveGame().then(res => {
-      this.languagePic = res[0].vocName;
-      this.englishVoc = res[0].voc;
-      this.germanVoc = res[0].trans;
-      this.yoloVoc = res[0].yolo;
-      this.translation = res[0].trans[0];
-      this.translate = res[0].voc[0];
-      this.yoloItem.push(res[0].yolo[0]);
-      this.yoloItem.push(res[0].yolo[1]);
-      this.yoloItem.push(res[0].yolo[2]);
-      this.yoloItem.push(res[0].trans[0]);
+      this.languagePic = this.trainingsService.game.vocName;
+      this.englishVoc = this.trainingsService.game.voc;
+      this.germanVoc = this.trainingsService.game.trans;
+      this.yoloVoc = this.trainingsService.game.yolo;
+      this.translation = this.trainingsService.game.trans[0];
+      this.translate = this.trainingsService.game.voc[0];
+      this.yoloItem.push(this.trainingsService.game.yolo[0]);
+      this.yoloItem.push(this.trainingsService.game.yolo[1]);
+      this.yoloItem.push(this.trainingsService.game.yolo[2]);
+      this.yoloItem.push(this.trainingsService.game.trans[0]);
       this.shuffleArray(this.yoloItem);
-    });
   }
 
 
@@ -84,26 +81,11 @@ export class TrainingsGamePage {
         message: 'Please wait...'
       });
       loading.present();
-      let liveGame = await this.trainingsService.getLiveGame();
-      await this.trainingsService.updateGameAfterRound(liveGame[0].enemy, liveGame[0].matchId, this.points, this.isCorrect);
-      let updatedGame = await this.trainingsService.getSomething(liveGame[0].enemy, liveGame[0].matchId);
-
+      let liveGame = this.trainingsService.game;
+      await this.trainingsService.updateGameAfterRound(liveGame.enemy, liveGame.matchId, this.points, this.isCorrect);
       //Spiel zu ende
-      if (updatedGame[0].round == 10) {
-        let game = new TrainingsGame();
-        game.round = updatedGame[0].round;
-        game.startedFrom = updatedGame[0].startedFrom;
-        game.pointsUser = updatedGame[0].pointsUser;
-        game.pointsEnemy = updatedGame[0].pointsEnemy;
-        game.user = updatedGame[0].user;
-        game.enemy = updatedGame[0].enemy;
-        game.matchId = updatedGame[0].matchId;
-        game.result = updatedGame[0].result;
-        game.vocName = updatedGame[0].vocName;
-        this.router.navigateByUrl('home')
-        await this.trainingsService.addFinishedGameToHistory(game);
-        this.trainingsService.deleteMatch(updatedGame[0].enemy, updatedGame[0].matchId);
-      }
+      this.gameEnd(liveGame);
+    
       loading.dismiss();
     }
     //neue Vokabeln
@@ -119,5 +101,50 @@ export class TrainingsGamePage {
     }
     this.yoloItem.push(this.translation);
     this.shuffleArray(this.yoloItem);
+  }
+
+  private async gameEnd(liveGame: TrainingsGame) {
+    if (liveGame.round == 9) {
+      this.trainingsService.getSomething(liveGame.enemy, liveGame.matchId).then(updatedGame => {
+      this.showResult(updatedGame);
+      let game = new TrainingsGame();
+      game.round = updatedGame[0].round;
+      game.startedFrom = updatedGame[0].startedFrom;
+      game.pointsUser = updatedGame[0].pointsUser;
+      game.pointsEnemy = updatedGame[0].pointsEnemy;
+      game.user = updatedGame[0].user;
+      game.enemy = updatedGame[0].enemy;
+      game.matchId = updatedGame[0].matchId;
+      game.result = updatedGame[0].result;
+      game.vocName = updatedGame[0].vocName;
+      this.router.navigateByUrl('home')
+      this.trainingsService.addFinishedGameToHistory(game);
+      this.trainingsService.deleteMatch(updatedGame[0].enemy, updatedGame[0].matchId);
+    })    
+    }
+  }
+
+  private async showResult(game: TrainingsGame[]) {
+    let alert;
+    if (game[0].pointsEnemy < game[0].pointsUser) {
+      alert = this.alertCtrl.create({
+        header: 'Gewonnen!',
+        subHeader: 'Du hast gegen ' + game[0].enemy + ' mit ' + game[0].pointsUser + ":" + game[0].pointsEnemy + ' gewonnen!',
+        buttons: ['OK']
+      });
+    } else if (game[0].pointsEnemy == game[0].pointsUser) {
+      alert = this.alertCtrl.create({
+        header: 'Unentschieden!',
+        subHeader: 'Du hast gegen ' + game[0].enemy + ' mit ' + game[0].pointsUser + ":" + game[0].pointsEnemy + 'unentschieden gespielt!',
+        buttons: ['OK']
+      });
+    } else {
+      alert = this.alertCtrl.create({
+        header: 'Verloren!',
+        subHeader: 'Du hast gegen ' + game[0].enemy + ' mit ' + game[0].pointsUser + ":" + game[0].pointsEnemy + ' verloren!',
+        buttons: ['OK']
+      });
+    }
+    alert.present();
   }
 }

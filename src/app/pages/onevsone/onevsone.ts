@@ -7,6 +7,7 @@ import {TrainingsService} from "../../services/training";
 import {VocubalarService} from "../../services/vocubalar";
 import {OwnVocOnlineService} from "../../services/ownVocOnlineService";
 import { Router } from '@angular/router';
+import { IModus } from '../../models/IModus';
 
 @Component({
   selector: 'page-onevsone',
@@ -73,7 +74,7 @@ export class OnevsonePage {
     if (this.vocService.actualModus == '0') {
       this.ownVocOnlineService.addGame(user);
     }
-    else if (this.oneVoneService.isToggled == false) {
+    else if (this.oneVoneService.choiceModus === IModus.legacyNormalModus) {
       this.oneVoneService.addGame(user, false)
     } else {
       this.trainingsService.addGame(user);
@@ -83,7 +84,7 @@ export class OnevsonePage {
   }
 
   async randomEnemy() {
-    if (this.oneVoneService.isToggled == false) {
+    if (this.oneVoneService.choiceModus === IModus.legacyNormalModus) {
       await this.oneVoneService.addRandomGame(this.oneVoneService.language)
     } else {
       await this.trainingsService.addRandomGame(this.oneVoneService.language);

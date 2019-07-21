@@ -4,6 +4,7 @@ import {AuthService} from "../../services/auth";
 import {NgForm} from "@angular/forms";
 import {RegistrationPage} from "../registration/registration";
 import { Router } from '@angular/router';
+import { FcmProvider } from '../../services/fcm';
 
 @Component({
   selector: 'page-login',
@@ -16,7 +17,8 @@ export class LoginPage {
   constructor(private authService: AuthService,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
-              private router: Router) {
+              private router: Router,
+              private fcm: FcmProvider) {
   }
 
   async onSignin(form: NgForm){
@@ -26,6 +28,7 @@ export class LoginPage {
     loading.present();
    await this.authService.signin(form.value.email, form.value.password)
       .then(data => {
+        this.fcm.getToken();
       loading.dismiss();
   })
       .catch( async error => {

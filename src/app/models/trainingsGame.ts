@@ -8,7 +8,6 @@ export class TrainingsGame{
   round: number;
   started: boolean;
   userTurn: boolean;
-  playing: boolean;
   voc: string[];
   trans: string[];
   yolo: string[];

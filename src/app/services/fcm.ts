@@ -16,7 +16,7 @@ export class FcmProvider {
   }
 
   async getToken() {
-
+    console.log("getToken");
     let token;
 
     if (this.platform.is('android')) {
@@ -44,7 +44,7 @@ export class FcmProvider {
         token,
         userId: this.nameService.userId,
       };
-
+      
       return devicesRef.doc(token).set(docData)
   }
 

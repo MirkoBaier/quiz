@@ -8,7 +8,7 @@ import {AngularFireAuth} from "@angular/fire/auth";
 import {userProfile} from "../models/userProfile";
 import {NameService} from "./name";
 // import { Platform } from '@ionic/angular';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 
 

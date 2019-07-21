@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {AlertController, NavController} from '@ionic/angular';
 import {AuthService} from "../../services/auth";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'page-name',
@@ -10,7 +11,7 @@ import {AuthService} from "../../services/auth";
 export class NamePage {
  public name;
 
-  constructor(private navCtrl: NavController, private authServce: AuthService, private alertCtrl: AlertController) {
+  constructor(private router: Router, private authServce: AuthService, private alertCtrl: AlertController) {
   }
 
 
@@ -19,7 +20,7 @@ export class NamePage {
     this.authServce.checkUsername(name).then(res => {
       if(res==false) {
         this.authServce.setUsername(name);
-        this.navCtrl.navigateRoot('/HomePage');
+        this.router.navigateByUrl('home')
       }else{
         this.showPrompt();
       }

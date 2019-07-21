@@ -75,15 +75,18 @@ export class VokabelQuiz {
       else {
         this.authService.loggedIn = false;
         this.isAuthenticated = false;
-        this.rootPage = 'OfflinePage';
+        this.router.navigateByUrl('registration');
       }
     });
 
     platform.ready().then(() => {
-
-      statusBar.styleDefault();
-      splashScreen.hide();
-      timer(3000).subscribe(() =>{ this.showSplash = false; this.authService.splash = false})
+      setTimeout(() => {
+        splashScreen.hide();
+      }, 1000);
+      
+      // statusBar.styleDefault();
+      // splashScreen.hide();
+      // timer(5000).subscribe(() =>{ this.showSplash = false; this.authService.splash = false})
 
     });
   }
