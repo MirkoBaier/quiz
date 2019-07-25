@@ -1,5 +1,3 @@
-<!-- <div *ngIf="this.authService.splash" class="showsplash">
-</div> -->
 
 <ion-header>
     <ion-toolbar color="secondary">
@@ -11,9 +9,6 @@
   
 
 <ion-content fullscreen class="home-backg">
-    <!-- <div *ngIf="this.authService.splash" class="showsplash">
-    </div> -->
-  <!-- <div *ngIf="!this.authService.splash"> -->
   <ion-grid>
   <ion-badge class="home-button" expand="block" size="large" *ngIf="userName!=null">
   Eingeloggt als: {{userName}}
@@ -92,6 +87,5 @@
             </ion-button>
         </ion-list>
     </ion-content>
-  <!-- </div> -->
 </ion-content>
 

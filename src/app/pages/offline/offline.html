@@ -7,10 +7,6 @@
 </ion-header>
 
 <ion-content class="backpic" fullscreen>
-    
-  <div *ngIf="this.authService.splash" class="showsplash">
-  </div>
-  <!-- <div *ngIf="!this.authService.splash"> -->
     <div *ngIf="!minimizing">
       <ion-button class="round-button-add" expand="block" (click)="minimize(true)">Vokabeln hinzufügen</ion-button>
     </div>

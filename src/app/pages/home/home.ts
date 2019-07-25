@@ -28,6 +28,7 @@ import { IModus } from '../../models/IModus';
       // },
 //webGl
 //ionic cordova build android --build --release --aot  --minifyjs --minifycss -- -- --versionCode=0.0.7
+// android:windowSoftInputMode="adjustPan"
 export class HomePage {
   @ViewChild('nav') nav: NavController;
   userName: any;

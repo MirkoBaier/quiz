@@ -10,6 +10,9 @@
 <ion-content fullscreen class="onevsone-choice-backg">
   <ion-content class="league-language" style="width:100%;height:75vh" scrollY="true">
     <ion-list>
+        <ion-button class="onevonebutton" expand="block" size="large" (click)="createOwnVocabulary()" color="light">
+            Eigene Vokabeln
+          </ion-button>
       <ion-button class="onevonebutton" expand="block" size="large" (click)="presentActionSheet('Englisch')">
             Englisch
       </ion-button>
@@ -18,9 +21,6 @@
       </ion-button>
       <ion-button class="onevonebutton" expand="block" size="large" (click)="presentActionSheet('Französisch')">
         Französisch
-      </ion-button>
-      <ion-button class="onevonebutton" expand="block" size="large" (click)="createOwnVocabulary()" color="light">
-        Eigene Vokabeln
       </ion-button>
     </ion-list>
   </ion-content>
