@@ -132,19 +132,21 @@ export class TrainingsGamePage {
         subHeader: 'Du hast gegen ' + game[0].enemy + ' mit ' + game[0].pointsUser + ":" + game[0].pointsEnemy + ' gewonnen!',
         buttons: ['OK']
       });
+      alert.present();
     } else if (game[0].pointsEnemy == game[0].pointsUser) {
       alert = this.alertCtrl.create({
         header: 'Unentschieden!',
         subHeader: 'Du hast gegen ' + game[0].enemy + ' mit ' + game[0].pointsUser + ":" + game[0].pointsEnemy + 'unentschieden gespielt!',
         buttons: ['OK']
       });
+      alert.present();
     } else {
       alert = this.alertCtrl.create({
         header: 'Verloren!',
         subHeader: 'Du hast gegen ' + game[0].enemy + ' mit ' + game[0].pointsUser + ":" + game[0].pointsEnemy + ' verloren!',
         buttons: ['OK']
       });
+      alert.present();
     }
-    alert.present();
   }
 }

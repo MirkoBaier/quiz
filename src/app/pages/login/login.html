@@ -26,6 +26,9 @@
   </ion-list>
   <ion-button color="light" size="large" class="loginbutton" expand="block" type="submit" [disabled]="!f.valid">Login</ion-button>
   </form>
-  <ion-button color="light" size="large"  expand="block" fill="clear" (click)="onLoad(registrationPage)">Hier registrieren</ion-button>
-  </div>
+  <ion-list>
+  <ion-button color="light" expand="block" class="loginbutton" (click)="onLoad(registrationPage)">Hier registrieren</ion-button>
+  <ion-button color="light" class="loginbutton" expand="block" (click)="resetPassword()">Passwort vergessen?</ion-button>
+  </ion-list>
+</div>
 </ion-content>

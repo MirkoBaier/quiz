@@ -9,6 +9,7 @@ import {userProfile} from "../models/userProfile";
 import {NameService} from "./name";
 // import { Platform } from '@ionic/angular';
 import * as firebase from 'firebase/app';
+import { AlertController, ToastController } from '@ionic/angular';
 
 
 
@@ -24,6 +25,8 @@ export class AuthService {
   constructor( private afAuth: AngularFireAuth,
                private fireStore: AngularFirestore,
                private nameService: NameService,
+               private alertCtrl: AlertController,
+               private toastController: ToastController
              ){
   }
 
@@ -104,6 +107,47 @@ export class AuthService {
 
   getActiveUser() {
     return firebase.auth().currentUser;
+  }
+
+  private passwordReset(email: string) {
+    return firebase.auth().sendPasswordResetEmail(email);
+  }
+
+  async resetPassword() {
+    let prompt = await this.alertCtrl.create({
+      message: "Gib deine Email an um dein Passwort zu resetten",
+      inputs: [
+        {
+          name: 'email',
+          placeholder: 'Email',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Reset',
+          handler: data => {
+            this.passwordReset(data.email).
+            then(() => this.presentToast('Es wurde eine Email verschickt an ihre angegebene Adresse')).
+            catch(error => this.presentToast('ungültige Email Adresse'));
+          }
+        }
+      ]
+    });
+    await prompt.present();
+  }
+
+  async presentToast(text: string) {
+    const toast = await this.toastController.create({
+      message: text,
+      duration: 2000
+    });
+    toast.present();
   }
 
 //  googleLogin(){

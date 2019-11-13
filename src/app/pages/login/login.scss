@@ -19,9 +19,10 @@
     outline: none;
     margin: 5px 1px 3px 0px;
     border: 1px solid #DDDDDD;
-    --placeholder-color: rgb(187, 183, 183);   /* placeholder text color */
+    --placeholder-color: white;   /* placeholder text color */
     color: var(--ion-color-light); 
     font-size: 20px;
+    background: #0084ff57
   }
 
   ion-input:focus-within, textarea:focus-within{

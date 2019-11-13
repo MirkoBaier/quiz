@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, LoadingController, NavController} from '@ionic/angular';
+import {AlertController, LoadingController, NavController, ModalController, ToastController} from '@ionic/angular';
 import {AuthService} from "../../services/auth";
 import {NgForm} from "@angular/forms";
 import {RegistrationPage} from "../registration/registration";
@@ -18,7 +18,9 @@ export class LoginPage {
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
               private router: Router,
-              private fcm: FcmProvider) {
+              private fcm: FcmProvider,
+              public modalController: ModalController,
+              private toastController: ToastController) {
   }
 
   async onSignin(form: NgForm){
@@ -46,4 +48,7 @@ export class LoginPage {
     this.router.navigateByUrl('registration')
   }
 
+   resetPassword() {
+     this.authService.resetPassword();
+    }
 }

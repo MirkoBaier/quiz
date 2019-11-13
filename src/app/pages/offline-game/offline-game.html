@@ -8,14 +8,20 @@
     </ion-toolbar>
   </ion-header>
   
-
-
 <ion-content class="backpic" fullscreen>
+    <ion-item  text-center class="blue" *ngIf='this.actVoc[this.counter]!=undefined'>
+        <ion-label>{{counter+1}}/{{showMaxLength}}</ion-label>
+    </ion-item>
   <div class="container">
   <div class="halpi">
-  <form  #l="ngForm">
-<ion-item class="backoffitem">Übersetze: {{voc}}</ion-item>
-    <div *ngIf="this.actualModus=='1'||'2'">
+  
+<ion-item text-center class="backoffitem">
+<ion-label>  
+  Übersetze: {{voc}}
+</ion-label>
+</ion-item>
+    <div *ngIf="this.actualModus=='vocToTran'||'tranToVoc'">
+  <form  #f="ngForm" (ngSubmit)="checkCorrect(f)">
   <ion-input
     [(ngModel)]="userTrans"
     class="text-input"
@@ -24,18 +30,19 @@
     ngModel
     #input>
   </ion-input>
-  <ion-button fill="outline" ion-button (click)="checkCorrect(f)">
+  <ion-button class='c-button' size="large" expand="block" type='submit'>
     Weiter
   </ion-button>
+</form>
     </div>
-    <div *ngIf="this.actualModus=='3'">
+    <!-- <div *ngIf="this.actualModus=='3'">
+      {{trans}}
+    </div> -->
+    <div *ngIf="this.actualModus=='trainingVocToTran'">
       {{trans}}
     </div>
-  </form>
   </div>
     <div [@myvisibility]="visibleState" class="animate-me">
     </div>
   </div>
-
-
 </ion-content>

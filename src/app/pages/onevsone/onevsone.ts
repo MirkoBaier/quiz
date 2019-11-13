@@ -8,6 +8,7 @@ import {VocubalarService} from "../../services/vocubalar";
 import {OwnVocOnlineService} from "../../services/ownVocOnlineService";
 import { Router } from '@angular/router';
 import { IModus } from '../../models/IModus';
+import { Modus } from '../../services/modus';
 
 @Component({
   selector: 'page-onevsone',
@@ -18,6 +19,7 @@ export class OnevsonePage {
   users: any[];
   oldUsers: any[];
   onlyFriends: boolean = true;
+  showEnemys: boolean = false;
 
   constructor(private oneVoneService: OneVoneService,
               private authService: AuthService,
@@ -31,28 +33,11 @@ export class OnevsonePage {
 
   async ngOnInit() {
     this.setOnlyFriends();
-
-    //Alle User werden angezeigt ausnahme er selber
-    let loading = await this.loadingCtrl.create({
-      message: 'Please wait...'
-    });
-    loading.present();
-    let username = await this.nameService.getUsername();
-    await this.authService.getDocuments("userProfile").then(users => {
-      for (let i = users.length - 1; i >= 0; i--) {
-        if (users[i].username === username) {
-          users.splice(i, 1);
-        }
-      }
-      this.users = users;
-      this.oldUsers = users;
-      loading.dismiss();
-    })
   }
 
 
   initializeItems() {
-    this.users = this.oldUsers;
+    this.oneVoneService.allPlayer = this.oldUsers;
   }
 
 
@@ -70,8 +55,31 @@ export class OnevsonePage {
     }
   }
 
+   async showAllPlayer() {
+    this.showEnemys = !this.showEnemys;
+
+    if( this.oneVoneService.allPlayer === undefined ) { 
+     //Alle User werden angezeigt ausnahme er selber
+     let loading = await this.loadingCtrl.create({
+      message: 'Please wait...'
+    });
+    loading.present();
+    let username = await this.nameService.getUsername();
+    await this.authService.getDocuments("userProfile").then(users => {
+      for (let i = users.length - 1; i >= 0; i--) {
+        if (users[i].username === username) {
+          users.splice(i, 1);
+        }
+      }
+      this.oneVoneService.allPlayer = users;
+      this.oldUsers = users;
+      loading.dismiss();
+    })
+    }
+  }
+
   onLoadpage(user: any) {
-    if (this.vocService.actualModus == '0') {
+    if (this.vocService.actualModus == Modus.online) {
       this.ownVocOnlineService.addGame(user);
     }
     else if (this.oneVoneService.choiceModus === IModus.legacyNormalModus) {
@@ -79,7 +87,7 @@ export class OnevsonePage {
     } else {
       this.trainingsService.addGame(user);
     }
-    this.vocService.actualModus = '-1';
+    this.vocService.actualModus = Modus.none;
     this.setHome();
   }
 
@@ -97,7 +105,7 @@ export class OnevsonePage {
   }
 
   private setOnlyFriends() {
-    if (this.vocService.actualModus == '0') {
+    if (this.vocService.actualModus == Modus.online) {
       this.onlyFriends = false
     } else {
       this.onlyFriends = true;

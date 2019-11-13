@@ -1,15 +1,15 @@
 
 <ion-app>
     <ion-menu contentId="content1" side="start">
-        <ion-header>
+        <!-- <ion-header>
           <ion-toolbar>
             <ion-title color="light">Menu</ion-title>
           </ion-toolbar>
-        </ion-header>
+        </ion-header> -->
         <ion-content>
-          <ion-button *ngIf="!networkProvider.onlineScreen" color="light" fill="outline" size="large" expand="block" (click)="onLoadOnline()">Onlinemodus</ion-button>
-          <ion-button *ngIf="networkProvider.onlineScreen" color="light" fill="outline" size="large" expand="block" (click)="onLoadOffline()">Offlinemodus</ion-button>
-          <ion-button color="light" size="large" fill="outline" expand="block" (click)="logout()">Logout</ion-button>
+          <ion-button class="first" *ngIf="!networkProvider.onlineScreen" size="large" expand="block" (click)="onLoadOnline()">Onlinemodus</ion-button>
+          <ion-button class="first" *ngIf="networkProvider.onlineScreen" size="large" expand="block" (click)="onLoadOffline()">Offlinemodus</ion-button>
+          <ion-button size="large" expand="block" (click)="logout()">Logout</ion-button>
         </ion-content>
       </ion-menu>
       <ion-router-outlet id="content1" main></ion-router-outlet>

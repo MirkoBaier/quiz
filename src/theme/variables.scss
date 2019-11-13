@@ -4,7 +4,7 @@
 // /** Ionic CSS Variables **/
  :root {
   /** primary **/
-  --ion-color-primary: #512fe0;
+  --ion-color-primary: #0084ffad;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -79,6 +79,7 @@
   --green: rgba(50, 219, 100, 0.8);
   --red: #f53d3d;
   --lightblue: #00dbff;
+  --button-primary: #0084ffad;
 
   .ion-color-primpurple {
     --ion-color-base: var(--ion-color-primpurple) !important;
@@ -98,6 +99,13 @@ ion-header {
   position: static;
 }
 
+ion-button {
+  --background: #0084ffad;
+}
+
+ion-label {
+  color: white;
+}
 // ion-alert {
 //   --background: rgb(29, 26, 26) !important;
 //   .alert-wrapper {
@@ -108,17 +116,30 @@ ion-header {
 //   }
 //  }
 
- alert-title  {
+alert-title  {
   color: white!important;
   --color: white!important;
- }
+}
 
- ion-alert-title {
+ion-alert-title {
    color: white!important;
- }
+}
+
+ion-list{
+  --ion-item-background: transparent;
+}
+
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+}
+
+ion-header {
+  position: static;
+}
 
 ion-badge {
-    background-color: var(--ion-color-primpurple);
+    background-color: #0084ffad;
 }
 
 ion-content{

@@ -24,8 +24,8 @@ const routes: Routes = [
   { path: 'oneVsOne', loadChildren: './pages/onevsone/onevsone.module#OnevsonePageModule' },
   { path: 'oneVsOneChoice', loadChildren: './pages/onevsone-choice/onevsone-choice.module#OnevsoneChoicePageModule' },
   { path: 'oneVsOneGame', loadChildren: './pages/onevsone-game/onevsone-game.module#OnevsoneGamePageModule' },
-
-
+  { path: 'statsOffline', loadChildren: './pages/stats-offline/stats-offline.module#StatsOfflinePageModule' },  { path: 'game-decision', loadChildren: './pages/game-decision/game-decision.module#GameDecisionPageModule' },
+  { path: 'online-list', loadChildren: './pages/online-list/online-list.module#OnlineListPageModule' },
 
 ];
 

@@ -3,6 +3,7 @@ import {OwnVoc} from "../models/ownVoc";
 import {NgForm} from "@angular/forms";
 import {Injectable} from "@angular/core";
 import {OfflineVoc} from "../models/offlineVoc";
+import { Modus } from './modus';
 
 @Injectable()
 export class VocubalarService {
@@ -13,12 +14,29 @@ export class VocubalarService {
   listName: string;
   Vocabulary: OwnVoc[] = [];
   actualListName: string;
-  actualModus: string;
+  actualModus: Modus;
+  private correctCounter: number;
+  private maxCounter: number;
 
   constructor(private storage: Storage) {
 
   }
 
+  setCorrectCounter(correctNumber: number) {
+    this.correctCounter = correctNumber;
+  }
+
+  getCorrectCounter(): number {
+    return this.correctCounter;
+  }
+
+  setMaxCounter(maxCounter: number) {
+    this.maxCounter = maxCounter;
+  }
+
+  getMaxCounter(): number {
+    return this.maxCounter;
+  }
 
   removeOffline() {
     this.storage.remove(this.OFFLINE_VOC_List);

@@ -35,7 +35,7 @@ export class OneVoneService {
   private ngUnsubscribe: Subject<void> = new Subject();
   game: Game;
   choiceModus: IModus;
-
+  allPlayer: any[]
 
   constructor(private authService: AuthService,
               private nameService: NameService,

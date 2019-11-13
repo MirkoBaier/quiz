@@ -1,12 +1,11 @@
-page-offline-game {
-  .backpic{
-    background-image: url('../../assets/imgs/backpic.png');
-    background-repeat: no-repeat;
-    background-size:cover;
+.backoffitem{
+    --background: #0084ffad;
+    color: white;
+    margin-top: -50px;
   }
 
-  .backoffitem{
-    background: rgba(255, 255, 255, 0.1);
+  .blue{
+    --background: #0084ffad;
     color: white;
   }
 
@@ -23,7 +22,7 @@ page-offline-game {
   }
 
   .text-input{
-    color: color($colors, white);
+    color: white;
     font-size: 1.2em;
   }
 
@@ -34,22 +33,43 @@ page-offline-game {
     padding-top: 0!important;
   }
 
-
-
-
-
   .animate-me{
     width: 50px;
     margin: 0 auto;
     margin-bottom: 50px;
     height: 50px;
     padding: 20px;
-    background-image: url('../../assets/imgs/haken.png');
+    background-image: url('../../../assets/imgs/haken.png');
   }
-
-
 
   .container{
     margin-top: 175px;
   }
-}
+
+  ion-input {
+    --background: black;
+    --padding-bottom: 20px;
+    --padding-top: 20px;
+    --padding-start: 20px !important;
+    --padding-end: 20px;
+    transition: all 0.30s ease-in-out;
+    outline: none;
+    padding-left: 20px;
+    --padding-left: 20px;
+    padding: 5px 5px 5px 25px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #DDDDDD;
+    --placeholder-color: rgb(187, 183, 183);   /* placeholder text color */
+    color: white; 
+  }
+
+  ion-input:focus-within, textarea:focus-within{
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 10px 10px 10px 10px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(81, 203, 238, 1);
+  }
+
+  .c-button {
+    margin-bottom: 50px;
+  }

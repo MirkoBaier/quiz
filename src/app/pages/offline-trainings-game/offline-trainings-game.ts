@@ -4,6 +4,7 @@ import {OfflineService} from "../../services/offlineservice";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {VocubalarService} from "../../services/vocubalar";
 import { Router } from '@angular/router';
+import { Modus } from '../../services/modus';
 
 @Component({
   selector: 'page-offline-trainings-game',
@@ -39,9 +40,10 @@ export class OfflineTrainingsGamePage {
       const j = Math.floor(Math.random() * (i + 1));
       [this.offlineService.actualVoc[i], this.offlineService.actualVoc[j]] = [this.offlineService.actualVoc[j], this.offlineService.actualVoc[i]];
     }
-
+    console.log('yolo', this.yoloItem);
     this.setRandomVocForSpecificModus();
     this.mixVocabulary();
+    console.log('yolo2', this.yoloItem);
   }
 
   onLoadNext(userChoice){
@@ -95,14 +97,17 @@ export class OfflineTrainingsGamePage {
   }
 
   setRandomVocForSpecificModus(){
-    if(this.vocService.actualModus=='3') {
+    console.log('hierda', this.vocService.actualModus, Modus.trainingVocToTran,  Modus.trainingTranToVoc);
+    if(this.vocService.actualModus == Modus.trainingVocToTran) {
+      console.log('1');
       this.voc = this.offlineService.actualVoc[0].trans;
       this.translate = this.offlineService.actualVoc[0].voc;
       this.yoloItem[0] = this.offlineService.actualVoc[0].trans;
       this.yoloItem[1] = this.offlineService.actualVoc[1].trans;
       this.yoloItem[2] = this.offlineService.actualVoc[2].trans;
       this.yoloItem[3] = this.offlineService.actualVoc[3].trans;
-    }else if(this.vocService.actualModus=='4'){
+    }else if(this.vocService.actualModus == Modus.trainingTranToVoc){
+      console.log('2');
       this.voc = this.offlineService.actualVoc[0].voc;
       this.translate = this.offlineService.actualVoc[0].trans;
       this.yoloItem[0] = this.offlineService.actualVoc[0].voc;

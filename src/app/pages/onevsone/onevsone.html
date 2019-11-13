@@ -9,10 +9,12 @@
 
 
 <ion-content fullscreen class="onevsone-backg">
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  <ion-button *ngIf="onlyFriends" class="enemyonevone" color="danger" expand="block" size="large"  (click)="randomEnemy()">Zufälliger Gegner</ion-button>
-  <ng-container>
-    <ion-button class="enemyonevone" *ngFor="let item of users" expand="block" size="large" (click)="onLoadpage(item.username)" >
+    <ion-searchbar *ngIf="showEnemys" (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-button *ngIf="onlyFriends" class="enemyonevone" color="danger" expand="block" size="large"  (click)="randomEnemy()">Zufälliger Gegner</ion-button>
+    <ion-button *ngIf="!showEnemys" class="enemyonevone" expand="block" size="large" (click)="showAllPlayer()">Bestimmten Gegner finden</ion-button>
+    <ng-container *ngIf="showEnemys">
+    <ion-button expand="block" size="large" class="enemyonevone" (click)="showAllPlayer()">Gegner ausblenden</ion-button>
+    <ion-button class="enemyonevone" *ngFor="let item of this.oneVoneService.allPlayer" expand="block" size="large" (click)="onLoadpage(item.username)" >
       {{ item.username }}
     </ion-button>
   </ng-container>

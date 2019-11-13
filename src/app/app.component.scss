@@ -1,10 +1,10 @@
-ion-content{
-    --background: rgb(41, 41, 41);
-}
+// ion-content{
+//     --background: rgb(41, 41, 41);
+// }
 
-ion-menu {
-    --background: rgb(41, 41, 41);
-}
+// ion-menu {
+//     --background: rgb(41, 41, 41);
+// }
 
 .splash {
     // --background: url('../assets/imgs/splashy.png') 0 0/100% 100% no-repeat;
@@ -16,4 +16,8 @@ ion-menu {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .first {
+      margin-top: 50px;
   }

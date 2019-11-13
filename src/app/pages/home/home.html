@@ -10,35 +10,35 @@
 
 <ion-content fullscreen class="home-backg">
   <ion-grid>
-  <ion-badge class="home-button" expand="block" size="large" *ngIf="userName!=null">
+  <ion-badge class="home-button" color="primary" expand="block" size="large" *ngIf="userName!=null">
   Eingeloggt als: {{userName}}
     </ion-badge>
       <ion-row>
         <ion-col col-6>
-      <ion-button  class="home-button" color="primpurple" icon-left expand="block" size="large"  (click)="onLoadLeague()">
+      <ion-button  class="home-button" icon-left expand="block" size="large"  (click)="openPage('league')">
         <ion-icon name="trophy"></ion-icon>
         Liga
       </ion-button>
         </ion-col>
         <ion-col col-6>
-      <ion-button class="home-button" expand="block" [disabled]="true" size="large" >
-        Turnier
+      <ion-button class="home-button" expand="block" size="large" (click)="openPage('online-list')">
+        Vokabeln
       </ion-button>
         </ion-col>
       </ion-row>
     <ion-row>
       <ion-col col-6>
-    <ion-button color="primpurple" icon-left="true" class="home-button" size="large" expand="block" (click)="onLoadOnevsOne()">
+    <ion-button icon-left="true" class="home-button" size="large" expand="block" (click)="openPage('oneVsOneChoice')">
       <ion-icon name="school"></ion-icon>
       1 vs 1
     </ion-button>
       </ion-col>
       <ion-col col-6>
-      <ion-button color="primpurple" class="home-button" expand="block" size="large"  (click)="loadOffline()">Offline</ion-button>
+      <ion-button class="home-button" expand="block" size="large"  (click)="openPage('offline')">Offline</ion-button>
       </ion-col>
     </ion-row>
     </ion-grid>
-  <ion-badge class="home-button" expand="block">
+  <ion-badge color="primary" class="home-button" expand="block">
     Offene Spiele
   </ion-badge>
   <ion-content class="play-list" style="width:100%;height:30vh" scrollY="true">

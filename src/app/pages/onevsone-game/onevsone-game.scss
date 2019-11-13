@@ -49,15 +49,6 @@
     font-size: 1.2em;
   }
 
- 
-  // ion-input {
-  //   transition: all 0.30s ease-in-out;
-  //   outline: none;
-  //   margin: 5px 1px 3px 0px;
-  //   border: 1px solid #DDDDDD;
-  //   --background: red;
-  // }
-  
   ion-input:focus-within, textarea:focus-within{
     box-shadow: 0 0 5px rgba(81, 203, 238, 1);
     padding: 10px 10px 10px 10px;

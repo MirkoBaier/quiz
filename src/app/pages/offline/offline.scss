@@ -1,7 +1,15 @@
+.button2 {
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: 100%;
+  height: 16vh;
+}
 
-  // .showsplash{
-//   background-color: white;
-// }
+ion-button.button2 {
+  border: 10px solid #000000;
+  box-shadow: 1px 1px 2px rgba(81, 203, 238, 1);
+}
 
 ion-toolbar {
   --background: transparent;
@@ -50,12 +58,15 @@ ion-button.c-start-lecture{
   animation: glowing 3000ms infinite;
   color: rgba(81, 203, 238, 1);
   background-color: #fff;
+  height: 72%;
 }
 
 ion-button.backoffitem {
-  --background: #0084ffad;;
+  --background: #0084ffad;
   color: white;
   width: 100%;
+  height: 80%;
+  border: 1px solid;
 }
 
 @keyframes glowing {
@@ -91,12 +102,14 @@ ion-button.backoffitem {
     color: white;
     font-size: 1.2em;
     background-color: #0084ffad;
-    // padding: 26;
+    height: 48px;
+    margin-top: 5px;
   }
 
   .round-button{
     border-radius: 5px;
     color: white;
+    height: 50px;
   }
 
   ion-button.voc-hinzu{
@@ -109,13 +122,22 @@ ion-button.backoffitem {
     width: 100%;
     border-radius: 5px;
     color: white;
-    --background: #0085ff82;
+    --background: #0084ffad;
+    height: 48px;
   }
 
   ion-list{
     --ion-item-background: transparent!important;
   }
 
+  ion-list.off {
+    margin-top: -8px;
+  }
+
+  ion-button.delete {
+    height: 78%;
+    margin-top: 6px;
+  }
  
 
  

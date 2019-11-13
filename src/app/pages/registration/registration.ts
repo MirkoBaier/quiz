@@ -64,4 +64,7 @@ export class RegistrationPage {
   }
 
 
+  resetPassword() {
+    this.authService.resetPassword();
+  }
 }

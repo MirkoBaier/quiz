@@ -7,6 +7,26 @@
 </ion-header>
 
 <ion-content class="backpic" fullscreen>
+    <!-- <ion-item>
+        <ion-label>Framework: </ion-label>
+        <ion-label color="primary">{{ framework }}</ion-label>
+        <ion-button slot="end" fill="clear" (click)="showBasicPicker()">Select</ion-button>
+      </ion-item>
+     
+     
+      <ion-row text-center>
+        <ion-col size="4">Game</ion-col>
+        <ion-col size="4">Category</ion-col>
+        <ion-col size="4">Rating</ion-col>
+      </ion-row>
+     
+      <ion-row text-center>
+        <ion-col size="4">{{ selected[0] }}</ion-col>
+        <ion-col size="4">{{ selected[1] }}</ion-col>
+        <ion-col size="4">{{ selected[2] }}</ion-col>
+      </ion-row>
+     
+      <ion-button expand="block" (click)="showAdvancedPicker()">Show Advanced Picker</ion-button> -->
     <div *ngIf="!minimizing">
       <ion-button class="round-button-add" expand="block" (click)="minimize(true)">Vokabeln hinzufügen</ion-button>
     </div>
@@ -67,7 +87,7 @@
 
         <ion-row *ngIf="!voclist">
           <ion-col size="10">
-            <ion-list lines="none">
+            <ion-list class="off" lines="none">
               <ion-item class="transjo text-input">
                 <ion-label floating>Liste</ion-label>
                 <ion-select [(ngModel)]="listName" name="first">
@@ -107,13 +127,18 @@
         <ion-icon class="c-learn" slot="icon-only" name="school"></ion-icon>
       </ion-button>
       <ion-item-sliding class="backoffitem">
+          <ion-item-options side='start'>
+              <ion-button item-end class="delete" color="light" type="button" (click)="openStats(offline.listName)">
+              <ion-icon name="stats"></ion-icon>
+              </ion-button>
+            </ion-item-options>
         <ion-item>
       <ion-button class="backoffitem" (click)="openList(offline.listName)">
         {{offline.listName}}
       </ion-button>
       </ion-item>
         <ion-item-options>
-      <ion-button item-end color="danger" type="button" (click)="removeListe(offline.listName, offline.time)">
+      <ion-button item-end class="delete" color="danger" type="button" (click)="removeListe(offline.listName, offline.time)">
       <ion-icon name="trash"></ion-icon>
       </ion-button>
         </ion-item-options>

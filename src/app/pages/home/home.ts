@@ -268,27 +268,31 @@ export class HomePage {
     }
   }
 
-  onLoadSettings() {
-    this.router.navigateByUrl('settings')
+  // onLoadSettings() {
+  //   this.router.navigateByUrl('settings')
+  // }
+
+  // onLoadLeague() {
+  //   this.router.navigateByUrl('league')
+  // }
+
+  // onLoadOnevsOne() {
+  //   this.router.navigateByUrl('oneVsOneChoice')
+  // }
+
+  openPage(name) {
+    this.router.navigateByUrl(name);
   }
 
-  onLoadLeague() {
-    this.router.navigateByUrl('league')
-  }
+  // loadOffline() {
+  //   // let options: NativeTransitionOptions = {
+  //   //   direction: 'up',
+  //   //   duration: 600
+  //   // };
 
-  onLoadOnevsOne() {
-    this.router.navigateByUrl('oneVsOneChoice')
-  }
-
-  loadOffline() {
-    // let options: NativeTransitionOptions = {
-    //   direction: 'up',
-    //   duration: 600
-    // };
-
-    // this.nativePageTransitions.flip(options);
-    this.router.navigateByUrl('offline')
-  }
+  //   // this.nativePageTransitions.flip(options);
+  //   this.router.navigateByUrl('offline')
+  // }
 
   async onLoadOnevsOneGame(game: Game) {
     this.oneVoneService.enemyNow = game.enemy;

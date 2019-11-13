@@ -36,10 +36,13 @@
         </button>
       </ion-col>-->
       <ion-col col-12="true">
-        <ion-button color="light" class="reg" expand="block" fill="outline" (click)="OfflineModus()">Offline-Modus</ion-button>
+        <ion-list>
+        <ion-button color="light" class="reg" expand="block" (click)="OfflineModus()">Offline-Modus</ion-button>
+        <ion-button color="light" class="reg" expand="block" (click)="onLoad()">Hier einloggen</ion-button>
+        <ion-button color="light" class="reg" expand="block" (click)="resetPassword()">Passwort vergessen?</ion-button>
+      </ion-list>
       </ion-col>
     </ion-row>
-    <ion-button color="light" class="reg" size="large" expand="block" fill="clear" (click)="onLoad()">Hier einloggen
-    </ion-button>
+
   </div>
 </ion-content>
