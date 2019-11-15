@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {AlertController, NavController} from '@ionic/angular';
-import {AuthService} from "../../services/auth";
-import { Router } from '@angular/router';
+import {AuthService} from '../../services/auth';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'page-name',
@@ -9,28 +9,27 @@ import { Router } from '@angular/router';
   styleUrls: ['name.scss']
 })
 export class NamePage {
- public name;
+  public name;
 
   constructor(private router: Router, private authServce: AuthService, private alertCtrl: AlertController) {
   }
 
 
-
-  setName(name: string){
+  setName(name: string) {
     this.authServce.checkUsername(name).then(res => {
-      if(res==false) {
+      if (res === false) {
         this.authServce.setUsername(name);
-        this.router.navigateByUrl('home')
-      }else{
+        this.router.navigateByUrl('online');
+      } else {
         this.showPrompt();
       }
-    })
+    });
   }
 
   async showPrompt() {
     const prompt = await this.alertCtrl.create({
       header: 'Fehlgeschlagen',
-      message: "Benutzername ist bereits vergeben",
+      message: 'Benutzername ist bereits vergeben',
       buttons: [
         {
           text: 'Ok',

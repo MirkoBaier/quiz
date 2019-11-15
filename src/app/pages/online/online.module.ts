@@ -1,14 +1,12 @@
 import {NgModule} from '@angular/core';
 import {IonicModule} from '@ionic/angular';
-import {OfflinePage} from './offline';
+import {OnlinePage} from './online';
 import {CommonModule} from '@angular/common';
-import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
-  declarations: [
-    OfflinePage,
-  ],
+  declarations: [OnlinePage],
   imports: [
     CommonModule,
     FormsModule,
@@ -16,10 +14,10 @@ import {FormsModule} from '@angular/forms';
     RouterModule.forChild([
       {
         path: '',
-        component: OfflinePage
+        component: OnlinePage
       }
     ])
   ]
 })
-export class OfflinePageModule {
+export class OnlinePageModule {
 }

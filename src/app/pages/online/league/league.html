@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="online" autoHide="false"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="home-backg">
+  <ion-item>
+<ion-label text-center color="light">In welcher Sprache möchtest du dich messen?</ion-label>
+</ion-item>  
+<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ng-container>
+
+      <ion-button class="leaguebutton" size="large" *ngFor="let item of items" expand="block" (click)="onLoadpage(item)">
+      {{ item }}
+      </ion-button>
+
+  </ng-container>
+</ion-content>

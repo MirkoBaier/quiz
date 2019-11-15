@@ -1,0 +1,46 @@
+
+.text-input::-moz-placeholder {
+  color: #fafafa;
+}
+
+.text-input:-ms-input-placeholder {
+  color: #fafafa;
+}
+
+.text-input::-webkit-input-placeholder {
+  color: #fafafa;
+}
+
+ion-input:focus-within, textarea:focus-within {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 10px 10px 10px 10px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+}
+
+ion-header {
+  position: static;
+}
+
+ion-grid {
+  --background-color: transparent;
+}
+
+ion-list {
+  background-color: transparent;
+  --color: white;
+}
+
+ion-content.voc {
+  --background: transparent;
+}
+
+ion-item {
+  color: white;
+}
+

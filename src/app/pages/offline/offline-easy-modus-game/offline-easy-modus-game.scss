@@ -1,0 +1,38 @@
+.matrix {
+  margin-top: 30px;
+
+  ion-col {
+    --ion-grid-column-padding: 0px;
+    min-height: 150px;
+  }
+
+  .list {
+    padding: 0px;
+    height: 80%;
+  }
+
+  ion-item {
+    margin-bottom: 2px;
+  }
+
+  .new-background-color {
+    --background: rgb(61, 61, 61);
+    color: white;
+  }
+
+  .q1, .q2, .q3, .q4 {
+    color: white;
+  }
+
+}
+
+.item-border {
+  display: inline-block;
+  background-color: rgb(0, 195, 255);
+  border: 3px solid rgb(0, 195, 255);
+  color: white;
+  margin: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+

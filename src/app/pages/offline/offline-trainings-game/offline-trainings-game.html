@@ -1,0 +1,36 @@
+<ion-content class="backpic" padding>
+  <h3 class="text-input">Übersetze: </h3>
+  <ion-card class="ion-card-trans">
+    <img src="assets/imgs/world3.png"/>
+    <div class="shadow card-title">{{translate}}</div>
+  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button class="button2" size="large" type='submit' (click)="onLoadNext(yoloItem[0])">
+          {{yoloItem[0]}}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button class="button2" size="large" type='submit' (click)="onLoadNext(yoloItem[1])">
+          {{yoloItem[1]}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button class="button2" size="large" type='submit' (click)="onLoadNext(yoloItem[2])">
+          {{yoloItem[2]}}
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button class="button2" size="large" type='submit' (click)="onLoadNext(yoloItem[3])">
+          {{yoloItem[3]}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div [@myvisibility]="visibleState" class="animate-me">
+  </div>
+
+</ion-content>

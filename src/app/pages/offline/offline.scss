@@ -28,11 +28,11 @@ ion-header {
   position: static;
 }
 
-.new-background-color{
+.new-background-color {
   --background: rgb(61, 61, 61);
 }
 
-.header-button{
+.header-button {
   --color: white;
 }
 
@@ -43,14 +43,14 @@ ion-input {
   border: 1px solid #DDDDDD;
 }
 
-ion-input:focus-within, textarea:focus-within{
+ion-input:focus-within, textarea:focus-within {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 10px 10px 10px 10px;
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
 }
 
-ion-button.c-start-lecture{
+ion-button.c-start-lecture {
   transition: all 0.80s ease-in-out;
   box-shadow: 1px 1px 2px rgba(81, 203, 238, 1);
   padding: auto;
@@ -70,74 +70,81 @@ ion-button.backoffitem {
 }
 
 @keyframes glowing {
-  0% { box-shadow: 0 0 -15px #c4a300; }
-  40% { box-shadow: 0 0 15px #ffd503; }
-  60% { box-shadow: 0 0 15px #c4a300; }
-  100% { box-shadow: 0 0 -15px #c4a300; }
+  0% {
+    box-shadow: 0 0 -15px #c4a300;
+  }
+  40% {
+    box-shadow: 0 0 15px #ffd503;
+  }
+  60% {
+    box-shadow: 0 0 15px #c4a300;
+  }
+  100% {
+    box-shadow: 0 0 -15px #c4a300;
+  }
 }
 
+.transjo {
+  border: 1px solid #DDDDDD;
+  width: 100%;
+}
 
-  .transjo{
-    border: 1px solid #DDDDDD;
-    width: 100%;
-  }
+ion-input {
+  --padding-bottom: 10px;
+  --padding-top: 10px;
+  --padding-start: 10px !important;
+  --padding-end: 10px;
+  transition: all 0.30s ease-in-out;
+  outline: none;
+  padding-left: 20px;
+  --padding-left: 20px;
+  padding: 5px 5px 5px 25px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+  --placeholder-color: rgb(255, 255, 255); /* placeholder text color */
+  color: var(--ion-color-light);
+}
 
-  ion-input {
-    --padding-bottom: 10px;
-    --padding-top: 10px;
-    --padding-start: 10px !important;
-    --padding-end: 10px;
-    transition: all 0.30s ease-in-out;
-    outline: none;
-    padding-left: 20px;
-    --padding-left: 20px;
-    padding: 5px 5px 5px 25px;
-    margin: 5px 1px 3px 0px;
-    border: 1px solid #DDDDDD;
-    --placeholder-color: rgb(255, 255, 255);   /* placeholder text color */
-    color: var(--ion-color-light); 
-  }
+.text-input {
+  color: white;
+  font-size: 1.2em;
+  background-color: #0084ffad;
+  height: 48px;
+  margin-top: 5px;
+}
 
-  .text-input{
-    color: white;
-    font-size: 1.2em;
-    background-color: #0084ffad;
-    height: 48px;
-    margin-top: 5px;
-  }
+.round-button {
+  border-radius: 5px;
+  color: white;
+  height: 50px;
+}
 
-  .round-button{
-    border-radius: 5px;
-    color: white;
-    height: 50px;
-  }
+ion-button.voc-hinzu {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 100% !important;
+}
 
-  ion-button.voc-hinzu{
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    width: 100%!important;
-  }
+ion-button.round-button-add {
+  width: 100%;
+  border-radius: 5px;
+  color: white;
+  --background: #0084ffad;
+  height: 48px;
+}
 
-  ion-button.round-button-add{
-    width: 100%;
-    border-radius: 5px;
-    color: white;
-    --background: #0084ffad;
-    height: 48px;
-  }
+ion-list {
+  --ion-item-background: transparent !important;
+}
 
-  ion-list{
-    --ion-item-background: transparent!important;
-  }
+ion-list.off {
+  margin-top: -8px;
+}
 
-  ion-list.off {
-    margin-top: -8px;
-  }
-
-  ion-button.delete {
-    height: 78%;
-    margin-top: 6px;
-  }
+ion-button.delete {
+  height: 78%;
+  margin-top: 6px;
+}
  
 
  

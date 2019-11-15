@@ -1,25 +1,25 @@
 import {NgModule} from '@angular/core';
 import {IonicModule} from '@ionic/angular';
-import {OfflinePage} from './offline';
+import {OnevsoneGamePage} from './onevsone-game';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
-    OfflinePage,
+    OnevsoneGamePage,
   ],
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
+    FormsModule,
     RouterModule.forChild([
       {
         path: '',
-        component: OfflinePage
+        component: OnevsoneGamePage
       }
     ])
   ]
 })
-export class OfflinePageModule {
+export class OnevsoneGamePageModule {
 }

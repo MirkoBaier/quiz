@@ -1,0 +1,41 @@
+
+  ion-button {
+    --background: black;
+  }
+
+  ion-back-button{
+    --color: white;
+  }
+
+  ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+  }
+
+  ion-header {
+    position: static;
+  }
+
+  ion-label {
+    color: white!important;
+  }
+
+  
+  ion-button.button2 {
+    box-shadow: 3px 3px 3px rgba(81, 203, 238, 1);
+    --background: black;
+  }
+
+
+  .button2 {
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 100%;
+    height: 16vh;
+  }
+  
+  .header-label {
+    font-size: 1.2rem;
+  }
+

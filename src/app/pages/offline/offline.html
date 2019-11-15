@@ -1,82 +1,83 @@
 <ion-header>
-    <ion-toolbar color="secondary">
-      <ion-buttons slot="start">
-          <ion-menu-button autoHide="false"></ion-menu-button>
-      </ion-buttons>
-    </ion-toolbar>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="backpic" fullscreen>
-    <!-- <ion-item>
-        <ion-label>Framework: </ion-label>
-        <ion-label color="primary">{{ framework }}</ion-label>
-        <ion-button slot="end" fill="clear" (click)="showBasicPicker()">Select</ion-button>
-      </ion-item>
-     
-     
-      <ion-row text-center>
-        <ion-col size="4">Game</ion-col>
-        <ion-col size="4">Category</ion-col>
-        <ion-col size="4">Rating</ion-col>
-      </ion-row>
-     
-      <ion-row text-center>
-        <ion-col size="4">{{ selected[0] }}</ion-col>
-        <ion-col size="4">{{ selected[1] }}</ion-col>
-        <ion-col size="4">{{ selected[2] }}</ion-col>
-      </ion-row>
-     
-      <ion-button expand="block" (click)="showAdvancedPicker()">Show Advanced Picker</ion-button> -->
-    <div *ngIf="!minimizing">
-      <ion-button class="round-button-add" expand="block" (click)="minimize(true)">Vokabeln hinzufügen</ion-button>
-    </div>
-    <div *ngIf="minimizing">
-      <form #g="ngForm">
-        <ion-grid>
+  <!-- <ion-item>
+      <ion-label>Framework: </ion-label>
+      <ion-label color="primary">{{ framework }}</ion-label>
+      <ion-button slot="end" fill="clear" (click)="showBasicPicker()">Select</ion-button>
+    </ion-item>
+
+
+    <ion-row text-center>
+      <ion-col size="4">Game</ion-col>
+      <ion-col size="4">Category</ion-col>
+      <ion-col size="4">Rating</ion-col>
+    </ion-row>
+
+    <ion-row text-center>
+      <ion-col size="4">{{ selected[0] }}</ion-col>
+      <ion-col size="4">{{ selected[1] }}</ion-col>
+      <ion-col size="4">{{ selected[2] }}</ion-col>
+    </ion-row>
+
+    <ion-button expand="block" (click)="showAdvancedPicker()">Show Advanced Picker</ion-button> -->
+  <div *ngIf="!minimizing">
+    <ion-button class="round-button-add" expand="block" (click)="minimize(true)">Vokabeln hinzufügen</ion-button>
+  </div>
+  <div *ngIf="minimizing">
+    <form #g="ngForm">
+      <ion-grid>
         <ion-row>
           <ion-col size="10">
-              <ion-input
-                class="text-input"
-                placeholder="Neue Vokabel"
-                [(ngModel)]="inputvoc"
-                name="voc"
-                ngModel
-                required
-                #input></ion-input>
+            <ion-input
+              class="text-input"
+              placeholder="Neue Vokabel"
+              [(ngModel)]="inputvoc"
+              name="voc"
+              ngModel
+              required
+              #input></ion-input>
           </ion-col>
           <ion-col size="2">
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="10">
-              <ion-input
-                [(ngModel)]="inputtrans"
-                class="text-input"
-                placeholder="Übersetzung"
-                name="trans"
-                ngModel
-                [minlength]="1"
-                (keyup.enter)="test()"
-                required></ion-input>
+            <ion-input
+              [(ngModel)]="inputtrans"
+              class="text-input"
+              placeholder="Übersetzung"
+              name="trans"
+              ngModel
+              [minlength]="1"
+              (keyup.enter)="test()"
+              required></ion-input>
           </ion-col>
           <ion-col size="2">
-            <ion-button class="round-button" [disabled]="!g.valid" fill="outline" color="white" type="button" (click)="test()">
+            <ion-button class="round-button" [disabled]="!g.valid" fill="outline" color="white" type="button"
+                        (click)="test()">
               <ion-icon name="add"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>
         <ion-row *ngIf="voclist">
           <ion-col size="10">
-              <ion-input
-                [(ngModel)]="listName"
-                class="text-input"
-                placeholder="Listenname"
-                name="listname"
-                ngModel
-                [minlength]="1"
-                (keyup.enter)="test()"
-                #input
-                ></ion-input>
+            <ion-input
+              [(ngModel)]="listName"
+              class="text-input"
+              placeholder="Listenname"
+              name="listname"
+              ngModel
+              [minlength]="1"
+              (keyup.enter)="test()"
+              #input
+            ></ion-input>
           </ion-col>
           <ion-col size="2">
             <ion-button class="round-button" fill="outline" color="white" ion-button (click)="vocliste(false)">
@@ -116,34 +117,35 @@
             </ion-button>
           </ion-col>
         </ion-row>
-        </ion-grid>
-      </form>
-    </div>
+      </ion-grid>
+    </form>
+  </div>
   <!-- </div> -->
   <ion-content class="play-list" style="width:100%;height:50vh" scrollY="true">
-  <ion-list lines="none" *ngFor="let offline of offlineArrayList">
-    <ion-item>
-      <ion-button class="c-start-lecture" (click)="startVoc(offline)">
-        <ion-icon class="c-learn" slot="icon-only" name="school"></ion-icon>
-      </ion-button>
-      <ion-item-sliding class="backoffitem">
+    <ion-list lines="none" *ngFor="let offline of offlineArrayList">
+      <ion-item>
+        <ion-button class="c-start-lecture" (click)="startVoc(offline)">
+          <ion-icon class="c-learn" slot="icon-only" name="school"></ion-icon>
+        </ion-button>
+        <ion-item-sliding class="backoffitem">
           <ion-item-options side='start'>
-              <ion-button item-end class="delete" color="light" type="button" (click)="openStats(offline.listName)">
+            <ion-button item-end class="delete" color="light" type="button" (click)="openStats(offline.listName)">
               <ion-icon name="stats"></ion-icon>
-              </ion-button>
-            </ion-item-options>
-        <ion-item>
-      <ion-button class="backoffitem" (click)="openList(offline.listName)">
-        {{offline.listName}}
-      </ion-button>
+            </ion-button>
+          </ion-item-options>
+          <ion-item>
+            <ion-button class="backoffitem" (click)="openList(offline.listName)">
+              {{offline.listName}}
+            </ion-button>
+          </ion-item>
+          <ion-item-options>
+            <ion-button item-end class="delete" color="danger" type="button"
+                        (click)="removeListe(offline.listName, offline.time)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-item-options>
+        </ion-item-sliding>
       </ion-item>
-        <ion-item-options>
-      <ion-button item-end class="delete" color="danger" type="button" (click)="removeListe(offline.listName, offline.time)">
-      <ion-icon name="trash"></ion-icon>
-      </ion-button>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-item>
-  </ion-list>
+    </ion-list>
   </ion-content>
 </ion-content>

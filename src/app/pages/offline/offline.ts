@@ -1,15 +1,15 @@
 import {Component, ViewChild} from '@angular/core';
-import {ActionSheetController, AlertController, PickerController } from '@ionic/angular';
-import {AuthService} from "../../services/auth";
-import {NetworkService} from "../../services/networkservice";
-import {VocubalarService} from "../../services/vocubalar";
-import {OfflineVoc} from "../../models/offlineVoc";
-import {OfflineService} from "../../services/offlineservice";
-import { Router } from '@angular/router';
-import { IModus } from '../../models/IModus';
-import { NameService } from '../../services/name';
-import { PickerOptions, PickerButton } from '@ionic/core';
-import { Modus } from '../../services/modus';
+import {ActionSheetController, AlertController, PickerController} from '@ionic/angular';
+import {AuthService} from '../../services/auth';
+import {NetworkService} from '../../services/networkservice';
+import {VocubalarService} from '../../services/vocubalar';
+import {OfflineVoc} from '../../models/offlineVoc';
+import {OfflineService} from '../../services/offlineservice';
+import {Router} from '@angular/router';
+import {IModus} from '../../models/IModus';
+import {NameService} from '../../services/name';
+import {PickerOptions, PickerButton} from '@ionic/core';
+import {Modus} from '../../services/modus';
 
 //  "pre-commit": "npm run lint",
 // "pre-push": "npm run test"
@@ -41,7 +41,7 @@ export class OfflinePage {
               private networkService: NetworkService,
               private nameService: NameService,
               private pickerCtrl: PickerController
-              ) {
+  ) {
 
   }
 
@@ -58,29 +58,29 @@ export class OfflinePage {
     );
     //nicht alle Vokabeln
     this.vocService.getOfflineDataList().then(res => {
-      if(res!=null){
+      if (res != null) {
         this.offlineArrayList = res;
       }
-    })
+    });
     this.networkService.onlineScreen = false;
   }
 
-  openList(listName: string){
+  openList(listName: string) {
     this.vocService.actualListName = listName;
     this.router.navigateByUrl('vocList');
   }
 
-  async removeListe(list: string, time: string){
+  async removeListe(list: string, time: string) {
     await this.vocService.removeList(list, time).then(() => this.vocService.getOfflineDataList().then(res => {
       this.offlineArrayList = res;
     }));
 
     await this.vocService.getOfflineDataList().then(res => {
       this.offlineArrayList = res;
-    })
+    });
   }
 
-  minimize(is: boolean){
+  minimize(is: boolean) {
     this.minimizing = is;
   }
 
@@ -90,11 +90,11 @@ export class OfflinePage {
   }
 
   goReg() {
-    if (this.netService.isOnline == true) {
-      if (this.authService.loggedIn == false) {
+    if (this.netService.isOnline === true) {
+      if (this.authService.loggedIn === false) {
         this.router.navigateByUrl('registration');
       } else {
-        this.router.navigateByUrl('home');
+        this.router.navigateByUrl('online');
       }
     } else {
 
@@ -107,31 +107,30 @@ export class OfflinePage {
 
   //Vokabel hinzufügen
   async test() {
-    if(this.listName !== undefined && this.inputtrans !== undefined && this.inputvoc !== undefined){
-    let OfflineArray = [];
-    let Offline = new OfflineVoc(this.inputvoc, this.inputtrans, this.listName, 0, 0, 0, new Date().toString());
-    OfflineArray.push(Offline);
-    await this.vocService.setOfflineVoc(OfflineArray).then(() => {
-      this.vocService.getOfflineDataList().then(res => this.offlineArrayList = res);
-      this.inputtrans = "";
-      this.inputvoc = "";
-      this.vocliste(false);
-      setTimeout(() => {
-        this.myInput.setFocus();
-      },400);
-    });
+    if (this.listName !== undefined && this.inputtrans !== undefined && this.inputvoc !== undefined) {
+      const OfflineArray = [];
+      const Offline = new OfflineVoc(this.inputvoc, this.inputtrans, this.listName, 0, 0, 0, new Date().toString());
+      OfflineArray.push(Offline);
+      await this.vocService.setOfflineVoc(OfflineArray).then(() => {
+        this.vocService.getOfflineDataList().then(res => this.offlineArrayList = res);
+        this.inputtrans = '';
+        this.inputvoc = '';
+        this.vocliste(false);
+        setTimeout(() => {
+          this.myInput.setFocus();
+        }, 400);
+      });
     }
   }
 
-  test2(){
+  test2() {
     setTimeout(() => {
       this.myInput.setFocus();
-    },400);
-    console.log("tset2");
+    }, 400);
   }
 
-  async startVoc(voc: OfflineVoc){
-    await this.vocService.getOfflineDataListOne(voc.listName).then(res => this.offlineService.actualVoc = res );
+  async startVoc(voc: OfflineVoc) {
+    await this.vocService.getOfflineDataListOne(voc.listName).then(res => this.offlineService.actualVoc = res);
     this.presentActionSheet();
     /*this.navCtrl.push("OfflineGamePage")*/
   }
@@ -142,113 +141,113 @@ export class OfflinePage {
 
   async presentActionSheet() {
     this.router.navigateByUrl('game-decision');
-  //   const actionSheet = await this.actionSheetCtrl.create({
-  //     header: 'Modus auswählen',
-  //     buttons: [
-  //       {
-  //         text: 'Vokabelliste Online lernen',
-  //         role: 'destructive',
-  //         handler: () => {
-  //           this.vocService.actualModus = Modus.online;
-  //           console.log('tests', this.nameService.userId);
-  //           if(this.nameService.userId === undefined) {
-  //             this.showYouNeedLoggedInAlert();
-  //           }
-  //           else if(this.offlineService.actualVoc.length >= 10) {
-  //             this.chooseOnlineModus()
-  //           } else {
-  //             this.showAlert(10);
-  //           }
-  //         }
-  //       },
-  //       {
-  //         text: 'Vokabel zu Übersetzung',
-  //         role: 'destructive',
-  //         handler: () => {
-  //           this.vocService.actualModus = Modus.vocToTran;
-  //           this.router.navigateByUrl('offlineGame');;
-  //         }
-  //       }, {
-  //         text: 'Übersetzung zu Vokabel',
-  //         handler: () => {
-  //           this.vocService.actualModus = Modus.tranToVoc;
-  //           this.router.navigateByUrl('offlineGame');
-  //         }
-  //       },
-  //       {
-  //         text: 'Training: Vokabel zu Übersetzung',
-  //         handler: () => {
-  //           this.vocService.actualModus = Modus.trainingVocToTran;
-  //           if(this.offlineService.actualVoc.length >= 4) {
-  //             this.router.navigateByUrl('offlineTrainingsGame');
-  //           }else{
-  //             this.showAlert(4);
-  //           }
-  //         }},
-  //       {
-  //         text: 'Training: Übersetzung zu Vokabel',
-  //         handler: () => {
-  //           this.vocService.actualModus = Modus.trainingTranToVoc;
-  //           if(this.offlineService.actualVoc.length >=4) {
-  //             this.router.navigateByUrl('offlineTrainingsGame');
-  //           }else{
-  //             this.showAlert(4);
-  //           }
-  //         }
-  //       },
-  //       // {
-  //       //   text: 'Training: Easy Modus',
-  //       //   handler: () => {
-  //       //     this.vocService.actualModus = '5';
-  //       //     if(this.offlineService.actualVoc.length >=4) {
-  //       //       this.router.navigateByUrl('offlineEasyModusGame');
-  //       //     }else{
-  //       //       this.showAlert();
-  //       //     }
-  //       //   }
-  //       // },
-  //       {
-  //         text: 'Zurück',
-  //         role: 'cancel',
-  //         handler: () => {
+    //   const actionSheet = await this.actionSheetCtrl.create({
+    //     header: 'Modus auswählen',
+    //     buttons: [
+    //       {
+    //         text: 'Vokabelliste Online lernen',
+    //         role: 'destructive',
+    //         handler: () => {
+    //           this.vocService.actualModus = Modus.online;
+    //           console.log('tests', this.nameService.userId);
+    //           if(this.nameService.userId === undefined) {
+    //             this.showYouNeedLoggedInAlert();
+    //           }
+    //           else if(this.offlineService.actualVoc.length >= 10) {
+    //             this.chooseOnlineModus()
+    //           } else {
+    //             this.showAlert(10);
+    //           }
+    //         }
+    //       },
+    //       {
+    //         text: 'Vokabel zu Übersetzung',
+    //         role: 'destructive',
+    //         handler: () => {
+    //           this.vocService.actualModus = Modus.vocToTran;
+    //           this.router.navigateByUrl('offlineGame');;
+    //         }
+    //       }, {
+    //         text: 'Übersetzung zu Vokabel',
+    //         handler: () => {
+    //           this.vocService.actualModus = Modus.tranToVoc;
+    //           this.router.navigateByUrl('offlineGame');
+    //         }
+    //       },
+    //       {
+    //         text: 'Training: Vokabel zu Übersetzung',
+    //         handler: () => {
+    //           this.vocService.actualModus = Modus.trainingVocToTran;
+    //           if(this.offlineService.actualVoc.length >= 4) {
+    //             this.router.navigateByUrl('offlineTrainingsGame');
+    //           }else{
+    //             this.showAlert(4);
+    //           }
+    //         }},
+    //       {
+    //         text: 'Training: Übersetzung zu Vokabel',
+    //         handler: () => {
+    //           this.vocService.actualModus = Modus.trainingTranToVoc;
+    //           if(this.offlineService.actualVoc.length >=4) {
+    //             this.router.navigateByUrl('offlineTrainingsGame');
+    //           }else{
+    //             this.showAlert(4);
+    //           }
+    //         }
+    //       },
+    //       // {
+    //       //   text: 'Training: Easy Modus',
+    //       //   handler: () => {
+    //       //     this.vocService.actualModus = '5';
+    //       //     if(this.offlineService.actualVoc.length >=4) {
+    //       //       this.router.navigateByUrl('offlineEasyModusGame');
+    //       //     }else{
+    //       //       this.showAlert();
+    //       //     }
+    //       //   }
+    //       // },
+    //       {
+    //         text: 'Zurück',
+    //         role: 'cancel',
+    //         handler: () => {
 
-  //         }
-  //       }
-  //     ]
-  //   });
-  //    actionSheet.present();
-  // }
+    //         }
+    //       }
+    //     ]
+    //   });
+    //    actionSheet.present();
+    // }
 
-  // async chooseOnlineModus() {
-  //   const actionSheet = await this.actionSheetCtrl.create({
-  //     header: 'Modus auswählen',
-  //     buttons: [
-  //       {
-  //         text: 'Vokabeltest (Fremdsprache zu Übersetzung)',
-  //         role: 'destructive',
-  //         handler: () => {
-  //           this.offlineService.setModus(IModus.normalModus);
-  //           this.router.navigateByUrl('oneVsOne');
-  //         }
-  //       },
-  //       // {
-  //       //   text: '4 Möglichkeiten (Fremdsprache zu Übersetzung)',
-  //       //   role: 'destructive',
-  //       //   handler: () => {
-  //       //     this.offlineService.setModus(IModus.trainingsModus);
-  //       //     this.router.navigateByUrl('oneVsOne');
-  //       //   }
-  //       // }, 
-  //       {
-  //         text: 'Zurück',
-  //         role: 'cancel',
-  //         handler: () => {
-  //         !@#
-  //         }
-  //       }
-  //     ]
-  //   });
-  //    actionSheet.present();
+    // async chooseOnlineModus() {
+    //   const actionSheet = await this.actionSheetCtrl.create({
+    //     header: 'Modus auswählen',
+    //     buttons: [
+    //       {
+    //         text: 'Vokabeltest (Fremdsprache zu Übersetzung)',
+    //         role: 'destructive',
+    //         handler: () => {
+    //           this.offlineService.setModus(IModus.normalModus);
+    //           this.router.navigateByUrl('oneVsOne');
+    //         }
+    //       },
+    //       // {
+    //       //   text: '4 Möglichkeiten (Fremdsprache zu Übersetzung)',
+    //       //   role: 'destructive',
+    //       //   handler: () => {
+    //       //     this.offlineService.setModus(IModus.trainingsModus);
+    //       //     this.router.navigateByUrl('oneVsOne');
+    //       //   }
+    //       // },
+    //       {
+    //         text: 'Zurück',
+    //         role: 'cancel',
+    //         handler: () => {
+    //         !@#
+    //         }
+    //       }
+    //     ]
+    //   });
+    //    actionSheet.present();
   }
 
   async showAlert(num: number) {
@@ -295,7 +294,6 @@ export class OfflinePage {
   // ]
 
 
-  
   // async showBasicPicker() {
   //   let opts: PickerOptions = {
   //     buttons: [
@@ -325,7 +323,7 @@ export class OfflinePage {
   //     this.framework = col.options[col.selectedIndex].text;
   //   });
   // }
- 
+
   // async showAdvancedPicker() {
   //   let opts: PickerOptions = {
   //     cssClass: 'academy-picker',

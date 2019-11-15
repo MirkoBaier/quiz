@@ -16,7 +16,7 @@ export class UsernamePage {
 
   onStoreUsername(form: NgForm){
 
-      this.router.navigateByUrl('home');
+      this.router.navigateByUrl('online');
 
     }
 }

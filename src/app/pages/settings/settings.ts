@@ -13,7 +13,7 @@ export class SettingsPage {
   }
 
   onSubmit(form: NgForm){
-    this.router.navigateByUrl('home')
+    this.router.navigateByUrl('online')
     form.reset();
   }
 

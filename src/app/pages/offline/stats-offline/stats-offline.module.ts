@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {IonicModule} from '@ionic/angular';
-import {OfflinePage} from './offline';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {StatsOfflinePage} from './stats-offline';
 
 @NgModule({
   declarations: [
-    OfflinePage,
+    StatsOfflinePage,
   ],
   imports: [
     CommonModule,
@@ -16,10 +16,10 @@ import {FormsModule} from '@angular/forms';
     RouterModule.forChild([
       {
         path: '',
-        component: OfflinePage
+        component: StatsOfflinePage
       }
     ])
   ]
 })
-export class OfflinePageModule {
+export class StatsOfflinePageModule {
 }
