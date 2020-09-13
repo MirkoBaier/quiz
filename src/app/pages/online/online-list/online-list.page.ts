@@ -13,4 +13,8 @@ export class OnlineListPage implements OnInit {
   ngOnInit() {
   }
 
+  open(language: string) {
+    console.log(language);
+  }
+
 }

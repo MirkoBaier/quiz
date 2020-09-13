@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Events } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
-import { Subject } from 'rxjs';
 
 
 export enum ConnectionStatusEnum {
@@ -13,7 +12,6 @@ export enum ConnectionStatusEnum {
 export class NetworkService {
   public previousStatus;
   public isOnline: boolean;
-  private ngUnsubscribe: Subject<void> = new Subject();
   public onlineScreen: boolean;
 
 
@@ -39,11 +37,6 @@ export class NetworkService {
         this.isOnline = true;
         this.previousStatus = ConnectionStatusEnum.Online;
     });
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 
 }

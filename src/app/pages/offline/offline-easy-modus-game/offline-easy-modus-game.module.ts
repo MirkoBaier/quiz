@@ -5,6 +5,7 @@ import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DragulaModule} from 'ng2-dragula';
+import 'gl-ionic-background-video';
 
 // import { DragulaService, DragulaModule } from 'ng2-dragula';
 

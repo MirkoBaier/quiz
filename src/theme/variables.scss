@@ -2,9 +2,9 @@
 // // http://ionicframework.com/docs/theming/
 
 // /** Ionic CSS Variables **/
- :root {
+:root {
   /** primary **/
-  --ion-color-primary: #0084ffad;
+  --ion-color-primary: #0084ff;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -83,90 +83,94 @@
 
   .ion-color-primpurple {
     --ion-color-base: var(--ion-color-primpurple) !important;
-}
+  }
 
-ion-item {
-  --highlight-height: 0px;
-  --background-color: transparent;
-}
+  ion-item {
+    --highlight-height: 0px;
+    --background-color: transparent;
+  }
 
-ion-toolbar {
-  --background: transparent;
-  --ion-color-base: transparent !important;
-}
+  ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+  }
 
-ion-header {
-  position: static;
-}
+  ion-header {
+    position: static;
+  }
 
-ion-button {
-  --background: #0084ffad;
-}
+  ion-button {
+    --background: #0084ffad;
+  }
 
-ion-label {
-  color: white;
-}
-// ion-alert {
-//   --background: rgb(29, 26, 26) !important;
-//   .alert-wrapper {
-//     color: red!important;
-//   }
-//   .alert-md .alert-title {
-//     color: red!important;
-//   }
-//  }
+  ion-label {
+    color: white;
+  }
+  // ion-alert {
+  //   --background: rgb(29, 26, 26) !important;
+  //   .alert-wrapper {
+  //     color: red!important;
+  //   }
+  //   .alert-md .alert-title {
+  //     color: red!important;
+  //   }
+  //  }
 
-alert-title  {
-  color: white!important;
-  --color: white!important;
-}
+  alert-title {
+    color: white !important;
+    --color: white !important;
+  }
 
-ion-alert-title {
-   color: white!important;
-}
+  ion-alert-title {
+    color: white !important;
+  }
 
-ion-list{
-  --ion-item-background: transparent;
-}
+  ion-list {
+    --ion-item-background: transparent;
+  }
 
-ion-toolbar {
-  --background: transparent;
-  --ion-color-base: transparent !important;
-}
+  ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+  }
 
-ion-header {
-  position: static;
-}
+  ion-header {
+    position: static;
+  }
 
-ion-badge {
+  ion-badge {
     background-color: #0084ffad;
-}
+  }
 
-ion-content{
-    --background: url('../assets/imgs/backtry.jpg') 0 0/100% 100% no-repeat #0085ff82;
-}
+  ion-content {
+    //--background: url('../assets/imgs/backtry.jpg') 0 0/100% 100% no-repeat #0085ff82;
+    --background: opacity(0.5);
+  }
 
-ion-input {
-  outline: none;
-  border: 1px solid #DDDDDD;
-  --placeholder-color: rgb(187, 183, 183);   /* placeholder text color */
-  color: var(--ion-color-light); 
-  --padding-bottom: 10px;
-  --padding-top: 10px;
-  --padding-start: 10px !important;
-  --padding-end: 10px;
-}
+  ion-input {
+    outline: none;
+    border: 1px solid #DDDDDD;
+    --placeholder-color: rgb(187, 183, 183); /* placeholder text color */
+    color: var(--ion-color-light);
+    --padding-bottom: 10px;
+    --padding-top: 10px;
+    --padding-start: 10px !important;
+    --padding-end: 10px;
+  }
 
+  ion-menu {
+    --background: #000000e3;
+  }
 
   $colors: (
-  primary: #512fe0,
-  secondary: rgba(50, 219, 100, 0.8),
-  danger:     #f53d3d,
-  light:     #488aff,
-  dark:       #222,
-  white:    #ffffff,
-  backLight: #00dbff,
-  red: #ff110f
+    primary: #512fe0,
+    secondary: rgba(50, 219, 100, 0.8),
+    danger: #f53d3d,
+    light: #488aff,
+    dark: #222,
+    white: #ffffff,
+    backLight: #00dbff,
+    red: #ff110f
   );
 
- }
+}

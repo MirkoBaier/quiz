@@ -10,6 +10,6 @@ export class OfflineService{
      console.log('mod', modus);
      this.actualVoc.forEach((voc, index) => {
         this.actualVoc[index].modus = modus;
-     })
+     });
  }
 }

@@ -9,6 +9,8 @@
 
 
 <ion-content fullscreen class="onevsone-backg">
+  <gl-background-video  poster="../../../../assets/imgs/Timeline2_Moment.jpg" src="../../../../assets/videos/TimelineBackground.mp4" mute="false">
+  </gl-background-video>
     <ion-searchbar *ngIf="showEnemys" (ionInput)="getItems($event)"></ion-searchbar>
     <ion-button *ngIf="onlyFriends" class="enemyonevone" color="danger" expand="block" size="large"  (click)="randomEnemy()">Zufälliger Gegner</ion-button>
     <ion-button *ngIf="!showEnemys" class="enemyonevone" expand="block" size="large" (click)="showAllPlayer()">Bestimmten Gegner finden</ion-button>

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, ViewChild} from '@angular/core';
 import {Events, LoadingController, MenuController, NavController, Platform} from '@ionic/angular';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {OneVoneService} from './services/oneVone';
@@ -9,7 +9,7 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {Network} from '@ionic-native/network/ngx';
 import {Router} from '@angular/router';
-import {Subject} from 'rxjs';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -17,13 +17,13 @@ import {Subject} from 'rxjs';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class VokabelQuiz implements OnInit, OnDestroy {
+export class VokabelQuiz implements OnDestroy {
   rootPage: any;
   isAuthenticated = false;
   @ViewChild('nav') nav: NavController;
   afAuth: AngularFireAuth;
   showSplash = true;
-  private ngUnsubscribe: Subject<void> = new Subject();
+  ngUnsubscribe: Subscription;
 
   constructor(platform: Platform,
               statusBar: StatusBar,
@@ -41,38 +41,17 @@ export class VokabelQuiz implements OnInit, OnDestroy {
 
     this.afAuth = afAuth;
     this.networkProvider.initializeNetworkEvents();
-
     this.events.subscribe('network:online', () => {
-      if (this.isAuthenticated == true) {
+      if (this.isAuthenticated === true) {
         this.rootPage = 'OfflinePage';
       }
     });
 
-
-    afAuth.authState.subscribe(user => {
+    this.ngUnsubscribe = afAuth.authState.subscribe(user => {
       if (user) {
-        console.log('user');
-        this.authService.loggedIn = true;
-        this.isAuthenticated = true;
-        this.nameService.getUsername().then(res => {
-          this.router.navigateByUrl('online');
-        }).catch(err => {
-            console.log('Error' + err);
-            console.log(this.authService.newReg);
-            if (this.authService.newReg === true) {
-              console.log('go into Name');
-              this.router.navigateByUrl('name');
-            } else if (this.networkProvider.previousStatus === ConnectionStatusEnum.Offline) {
-              this.router.navigateByUrl('login');
-            } else {
-              this.router.navigateByUrl('name');
-            }
-          }
-        );
+        this.handleLoggedIn();
       } else {
-        this.authService.loggedIn = false;
-        this.isAuthenticated = false;
-        this.router.navigateByUrl('registration');
+        this.handleNotLoggedIn();
       }
     });
 
@@ -83,6 +62,41 @@ export class VokabelQuiz implements OnInit, OnDestroy {
     });
   }
 
+  handleLoggedIn() {
+    console.log('user');
+    this.authService.loggedIn = true;
+    this.isAuthenticated = true;
+    if (this.nameService.getUsernameFromLocalStorage() !== null) {
+      this.router.navigateByUrl('online');
+    } else {
+      this.nameService.getUsername().then(res => {
+        this.nameService.setUsernameToLocalStorage(res);
+        this.router.navigateByUrl('online');
+      }).catch(err => {
+        this.handleNoUsername();
+      });
+    }
+  }
+
+
+  handleNotLoggedIn() {
+    this.authService.loggedIn = false;
+    this.isAuthenticated = false;
+    this.router.navigateByUrl('registration');
+  }
+
+  handleNoUsername() {
+    console.log(this.authService.newReg);
+    if (this.authService.newReg === true) {
+      console.log('go into Name');
+      this.router.navigateByUrl('name');
+    } else if (this.networkProvider.previousStatus === ConnectionStatusEnum.Offline) {
+      this.router.navigateByUrl('login');
+    } else {
+      this.router.navigateByUrl('name');
+    }
+  }
+
   logout() {
     this.authService.logout();
     this.menuCtrl.close();
@@ -90,8 +104,7 @@ export class VokabelQuiz implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.ngUnsubscribe.unsubscribe();
   }
 
   onLoadOnline() {

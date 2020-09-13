@@ -1,7 +1,8 @@
-import {Component, ViewChild} from '@angular/core';
-import {AlertController, NavController} from '@ionic/angular';
+import {Component} from '@angular/core';
+import {AlertController} from '@ionic/angular';
 import {AuthService} from '../../services/auth';
 import {Router} from '@angular/router';
+import {NameService} from '../../services/name';
 
 @Component({
   selector: 'page-name',
@@ -11,14 +12,17 @@ import {Router} from '@angular/router';
 export class NamePage {
   public name;
 
-  constructor(private router: Router, private authServce: AuthService, private alertCtrl: AlertController) {
+  constructor(private router: Router,
+              private nameService: NameService,
+              private alertCtrl: AlertController,
+              private authService: AuthService) {
   }
 
 
   setName(name: string) {
-    this.authServce.checkUsername(name).then(res => {
+    this.authService.checkUsername(name).then(res => {
       if (res === false) {
-        this.authServce.setUsername(name);
+        this.nameService.setUsername(name);
         this.router.navigateByUrl('online');
       } else {
         this.showPrompt();

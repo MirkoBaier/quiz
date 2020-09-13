@@ -8,13 +8,16 @@
 
 
 <ion-content fullscreen class="home-backg">
+  <gl-background-video poster="../../../assets/imgs/Timeline2_Moment.jpg" src="../../../assets/videos/TimelineBackground.mp4" mute="false">
+
+  </gl-background-video>
   <ion-grid>
-    <ion-badge class="home-button" color="primary" expand="block" size="large" *ngIf="userName!=null">
+    <ion-badge class="home-button" color="primary" expand="block" size="large">
       Eingeloggt als: {{userName}}
     </ion-badge>
     <ion-row>
       <ion-col col-6>
-        <ion-button class="home-button" icon-left expand="block" size="large" (click)="openPage('league')">
+        <ion-button class="home-button" expand="block" size="large" (click)="openPage('league')">
           <ion-icon name="trophy"></ion-icon>
           Liga
         </ion-button>
@@ -27,7 +30,7 @@
     </ion-row>
     <ion-row>
       <ion-col col-6>
-        <ion-button icon-left="true" class="home-button" size="large" expand="block"
+        <ion-button class="home-button" size="large" expand="block"
                     (click)="openPage('oneVsOneChoice')">
           <ion-icon name="school"></ion-icon>
           1 vs 1
@@ -43,13 +46,13 @@
   </ion-badge>
   <ion-content class="play-list" style="width:100%;height:30vh" scrollY="true">
     <ion-list>
-      <ion-button icon-left class="home-button" expand="block" size="large"
+      <ion-button class="home-button" expand="block" size="large"
                   *ngFor="let opengames of openOwnVocGames | async" (click)=" onLoadOwnVocGame(opengames)"
                   [color]="!opengames.userTurn ? 'primary' : 'success'">
         <ion-icon name="hammer"></ion-icon>
         Gegner: {{ opengames.enemy }}
       </ion-button>
-      <ion-button icon-left class="home-button" expand="block" size="large" *ngFor="let opengames of openGames | async"
+      <ion-button class="home-button" expand="block" size="large" *ngFor="let opengames of openGames | async"
                   (click)="onLoadOnevsOneGame(opengames)" [color]="!opengames.userTurn ? 'primary' : 'success'">
         <ion-icon name="school"></ion-icon>
         Gegner: {{ opengames.enemy }}
@@ -60,14 +63,14 @@
                   [color]="!opentrainingsgames.userTurn ? 'primary' : 'success'">
         Gegner: {{ opentrainingsgames.enemy }}
       </ion-button>
-      <ion-button icon-left class="home-buttonNotTurn" expand="block" size="large"
+      <ion-button class="home-buttonNotTurn" expand="block" size="large"
                   *ngFor="let opengamesnotturn of openOwnVocGamesNotTurn | async"
                   (click)="onLoadOwnVocGame(opengamesnotturn)"
                   [color]="!opengamesnotturn.userTurn ? 'primary' : 'success'">
         <ion-icon name="hammer"></ion-icon>
         Gegner: {{ opengamesnotturn.enemy }}
       </ion-button>
-      <ion-button icon-left class="home-buttonNotTurn" expand="block" size="large"
+      <ion-button class="home-buttonNotTurn" expand="block" size="large"
                   *ngFor="let opengamesnotturn of openGamesNotTurn | async"
                   (click)="onLoadOnevsOneGame(opengamesnotturn)"
                   [color]="!opengamesnotturn.userTurn ? 'primary' : 'success'">
@@ -89,13 +92,13 @@
 
   <ion-content class="play-list" style="width:100%;height:25vh;background-color:transparent" scrollY="true">
     <ion-list>
-      <ion-button icon-left class="home-buttonend" expand="block" size="large"
+      <ion-button class="home-buttonend" expand="block" size="large"
                   *ngFor="let finishedgames of finishedOwnVocGames | async"
                   [color]="finishedgames.result=='Unentschieden' ? 'light' : finishedgames.result=='Gewonnen' ? 'success' : 'danger'">
         <ion-icon name="school"></ion-icon>
         {{finishedgames.pointsUser}} : {{finishedgames.pointsEnemy}} gegen {{finishedgames.enemy}}
       </ion-button>
-      <ion-button icon-left class="home-buttonend" expand="block" size="large"
+      <ion-button class="home-buttonend" expand="block" size="large"
                   *ngFor="let finishedgames of finishedGames | async"
                   [color]="finishedgames.result=='Unentschieden' ? 'light' : finishedgames.result=='Gewonnen' ? 'success' : 'danger'">
         <ion-icon name="school"></ion-icon>

@@ -22,9 +22,6 @@ export class RegistrationPage {
               ) {
   }
 
-  ngOnInit(){
-  }
-
   async onSignup(form: NgForm) {
     this.menuCtrl.close();
     let helpMe: boolean = false;

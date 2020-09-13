@@ -1,9 +1,9 @@
-import {Storage} from "@ionic/storage";
-import {OwnVoc} from "../models/ownVoc";
-import {NgForm} from "@angular/forms";
-import {Injectable} from "@angular/core";
-import {OfflineVoc} from "../models/offlineVoc";
-import { Modus } from './modus';
+import {Storage} from '@ionic/storage';
+import {OwnVoc} from '../models/ownVoc';
+import {NgForm} from '@angular/forms';
+import {Injectable} from '@angular/core';
+import {OfflineVoc} from '../models/offlineVoc';
+import {Modus} from './modus';
 
 @Injectable()
 export class VocubalarService {
@@ -45,19 +45,19 @@ export class VocubalarService {
 
   async removeList(listnamen: string, time: string) {
     await this.storage.get(this.OFFLINE_VOC).then(res => {
-      let helpArray = [];
+      const helpArray = [];
       for (let i = 0; i < res.length; i++) {
-        if (res[i].time == time) {
+        if (res[i].time === time) {
         } else {
-          helpArray.push(res[i])
+          helpArray.push(res[i]);
         }
       }
-      this.storage.set(this.OFFLINE_VOC, helpArray)
+      this.storage.set(this.OFFLINE_VOC, helpArray);
     });
     await this.storage.get(this.OFFLINE_VOC_List).then(rest => {
-      let helpArray2 = [];
+      const helpArray2 = [];
       for (let i = 0; i < rest.length; i++) {
-        if (rest[i].time == time) {
+        if (rest[i].time === time) {
         } else {
           helpArray2.push(rest[i]);
         }
@@ -68,9 +68,9 @@ export class VocubalarService {
 
   async removeList2(listnamen: string) {
     await this.storage.get(this.OFFLINE_VOC_List).then(rest => {
-      let helpArray2 = [];
+      const helpArray2 = [];
       for (let i = 0; i < rest.length; i++) {
-        if (rest[i].listName == listnamen) {
+        if (rest[i].listName === listnamen) {
         } else {
           helpArray2.push(rest[i]);
         }
@@ -85,19 +85,17 @@ export class VocubalarService {
       if (value != null) {
         this.storage.set(this.OFFLINE_VOC, offlineVoc.concat(value));
         for (let i = 0; i < value.length; i++) {
-          if (value.filter(obj => obj.listName == offlineVoc[0].listName)[i]) {
+          if (value.filter(obj => obj.listName === offlineVoc[0].listName)[i]) {
             isNotIn = true;
           }
         }
-      }
-      //erstes Item
-      else {
+      } else {
         isNotIn = true;
         this.storage.set(this.OFFLINE_VOC, offlineVoc);
         this.storage.set(this.OFFLINE_VOC_List, offlineVoc);
       }
     });
-    if (isNotIn == false) {
+    if (isNotIn === false) {
       await this.storage.get(this.OFFLINE_VOC_List).then(voclist => {
           this.storage.set(this.OFFLINE_VOC_List, offlineVoc.concat(voclist));
         }
@@ -106,7 +104,7 @@ export class VocubalarService {
   }
 
   async getOfflineData() {
-    let obj = [];
+    const obj = [];
     return await this.storage.get(this.OFFLINE_VOC).then(value => {
       obj.push(value);
       return value;
@@ -114,7 +112,7 @@ export class VocubalarService {
   }
 
   async getOfflineDataList() {
-    let obj = [];
+    const obj = [];
     return await this.storage.get(this.OFFLINE_VOC_List).then(value => {
       obj.push(value);
       return value;
@@ -122,10 +120,10 @@ export class VocubalarService {
   }
 
   async getOfflineDataListOne(name: string) {
-    let obj = [];
+    const obj = [];
     return await this.storage.get(this.OFFLINE_VOC).then(value => {
       for (let i = 0; i < value.length; i++) {
-        if (value[i].listName == name) {
+        if (value[i].listName === name) {
           obj.push(value[i]);
         }
       }
@@ -135,33 +133,33 @@ export class VocubalarService {
 
   async removeItemFrom(name: string, listnamen: string) {
     await this.storage.get(this.OFFLINE_VOC).then(res => {
-      let helpArray = [];
+      const helpArray = [];
       let helpbooli = true;
       //Ein Item aus allen wird rausgefiltert => in helpArray gespeichert
       for (let i = 0; i < res.length; i++) {
-        if (res[i].time == name) {
+        if (res[i].time === name) {
         } else {
-          helpArray.push(res[i])
+          helpArray.push(res[i]);
         }
       }
       //Das neue helpArray wird gestzt
       this.storage.set(this.OFFLINE_VOC, helpArray).then(() => {
         this.getOfflineDataList().then(rest => {
-              for (let i = 0; i < rest.length; i++) {
-                console.log(helpArray[i]);
-                if (helpArray[i] != undefined) {
-                  if (helpArray[i].listName == listnamen) {
-                    helpbooli = false;
-                  }
+            for (let i = 0; i < rest.length; i++) {
+              console.log(helpArray[i]);
+              if (helpArray[i] !== undefined) {
+                if (helpArray[i].listName === listnamen) {
+                  helpbooli = false;
                 }
               }
+            }
             console.log(helpbooli);
-            if (helpbooli == true) {
-              this.removeList2(res[0].listName)
+            if (helpbooli === true) {
+              this.removeList2(res[0].listName);
             }
           }
         );
-      })
+      });
     });
   }
 
@@ -181,13 +179,13 @@ export class VocubalarService {
 
   async setVoc(form: NgForm) {
     let helpArr: OwnVoc[] = [];
-    let vocu = new OwnVoc(form.value.voc, form.value.trans, form.value.listName);
+    const vocu = new OwnVoc(form.value.voc, form.value.trans, form.value.listName);
     await this.storage.get(this.ITEM_NAME).then((v) => {
       if (v != null) {
         helpArr = (JSON.parse(v));
         if (helpArr.length > 1) {
           vocu.id = (helpArr[helpArr.length - 1].id + helpArr[helpArr.length - 1].id + 1);
-        } else if (helpArr.length == 1) {
+        } else if (helpArr.length === 1) {
           vocu.id = 2;
         } else {
           vocu.id = 1;
@@ -196,7 +194,7 @@ export class VocubalarService {
     });
 
 
-    if (form.value.listName == undefined) {
+    if (form.value.listName === undefined) {
       vocu.listName = this.listName;
     } else {
       this.listName = form.value.listName;
@@ -210,7 +208,7 @@ export class VocubalarService {
     await this.storage.get(this.ITEM_NAME).then((v) => {
       if (v != null) {
         this.Vocabulary = JSON.parse(v);
-        if (JSON.parse(v)[0] != undefined) {
+        if (JSON.parse(v)[0] !== undefined) {
           this.listName = JSON.parse(v)[0].listName;
         }
       }

@@ -23,6 +23,7 @@
     <preference name="SplashScreenDelay" value="30000" />
     <preference name="ShowSplashScreen" value="true" />
     <preference name="KeyboardResizeMode" value="ionic" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
     <platform name="android">
         <resource-file src="google-services.json" target="google-services.json" />
         <allow-intent href="market:*" />

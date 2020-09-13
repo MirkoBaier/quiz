@@ -1,23 +1,19 @@
-
-import 'firebase/firestore'
-import 'firebase/auth'
-
-import {Injectable} from "@angular/core";
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/firestore";
-import {NameService} from "./name";
-import {Game} from "../models/game";
-import {AuthService} from "./auth";
-import {csvjson} from "../models/csvjson";
-import {VocubalarService} from "./vocubalar";
-import {AlertController} from "@ionic/angular";
-import {Notification} from "../models/notification";
-import {csvSpanish} from "../models/csvSpanish";
-import {Randomgame} from "../models/randomgame";
-import {csvFrance} from "../models/csvFrance";
+import 'firebase/firestore';
+import 'firebase/auth';
+import {Injectable} from '@angular/core';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
+import {NameService} from './name';
+import {Game} from '../models/game';
+import {AuthService} from './auth';
+import {csvjson} from '../models/csvjson';
+import {VocubalarService} from './vocubalar';
+import {AlertController} from '@ionic/angular';
+import {Notification} from '../models/notification';
+import {csvSpanish} from '../models/csvSpanish';
+import {Randomgame} from '../models/randomgame';
+import {csvFrance} from '../models/csvFrance';
 import * as firebase from 'firebase/app';
-import { IModus } from '../models/IModus';
-import { Subject } from 'rxjs/internal/Subject';
-
+import {IModus} from '../models/IModus';
 
 @Injectable()
 export class OneVoneService {
@@ -28,14 +24,13 @@ export class OneVoneService {
   helpGer: string[] = [];
   helpEng: string[] = [];
   helpIsCorr: boolean[] = [];
-  enemyNow: string = "";
-  language: string = "";
+  enemyNow: string = '';
+  language: string = '';
   trainingsModus: boolean = false;
   modus: IModus;
-  private ngUnsubscribe: Subject<void> = new Subject();
   game: Game;
   choiceModus: IModus;
-  allPlayer: any[]
+  allPlayer: any[];
 
   constructor(private authService: AuthService,
               private nameService: NameService,
@@ -43,11 +38,6 @@ export class OneVoneService {
               private vocService: VocubalarService,
               private alertCtrl: AlertController) {
 
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 
   setGame(game: Game[]): void {
@@ -60,25 +50,20 @@ export class OneVoneService {
 
   //Spiel erstellen (noch nicht gestarted)
   async addGame(enemy: string, startBoolean: boolean): Promise<void> {
-    let hilfUser = "";
+    let hilfUser = '';
     await this.authService.getUserIdByUsername(enemy);
     await this.vocService.getVocInit();
     await this.nameService.getUsername().then(user => hilfUser = user);
     //wird nur erstellt wenn es noch keins gibt
     await this.getMatchIdByUsername(enemy).then(res => {
-      if (res.toString() == "notFound") {
-        let userId = this.authService.getActiveUser().uid;
-        let matchId = this.firestore.createId();
-        let helpVocName: string = this.language;
+      if (res.toString() === 'notFound') {
+        const userId = this.authService.getActiveUser().uid;
+        const matchId = this.firestore.createId();
+        const helpVocName: string = this.language;
 
-        if (this.vocService.ownVocChosen == false) {
+        if (this.vocService.ownVocChosen === false) {
           this.setRandomVoc(this.language);
-        } 
-        // else {
-        //   this.setOwnVoc();
-        //   console.log(this.vocService.listName);
-        //   helpVocName = this.vocService.listName;
-        // }
+        }
 
         this.helpIsCorr.push(false);
 
@@ -124,7 +109,7 @@ export class OneVoneService {
           isCorrect: this.helpIsCorr,
           startedFrom: hilfUser,
           showedGameStats: false,
-          result: "?",
+          result: '?',
           vocName: helpVocName,
           time: firebase.firestore.FieldValue.serverTimestamp(),
           enemyUID: userId
@@ -145,14 +130,14 @@ export class OneVoneService {
           isCorrect: this.helpIsCorr,
           startedFrom: hilfUser,
           showedGameStats: false,
-          result: "?",
+          result: '?',
           vocName: helpVocName,
           time: firebase.firestore.FieldValue.serverTimestamp(),
           enemyUID: this.authService.idFromUsername
         });
       } else {
         this.showAlertNo();
-        console.log("Nicht mehr als ein Spiel geleichzeitig");
+        console.log('Nicht mehr als ein Spiel geleichzeitig');
       }
     });
     this.helpGer = [];
@@ -180,26 +165,24 @@ export class OneVoneService {
     alert.present();
   }
 
-
   //Spiel zur Historie hinzufügen
   async addFinishedGameToHistory(game: Game): Promise<void> {
 
-    let matchHistoryId = this.firestore.createId();
-    // await this.authService.getUserIdByUsername(game.enemy);
+    const matchHistoryId = this.firestore.createId();
     //wird nur erstellt wenn es noch keins gibt
-    let userId = this.authService.getActiveUser().uid;
+    const userId = this.authService.getActiveUser().uid;
 
     let enemyResult: string;
     let userResult: string;
     if (game.pointsEnemy > game.pointsUser) {
-      enemyResult = "Gewonnen";
-      userResult = "Verloren"
+      enemyResult = 'Gewonnen';
+      userResult = 'Verloren';
     } else if (game.pointsEnemy < game.pointsUser) {
-      enemyResult = "Verloren";
-      userResult = "Gewonnen"
+      enemyResult = 'Verloren';
+      userResult = 'Gewonnen';
     } else {
-      enemyResult = "Unentschieden";
-      userResult = "Unentschieden"
+      enemyResult = 'Unentschieden';
+      userResult = 'Unentschieden';
     }
 
     const matchChallenger: AngularFirestoreDocument<Game> = this.firestore.doc(
@@ -276,42 +259,29 @@ export class OneVoneService {
 
   //Vorgefertigte Vokabeln
   setRandomVoc(language: string) {
-    if (language == 'Englisch') {
+    if (language === 'Englisch') {
       for (let i = 5; i > 0; i--) {
-        let rand = Math.floor(Math.random() * 300) + 1;
+        const rand = Math.floor(Math.random() * 300) + 1;
         this.helpGer.push(this.rlyvoc.ger[rand].Allgemein);
-        this.helpEng.push(this.rlyvoc.ger[rand].General)
+        this.helpEng.push(this.rlyvoc.ger[rand].General);
       }
-    } else if (language == 'Spanisch') {
+    } else if (language === 'Spanisch') {
       for (let i = 5; i > 0; i--) {
-        let rand = Math.floor(Math.random() * 300) + 1;
+        const rand = Math.floor(Math.random() * 300) + 1;
         this.helpGer.push(this.spanishVoc.ger[rand].Allgemein);
-        this.helpEng.push(this.spanishVoc.ger[rand].General)
+        this.helpEng.push(this.spanishVoc.ger[rand].General);
       }
-    } else if (language == 'Französisch') {
+    } else if (language === 'Französisch') {
       for (let i = 5; i > 0; i--) {
-        let rand = Math.floor(Math.random() * 300) + 1;
+        const rand = Math.floor(Math.random() * 300) + 1;
         this.helpGer.push(this.franceVoc.ger[rand].Allgemein);
-        this.helpEng.push(this.franceVoc.ger[rand].General)
+        this.helpEng.push(this.franceVoc.ger[rand].General);
       }
     }
   }
 
-  //Eigene Vokabeln benutzen
-  // setOwnVoc() {
-  //   for (let i = 5; i > 0; i--) {
-  //     let rand = Math.floor(Math.random() * this.vocService.Vocabulary.length) + 1;
-  //     this.helpGer.push(this.vocService.Vocabulary[rand - 1].trans);
-  //     this.helpEng.push(this.vocService.Vocabulary[rand - 1].voc);
-  //     console.log(this.helpEng);
-  //   }
-  // }
-
   //Game wird angenommen
   async updateGame(username: string): Promise<void> {
-    // await this.getMatchIdByUsername(username).then(res => this.matchId = res);
-    // await this.authService.getUserIdByUsername(username);
-
     const matchChallenger: AngularFirestoreDocument<Game> = this.firestore.doc(
       `/OneVsOne/${this.nameService.userId}/games/${this.game.matchId}`
     );
@@ -349,100 +319,84 @@ export class OneVoneService {
       `/notification/${this.game.enemyUID}/games/${matchID}`
     );
 
-    // await this.getMatchById(matchID).then(res => {
-      console.log("resNeu", this.game);
-      //Neue Vokabeln nachdem beide sie hatten
-      if (this.game.round == 1 || this.game.round == 3 || this.game.round == 5 || this.game.round == 7 || this.game.round == 9) {
-        if (this.game.vocName === 'Englisch' || this.game.vocName === 'Spanisch') {
-          this.setRandomVoc(this.game.vocName);
-        } 
-        // else {
-        //   this.setOwnVoc();
-        // }
-        matchEnemy.update({
-          voc: this.helpEng,
-          trans: this.helpGer
-        });
-        matchChallenger.update({
-          voc: this.helpEng,
-          trans: this.helpGer
-        });
-        this.helpGer = [];
-        this.helpEng = [];
+    console.log('resNeu', this.game);
+    //Neue Vokabeln nachdem beide sie hatten
+    if (this.game.round === 1 || this.game.round === 3 || this.game.round === 5 || this.game.round === 7 || this.game.round === 9) {
+      if (this.game.vocName === 'Englisch' || this.game.vocName === 'Spanisch') {
+        this.setRandomVoc(this.game.vocName);
       }
-
-      //Match beendet
-      if (this.game.round == 9) {
-        matchChallenger.update({
-          finished: true
-        });
-      } else {
-        if (this.game.round == 0) {
-          matchChallengerNot.set({
-            requestedMatch: true,
-            round: 0,
-            enemyUID: this.game.enemyUID,
-            matchId: this.game.matchId,
-            user: this.game.user,
-            enemy: this.game.enemy,
-            status: 'Du bist dran',
-          });
-        }
-        if (this.game.round == 1 || this.game.round == 3 || this.game.round == 5 || this.game.round == 7) {
-          matchEnemyNot.update({
-            round: this.game.round,
-            status: 'Du bist dran'
-          });
-        } else if (this.game.round == 2 || this.game.round == 4 || this.game.round == 6 || this.game.round == 8) {
-          matchChallengerNot.update({
-            round: this.game.round,
-            status: 'Du bist dran'
-          })
-        }
-      }
-
-
-      //normales update
+      // else {
+      //   this.setOwnVoc();
+      // }
       matchEnemy.update({
-        pointsEnemy: userPoints + this.game.pointsUser,
-        userTurn: true,
-        round: this.game.round + 1,
-        isCorrect: this.game.isCorrect.concat(checkCorrect),
-        time: firebase.firestore.FieldValue.serverTimestamp()
+        voc: this.helpEng,
+        trans: this.helpGer
       });
-
-
-      //normales update
-      return matchChallenger.update({
-        pointsUser: userPoints + this.game.pointsUser,
-        userTurn: false,
-        round: this.game.round + 1,
-        isCorrect: this.game.isCorrect.concat(checkCorrect),
-        time: firebase.firestore.FieldValue.serverTimestamp()
+      matchChallenger.update({
+        voc: this.helpEng,
+        trans: this.helpGer
       });
+      this.helpGer = [];
+      this.helpEng = [];
+    }
 
-    // });
+    //Match beendet
+    if (this.game.round === 9) {
+      matchChallenger.update({
+        finished: true
+      });
+    } else {
+      if (this.game.round === 0) {
+        matchChallengerNot.set({
+          requestedMatch: true,
+          round: 0,
+          enemyUID: this.game.enemyUID,
+          matchId: this.game.matchId,
+          user: this.game.user,
+          enemy: this.game.enemy,
+          status: 'Du bist dran',
+        });
+      }
+      if (this.game.round === 1 || this.game.round === 3 || this.game.round === 5 || this.game.round === 7) {
+        matchEnemyNot.update({
+          round: this.game.round,
+          status: 'Du bist dran'
+        });
+      } else if (this.game.round === 2 || this.game.round === 4 || this.game.round === 6 || this.game.round === 8) {
+        matchChallengerNot.update({
+          round: this.game.round,
+          status: 'Du bist dran'
+        });
+      }
+    }
 
+
+    //normales update
+    matchEnemy.update({
+      pointsEnemy: userPoints + this.game.pointsUser,
+      userTurn: true,
+      round: this.game.round + 1,
+      isCorrect: this.game.isCorrect.concat(checkCorrect),
+      time: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+
+    //normales update
+    return matchChallenger.update({
+      pointsUser: userPoints + this.game.pointsUser,
+      userTurn: false,
+      round: this.game.round + 1,
+      isCorrect: this.game.isCorrect.concat(checkCorrect),
+      time: firebase.firestore.FieldValue.serverTimestamp()
+    });
   }
-
-  // async updateGameFromOnePlaying(username: string): Promise<void> {
-  //   // await this.getMatchIdByUsername(username).then(res => this.matchId = res);
-  //   // await this.authService.getUserIdByUsername(username);
-  //   const matchChallenger: AngularFirestoreDocument<Game> = this.firestore.doc(
-  //     `/OneVsOne/${this.nameService.userId}/games/${this.game.matchId}`
-  //   );
-
-  //   return matchChallenger.update({
-  //     playing: true
-  //   });
-  // }
 
 
   getMatchIdByUsername(username: string): Promise<any> {
-    let idUser = this.authService.getActiveUser().uid;
+    const idUser = this.authService.getActiveUser().uid;
     return new Promise(resolve => {
       firebase.firestore().collection(`/OneVsOne/${idUser}/games`).get().then((querySnapshot) => {
-        let obj: string = "notFound";
+        let obj: string = 'notFound';
         querySnapshot.forEach((doc: any) => {
           if (doc.data().enemy === username) {
             obj = doc.data().matchId;
@@ -450,30 +404,30 @@ export class OneVoneService {
         });
         resolve(obj);
       });
-    })
+    });
   }
 
   //Für die angezeigte Liste
   getStartedGamesList(): AngularFirestoreCollection<Game> {
-    let idUser = this.authService.getActiveUser().uid;
+    const idUser = this.authService.getActiveUser().uid;
     return this.firestore.collection<Game>(
       `/OneVsOne/${idUser}/games`, //Adds the reference.
       ref =>
-        ref.orderBy('time', 'desc').where('started', '==', true).where('userTurn','==', true)
+        ref.orderBy('time', 'desc').where('started', '==', true).where('userTurn', '==', true)
     );
   }
 
   getStartedGamesListNotTurn(): AngularFirestoreCollection<Game> {
-    let idUser = this.authService.getActiveUser().uid;
+    const idUser = this.authService.getActiveUser().uid;
     return this.firestore.collection<Game>(
       `/OneVsOne/${idUser}/games`, //Adds the reference.
       ref =>
-        ref.orderBy('time', 'desc').where('started', '==', true).where('userTurn','==', false)
+        ref.orderBy('time', 'desc').where('started', '==', true).where('userTurn', '==', false)
     );
   }
 
   getFinishedGamesList(): AngularFirestoreCollection<Game> {
-    let idUser = this.authService.getActiveUser().uid;
+    const idUser = this.authService.getActiveUser().uid;
     return this.firestore.collection<Game>(
       `/OneVsOne/${idUser}/finishedGames`, //Adds the reference.
       ref =>
@@ -483,7 +437,7 @@ export class OneVoneService {
 
   //Für Spielanfragen
   getNewGames(): AngularFirestoreCollection<Game> {
-    let idUser = this.authService.getActiveUser().uid;
+    const idUser = this.authService.getActiveUser().uid;
     return this.firestore.collection<Game>(
       `/OneVsOne/${idUser}/games`, //Adds the reference.
       ref =>
@@ -496,12 +450,13 @@ export class OneVoneService {
 
   //zeigt Gamestats
   async showGameStats(): Promise<any> {
-    let idUser = this.authService.getActiveUser().uid;
-    let obj: any = [];
+    console.log('authi', this.authService.getActiveUser());
+    const idUser = this.authService.getActiveUser().uid;
+    const obj: any = [];
     return new Promise(resolve => {
       firebase.firestore().collection(`/OneVsOne/${idUser}/finishedGames`).get().then(snapshot => {
         snapshot.forEach((doc: any) => {
-          if (doc.data().showedGameStats == false) {
+          if (doc.data().showedGameStats === false) {
             obj.push({
               showedGameStats: true,
               enemy: doc.data().enemy,
@@ -525,39 +480,12 @@ export class OneVoneService {
         resolve(obj);
       });
 
-    })
+    });
   }
-
-  //Spiel welches wirklich jetzt gespielt wird
-  // async getLiveGame(): Promise<any> {
-  //   let idUser = this.authService.getActiveUser().uid;
-  //   return new Promise(resolve => {
-  //     firebase.firestore().collection(`/OneVsOne/${idUser}/games`).get().then(snapshot => {
-  //       let obj: any = [];
-  //       snapshot.forEach((doc: any) => {
-  //         if (doc.data().playing == true) {
-  //           obj.push({
-  //             matchId: doc.data().matchId,
-  //             enemy: doc.data().enemy,
-  //             voc: doc.data().voc,
-  //             trans: doc.data().trans,
-  //             round: doc.data().round,
-  //             finished: doc.data().finished,
-  //             pointsEnemy: doc.data().pointsEnemy,
-  //             pointsUser: doc.data().pointsUser,
-  //             user: doc.data().user
-  //           });
-  //         }
-  //       });
-  //       resolve(obj);
-  //     });
-  //   })
-  // }
-
 
   //Spiel löschen aus der Spielliste  username=enemyusername
   async deleteMatch(username: string, matchId: string) {
-    let idUser = this.authService.getActiveUser().uid;
+    const idUser = this.authService.getActiveUser().uid;
     await this.authService.getUserIdByUsername(username);
 
     const matchChallenger: AngularFirestoreCollection<Game> = this.firestore.collection(
@@ -574,83 +502,74 @@ export class OneVoneService {
   }
 
 
-  //  getMatchById(matchId: string): AngularFirestoreCollection<Game> {
-  //   let idUser = this.authService.getActiveUser().uid;
-  //   return this.firestore.collection<Game>(
-  //     `/OneVsOne/${idUser}/games`, //Adds the reference.
-  //     ref => ref.where('matchId', '==', matchId)
-  //   );
-  // }
-
   //Daten vom Spiel kann man erhalten
   async getMatchById(matchId: string): Promise<Game[]> {
-    let idPlayer = this.authService.getActiveUser().uid;
+    const idPlayer = this.authService.getActiveUser().uid;
     return new Promise(resolve => {
       firebase.firestore().collection('OneVsOne').doc(idPlayer).collection('games').doc(matchId).get().then((snapshot) => {
-        let obj: Game[] = [];
-        console.log(snapshot)
-            obj.push({
-              matchId: snapshot.data().matchId,
-              user: snapshot.data().user,
-              enemy: snapshot.data().enemy,
-              pointsEnemy: snapshot.data().pointsEnemy,
-              pointsUser: snapshot.data().pointsUser,
-              round: snapshot.data().round,
-              started: snapshot.data().started,
-              userTurn: snapshot.data().userTurn,
-              finished: snapshot.data().finished,
-              isCorrect: snapshot.data().isCorrect,
-              startedFrom: snapshot.data().startedFrom,
-              voc: snapshot.data().voc,
-              trans: snapshot.data().trans,
-              result: snapshot.data().result,
-              vocName: snapshot.data().vocName,
-              enemyUID: snapshot.data().enemyUID
-          });
+        const obj: Game[] = [];
+        console.log(snapshot);
+        obj.push({
+          matchId: snapshot.data().matchId,
+          user: snapshot.data().user,
+          enemy: snapshot.data().enemy,
+          pointsEnemy: snapshot.data().pointsEnemy,
+          pointsUser: snapshot.data().pointsUser,
+          round: snapshot.data().round,
+          started: snapshot.data().started,
+          userTurn: snapshot.data().userTurn,
+          finished: snapshot.data().finished,
+          isCorrect: snapshot.data().isCorrect,
+          startedFrom: snapshot.data().startedFrom,
+          voc: snapshot.data().voc,
+          trans: snapshot.data().trans,
+          result: snapshot.data().result,
+          vocName: snapshot.data().vocName,
+          enemyUID: snapshot.data().enemyUID
+        });
         resolve(obj);
-      })
-    })
+      });
+    });
   }
 
-  async addRandomGame(language: string){
-    let idUser = this.authService.getActiveUser().uid;
+  async addRandomGame(language: string) {
+    const idUser = this.authService.getActiveUser().uid;
     await this.nameService.getUsername();
     const matchChallenger: AngularFirestoreDocument<Randomgame> = this.firestore.doc(
       `/Random/${language}/games/${idUser}`
     );
 
 
-    let enemyUserName = "";
-    let enemyUserId = "";
+    let enemyUserName = '';
+    let enemyUserId = '';
     try {
       await firebase.firestore().collection(`/Random/${language}/games`).limit(1).get().then((snapshot) =>
-        snapshot.forEach((doc)=> {
-          if(doc.data().userId!=idUser) {
+        snapshot.forEach((doc) => {
+          if (doc.data().userId !== idUser) {
             enemyUserName = doc.data().username;
-            enemyUserId = doc.data().userId
+            enemyUserId = doc.data().userId;
           }
         })
       );
-    }catch (e) {
+    } catch (e) {
       console.log(e);
     }
 
-    if(enemyUserName=='') {
+    if (enemyUserName === '') {
       await matchChallenger.set({
         userId: idUser,
         language: language,
         username: this.nameService.userName
-      })
-    }else{
+      });
+    } else {
       console.log(enemyUserName);
       this.addGame(enemyUserName, false);
       const matchEnemy: AngularFirestoreCollection<Randomgame> = this.firestore.collection(
         `/Random/${language}/games`);
 
-        matchEnemy.doc(enemyUserId).delete();
+      matchEnemy.doc(enemyUserId).delete();
     }
   }
-
 
 
 }
